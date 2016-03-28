@@ -6,7 +6,7 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#import "ToolBarView.h"
+#import "ChatToolBar.h"
 
 #define Image(str)  (str == nil || str.length == 0) ? nil : [UIImage imageNamed:str]
 #define ItemW   40
@@ -14,7 +14,7 @@
 #define ScreenW [[UIScreen mainScreen] bounds].size.width
 #define kRandomColor [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1.0]
 
-@implementation ToolBarView
+@implementation ChatToolBar
 
 #pragma mark -- init
 - (instancetype)initWithFrame:(CGRect)frame

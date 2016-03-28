@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, ButKind)
     kButKindSwitchBarViewBtn
 };
 
-@interface ToolBarView : UIView
+@interface ChatToolBar : UIView
 
 /** 切换barView按钮 */
 @property (nonatomic, strong) UIButton *switchBarViewBtn;

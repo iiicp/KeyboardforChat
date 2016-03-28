@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "ToolBarView.h"
+#import "ChatToolBar.h"
 
 @interface ViewController ()
 
 /** <#注释#> */
-@property (nonatomic, strong) ToolBarView *barView;
+@property (nonatomic, strong) ChatToolBar *barView;
 
 @end
 
@@ -24,7 +24,7 @@
     CGFloat width = [[UIScreen mainScreen] bounds].size.width;
     CGFloat height = [[UIScreen mainScreen] bounds].size.height;
     
-    self.barView = [[ToolBarView alloc] initWithFrame:CGRectMake(0, height-40, width, 40)];
+    self.barView = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, height-40, width, 40)];
     self.barView.backgroundColor = [UIColor purpleColor];
     
     [self.barView setBtn:kButKindFace normalStateImageStr:@"face_ios7" selectStateImageStr:@"keyboard_ios7" highLightStateImageStr:nil];

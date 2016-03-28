@@ -13,8 +13,7 @@
 		79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E281CA8FFFF0031B2AE /* Main.storyboard */; };
 		79891E2C1CA8FFFF0031B2AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */; };
 		79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */; };
-		79891E381CA904F40031B2AE /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E371CA904F40031B2AE /* ToolBarView.m */; };
-		79C90CD81CA9241E0059270D /* ToolBarView.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79C90CD71CA9241E0059270D /* ToolBarView.plist */; };
+		79C90CE51CA94D350059270D /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C90CE11CA94D350059270D /* ChatToolBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,9 +27,8 @@
 		79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79891E2E1CA8FFFF0031B2AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79891E301CA8FFFF0031B2AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		79891E361CA904F40031B2AE /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBarView.h; sourceTree = "<group>"; };
-		79891E371CA904F40031B2AE /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBarView.m; sourceTree = "<group>"; };
-		79C90CD71CA9241E0059270D /* ToolBarView.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ToolBarView.plist; sourceTree = "<group>"; };
+		79C90CE01CA94D350059270D /* ChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBar.h; sourceTree = "<group>"; };
+		79C90CE11CA94D350059270D /* ChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,13 +65,7 @@
 				79891E231CA8FFFF0031B2AE /* AppDelegate.m */,
 				79891E251CA8FFFF0031B2AE /* ViewController.h */,
 				79891E261CA8FFFF0031B2AE /* ViewController.m */,
-				79891E361CA904F40031B2AE /* ToolBarView.h */,
-				79891E371CA904F40031B2AE /* ToolBarView.m */,
-				79C90CD71CA9241E0059270D /* ToolBarView.plist */,
-				79891E281CA8FFFF0031B2AE /* Main.storyboard */,
-				79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */,
-				79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */,
-				79891E301CA8FFFF0031B2AE /* Info.plist */,
+				79C90CDD1CA94D350059270D /* KeyBoard */,
 				79891E1F1CA8FFFF0031B2AE /* Supporting Files */,
 			);
 			path = FaceKeyboard;
@@ -82,9 +74,62 @@
 		79891E1F1CA8FFFF0031B2AE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				79891E281CA8FFFF0031B2AE /* Main.storyboard */,
+				79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */,
+				79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */,
+				79891E301CA8FFFF0031B2AE /* Info.plist */,
 				79891E201CA8FFFF0031B2AE /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		79C90CDD1CA94D350059270D /* KeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				79C90CDE1CA94D350059270D /* AnotherToolBar */,
+				79C90CDF1CA94D350059270D /* ChatToolBar */,
+				79C90CE21CA94D350059270D /* FaceManager */,
+				79C90CE31CA94D350059270D /* MoreManager */,
+				79C90CE41CA94D350059270D /* VoiceManager */,
+			);
+			path = KeyBoard;
+			sourceTree = "<group>";
+		};
+		79C90CDE1CA94D350059270D /* AnotherToolBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AnotherToolBar;
+			sourceTree = "<group>";
+		};
+		79C90CDF1CA94D350059270D /* ChatToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				79C90CE01CA94D350059270D /* ChatToolBar.h */,
+				79C90CE11CA94D350059270D /* ChatToolBar.m */,
+			);
+			path = ChatToolBar;
+			sourceTree = "<group>";
+		};
+		79C90CE21CA94D350059270D /* FaceManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FaceManager;
+			sourceTree = "<group>";
+		};
+		79C90CE31CA94D350059270D /* MoreManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MoreManager;
+			sourceTree = "<group>";
+		};
+		79C90CE41CA94D350059270D /* VoiceManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VoiceManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,7 +190,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */,
-				79C90CD81CA9241E0059270D /* ToolBarView.plist in Resources */,
 				79891E2C1CA8FFFF0031B2AE /* Assets.xcassets in Resources */,
 				79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */,
 			);
@@ -160,8 +204,8 @@
 			files = (
 				79891E271CA8FFFF0031B2AE /* ViewController.m in Sources */,
 				79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */,
-				79891E381CA904F40031B2AE /* ToolBarView.m in Sources */,
 				79891E211CA8FFFF0031B2AE /* main.m in Sources */,
+				79C90CE51CA94D350059270D /* ChatToolBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
