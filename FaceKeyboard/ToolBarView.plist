@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>voice</key>
+		<dict>
+			<key>normal</key>
+			<string></string>
+			<key>select</key>
+			<string></string>
+			<key>highLight</key>
+			<string></string>
+		</dict>
+	</dict>
+	<dict>
+		<key>face</key>
+		<dict>
+			<key>normal</key>
+			<string></string>
+			<key>select</key>
+			<string></string>
+			<key>highLight</key>
+			<string></string>
+		</dict>
+	</dict>
+	<dict>
+		<key>more</key>
+		<dict>
+			<key>normal</key>
+			<string></string>
+			<key>select</key>
+			<string></string>
+			<key>highLight</key>
+			<string></string>
+		</dict>
+	</dict>
+</array>
+</plist>
