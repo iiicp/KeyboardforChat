@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "ChatToolBar.h"
+#import "ChatKeyBoard.h"
 
 @interface ViewController ()
 
-/** <#注释#> */
-@property (nonatomic, strong) ChatToolBar *barView;
+/** 聊天键盘 */
+@property (nonatomic, strong) ChatKeyBoard *chatKeyBoard;
 
 @end
 
@@ -24,20 +24,24 @@
     CGFloat width = [[UIScreen mainScreen] bounds].size.width;
     CGFloat height = [[UIScreen mainScreen] bounds].size.height;
     
-    self.barView = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, height-40, width, 40)];
-    self.barView.backgroundColor = [UIColor purpleColor];
-    
-    [self.barView setBtn:kButKindFace normalStateImageStr:@"face_ios7" selectStateImageStr:@"keyboard_ios7" highLightStateImageStr:nil];
-     [self.barView setBtn:kButKindVoice normalStateImageStr:@"voice_ios7" selectStateImageStr:@"keyboard_ios7" highLightStateImageStr:nil];
-     [self.barView setBtn:kButKindMore normalStateImageStr:@"more_ios7" selectStateImageStr:nil highLightStateImageStr:nil];
-    
-    [self.view addSubview:self.barView];
+    self.chatKeyBoard = [[ChatKeyBoard alloc] initWithFrame:CGRectMake(0, height-49, width, 49)];
+    [self.view addSubview:self.chatKeyBoard];
 }
 
 - (IBAction)click:(id)sender {
-    
-    self.barView.haveMoreBtn = NO;
-    
+    self.chatKeyBoard.chatToolBar.haveSwitchBarViewBtn = !self.chatKeyBoard.chatToolBar.haveSwitchBarViewBtn;
+}
+
+- (IBAction)clickVoice:(id)sender {
+    self.chatKeyBoard.chatToolBar.haveVoiceBtn = !self.chatKeyBoard.chatToolBar.haveVoiceBtn;
+}
+
+- (IBAction)clickface:(id)sender {
+    self.chatKeyBoard.chatToolBar.haveFaceBtn = !self.chatKeyBoard.chatToolBar.haveFaceBtn;
+}
+
+- (IBAction)clickmore:(id)sender {
+    self.chatKeyBoard.chatToolBar.haveMoreBtn = !self.chatKeyBoard.chatToolBar.haveMoreBtn;
 }
 
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		791305091CAA5153005D352E /* RFRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 791305081CAA5153005D352E /* RFRecordButton.m */; };
+		795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */; };
 		79891E211CA8FFFF0031B2AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E201CA8FFFF0031B2AE /* main.m */; };
 		79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E231CA8FFFF0031B2AE /* AppDelegate.m */; };
 		79891E271CA8FFFF0031B2AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E261CA8FFFF0031B2AE /* ViewController.m */; };
@@ -14,9 +16,14 @@
 		79891E2C1CA8FFFF0031B2AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */; };
 		79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */; };
 		79C90CE51CA94D350059270D /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C90CE11CA94D350059270D /* ChatToolBar.m */; };
+		79C90CE81CA94E790059270D /* RFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C90CE71CA94E790059270D /* RFTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		791305071CAA5153005D352E /* RFRecordButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRecordButton.h; sourceTree = "<group>"; };
+		791305081CAA5153005D352E /* RFRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFRecordButton.m; sourceTree = "<group>"; };
+		795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoard.h; sourceTree = "<group>"; };
+		795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatKeyBoard.m; sourceTree = "<group>"; };
 		79891E1C1CA8FFFF0031B2AE /* FaceKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79891E201CA8FFFF0031B2AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		79891E221CA8FFFF0031B2AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,6 +36,8 @@
 		79891E301CA8FFFF0031B2AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79C90CE01CA94D350059270D /* ChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBar.h; sourceTree = "<group>"; };
 		79C90CE11CA94D350059270D /* ChatToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBar.m; sourceTree = "<group>"; };
+		79C90CE61CA94E790059270D /* RFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTextView.h; sourceTree = "<group>"; };
+		79C90CE71CA94E790059270D /* RFTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTextView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +100,8 @@
 				79C90CE21CA94D350059270D /* FaceManager */,
 				79C90CE31CA94D350059270D /* MoreManager */,
 				79C90CE41CA94D350059270D /* VoiceManager */,
+				795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */,
+				795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */,
 			);
 			path = KeyBoard;
 			sourceTree = "<group>";
@@ -107,6 +118,10 @@
 			children = (
 				79C90CE01CA94D350059270D /* ChatToolBar.h */,
 				79C90CE11CA94D350059270D /* ChatToolBar.m */,
+				79C90CE61CA94E790059270D /* RFTextView.h */,
+				79C90CE71CA94E790059270D /* RFTextView.m */,
+				791305071CAA5153005D352E /* RFRecordButton.h */,
+				791305081CAA5153005D352E /* RFRecordButton.m */,
 			);
 			path = ChatToolBar;
 			sourceTree = "<group>";
@@ -202,6 +217,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */,
+				791305091CAA5153005D352E /* RFRecordButton.m in Sources */,
+				79C90CE81CA94E790059270D /* RFTextView.m in Sources */,
 				79891E271CA8FFFF0031B2AE /* ViewController.m in Sources */,
 				79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */,
 				79891E211CA8FFFF0031B2AE /* main.m in Sources */,
@@ -315,10 +333,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FaceKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.suneee.FaceKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -326,10 +348,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FaceKeyboard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.suneee.FaceKeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -18,10 +18,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiu-E7-mVe">
-                                <rect key="frame" x="62" y="68" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="42" y="68" width="100" height="30"/>
+                                <state key="normal" title="switchbarView"/>
                                 <connections>
-                                    <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j3e-Na-Cu5"/>
+                                    <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PRo-e2-UYc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8w-Ld-khI">
+                                <rect key="frame" x="74" y="128" width="37" height="30"/>
+                                <state key="normal" title="voice"/>
+                                <connections>
+                                    <action selector="clickVoice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ux-5o-YJn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MBl-z7-aWq">
+                                <rect key="frame" x="78" y="180" width="30" height="30"/>
+                                <state key="normal" title="face"/>
+                                <connections>
+                                    <action selector="clickface:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Dn-zc-VZ8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YfB-gJ-k7a">
+                                <rect key="frame" x="78" y="237" width="36" height="30"/>
+                                <state key="normal" title="more"/>
+                                <connections>
+                                    <action selector="clickmore:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MfV-ZM-Q9C"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -30,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121" y="390"/>
+            <point key="canvasLocation" x="-437" y="380"/>
         </scene>
     </scenes>
 </document>
