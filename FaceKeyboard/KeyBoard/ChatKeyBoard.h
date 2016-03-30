@@ -11,6 +11,8 @@
 
 @interface ChatKeyBoard : UIView
 
-@property (nonatomic, strong) ChatToolBar *chatToolBar;
+@property (nonatomic, readonly) ChatToolBar *chatToolBar;
+
++ (instancetype)keyBoard;
 
 @end

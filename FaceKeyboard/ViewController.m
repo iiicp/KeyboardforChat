@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ChatKeyBoard.h"
+#import "FacePanel.h"
 
 @interface ViewController ()
 
@@ -21,11 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGFloat width = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat height = [[UIScreen mainScreen] bounds].size.height;
+    FacePanel *facePanel = [FacePanel facePanel];
+    [self.view addSubview:facePanel];
     
-    self.chatKeyBoard = [[ChatKeyBoard alloc] initWithFrame:CGRectMake(0, height-49, width, 49)];
-    [self.view addSubview:self.chatKeyBoard];
+    
+//    self.chatKeyBoard = [ChatKeyBoard keyBoard];
+//    [self.view addSubview:self.chatKeyBoard];
 }
 
 - (IBAction)click:(id)sender {

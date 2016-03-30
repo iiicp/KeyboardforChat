@@ -38,6 +38,13 @@
 
 @implementation ChatToolBar
 
+#pragma mark -- dealloc
+
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"self.textView.contentSize"];
+}
+
 #pragma mark -- init
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -172,7 +179,7 @@
 }
 
 
-#pragma mark -- 方法kalsd
+#pragma mark -- 方法
 - (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr
 selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)highLightStr
 {
@@ -419,9 +426,30 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     }
 }
 
+- (CGFloat)fontWidth
+{
+    return 36.f; //16号字体
+}
+
+- (CGFloat)maxLines
+{
+    CGFloat h = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat line = 5;
+    if (h == 480) {
+        line = 3;
+    }else if (h == 568){
+        line = 3.5;
+    }else if (h == 667){
+        line = 4;
+    }else if (h == 736){
+        line = 4.5;
+    }
+    return line;
+}
+
 - (void)layoutAndAnimateTextView:(RFTextView *)textView
 {
-    CGFloat maxHeight = 36 * 8;
+    CGFloat maxHeight = [self fontWidth] * [self maxLines];
     CGFloat contentH = [self getTextViewContentH:textView];
     
     BOOL isShrinking = contentH < self.previousTextViewHeight;
@@ -444,10 +472,9 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
                                  // if shrinking the view, animate text view frame BEFORE input view frame
                                  [self adjustTextViewHeightBy:changeInHeight];
                              }
-                             
                              CGRect inputViewFrame = self.frame;
                              self.frame = CGRectMake(0.0f,
-                                                    inputViewFrame.origin.y - changeInHeight,
+                                                    0, //inputViewFrame.origin.y - changeInHeight
                                                     inputViewFrame.size.width,
                                                      (inputViewFrame.size.height + changeInHeight));
                              if (!isShrinking) {
