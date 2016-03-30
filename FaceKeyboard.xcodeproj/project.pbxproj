@@ -13,7 +13,6 @@
 		79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E231CA8FFFF0031B2AE /* AppDelegate.m */; };
 		79891E271CA8FFFF0031B2AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E261CA8FFFF0031B2AE /* ViewController.m */; };
 		79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E281CA8FFFF0031B2AE /* Main.storyboard */; };
-		79891E2C1CA8FFFF0031B2AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */; };
 		79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */; };
 		79C90CE51CA94D350059270D /* ChatToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C90CE11CA94D350059270D /* ChatToolBar.m */; };
 		79C90CE81CA94E790059270D /* RFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C90CE71CA94E790059270D /* RFTextView.m */; };
@@ -24,6 +23,8 @@
 		79F245131CABA83500CF1B14 /* FaceSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F245121CABA83500CF1B14 /* FaceSourceManager.m */; };
 		79F245161CABAB8C00CF1B14 /* FaceSubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F245151CABAB8C00CF1B14 /* FaceSubjectModel.m */; };
 		79F2451A1CABC5F200CF1B14 /* FaceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F245191CABC5F200CF1B14 /* FaceButton.m */; };
+		E3CE7D3A1CAC24A900C096AE /* customEmotion.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3CE7D391CAC24A900C096AE /* customEmotion.plist */; };
+		E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3CE7D3B1CAC266400C096AE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +39,6 @@
 		79891E251CA8FFFF0031B2AE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		79891E261CA8FFFF0031B2AE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		79891E291CA8FFFF0031B2AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79891E2E1CA8FFFF0031B2AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79891E301CA8FFFF0031B2AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79C90CE01CA94D350059270D /* ChatToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBar.h; sourceTree = "<group>"; };
@@ -58,6 +58,8 @@
 		79F245151CABAB8C00CF1B14 /* FaceSubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceSubjectModel.m; sourceTree = "<group>"; };
 		79F245181CABC5F200CF1B14 /* FaceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceButton.h; sourceTree = "<group>"; };
 		79F245191CABC5F200CF1B14 /* FaceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceButton.m; sourceTree = "<group>"; };
+		E3CE7D391CAC24A900C096AE /* customEmotion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = customEmotion.plist; sourceTree = "<group>"; };
+		E3CE7D3B1CAC266400C096AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,13 +92,14 @@
 		79891E1E1CA8FFFF0031B2AE /* FaceKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				79F244B11CAB7B9B00CF1B14 /* face.plist */,
 				79891E221CA8FFFF0031B2AE /* AppDelegate.h */,
 				79891E231CA8FFFF0031B2AE /* AppDelegate.m */,
 				79891E251CA8FFFF0031B2AE /* ViewController.h */,
 				79891E261CA8FFFF0031B2AE /* ViewController.m */,
 				79C90CDD1CA94D350059270D /* KeyBoard */,
 				79891E1F1CA8FFFF0031B2AE /* Supporting Files */,
+				E3CE7D391CAC24A900C096AE /* customEmotion.plist */,
+				79F244B11CAB7B9B00CF1B14 /* face.plist */,
 			);
 			path = FaceKeyboard;
 			sourceTree = "<group>";
@@ -104,8 +107,8 @@
 		79891E1F1CA8FFFF0031B2AE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E3CE7D3B1CAC266400C096AE /* Assets.xcassets */,
 				79891E281CA8FFFF0031B2AE /* Main.storyboard */,
-				79891E2B1CA8FFFF0031B2AE /* Assets.xcassets */,
 				79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */,
 				79891E301CA8FFFF0031B2AE /* Info.plist */,
 				79891E201CA8FFFF0031B2AE /* main.m */,
@@ -237,10 +240,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3CE7D3A1CAC24A900C096AE /* customEmotion.plist in Resources */,
 				79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */,
-				79891E2C1CA8FFFF0031B2AE /* Assets.xcassets in Resources */,
 				79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */,
 				79F244B21CAB7B9B00CF1B14 /* face.plist in Resources */,
+				E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

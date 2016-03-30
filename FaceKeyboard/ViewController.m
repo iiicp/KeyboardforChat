@@ -22,12 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    FacePanel *facePanel = [FacePanel facePanel];
-    [self.view addSubview:facePanel];
+//    FacePanel *facePanel = [FacePanel facePanel];
+//    [self.view addSubview:facePanel];
     
-    
-//    self.chatKeyBoard = [ChatKeyBoard keyBoard];
-//    [self.view addSubview:self.chatKeyBoard];
+    self.chatKeyBoard = [ChatKeyBoard keyBoard];
+    [self.view addSubview:self.chatKeyBoard];
 }
 
 - (IBAction)click:(id)sender {

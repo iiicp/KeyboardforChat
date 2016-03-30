@@ -25,7 +25,7 @@
         self.layer.cornerRadius = 5.0f;
         self.layer.borderWidth = 0.5;
         self.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1.0].CGColor;
-        
+         
         [self addTarget:self action:@selector(recordTouchDown) forControlEvents:UIControlEventTouchDown];
         [self addTarget:self action:@selector(recordTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
         [self addTarget:self action:@selector(recordTouchUpInside) forControlEvents:UIControlEventTouchUpInside];

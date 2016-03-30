@@ -73,9 +73,9 @@
 
 - (void)setToolBar
 {
-    [self.chatToolBar setBtn:kButKindFace normalStateImageStr:@"face_ios7" selectStateImageStr:@"keyboard_ios7" highLightStateImageStr:nil];
-    [self.chatToolBar setBtn:kButKindVoice normalStateImageStr:@"voice_ios7" selectStateImageStr:@"keyboard_ios7" highLightStateImageStr:nil];
-    [self.chatToolBar setBtn:kButKindMore normalStateImageStr:@"more_ios7" selectStateImageStr:nil highLightStateImageStr:nil];
+    [self.chatToolBar setBtn:kButKindFace normalStateImageStr:@"face" selectStateImageStr:@"keyboard" highLightStateImageStr:@"face_HL"];
+    [self.chatToolBar setBtn:kButKindVoice normalStateImageStr:@"voice" selectStateImageStr:@"keyboard" highLightStateImageStr:@"voice_HL"];
+    [self.chatToolBar setBtn:kButKindMore normalStateImageStr:@"more_ios" selectStateImageStr:nil highLightStateImageStr:@"more_ios_HL"];
     [self.chatToolBar setBtn:kButKindSwitchBarViewBtn normalStateImageStr:@"jobDownArrow" selectStateImageStr:@"upArrow"highLightStateImageStr:nil];
 }
 
