@@ -308,13 +308,13 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
             self.faceBtn.selected = !self.faceBtn.selected;
             self.voiceBtn.selected = NO;
             self.moreBtn.selected = NO;
-            self.isInputting = YES;
             
             if (sender.selected) {
                 [self.textView resignFirstResponder];
             }else {
                 [self.textView becomeFirstResponder];
             }
+            self.isInputting = YES;
             
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.recordBtn.hidden = YES;
@@ -332,13 +332,13 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
             self.moreBtn.selected = !self.moreBtn.selected;
             self.voiceBtn.selected = NO;
             self.faceBtn.selected = NO;
-            self.isInputting = YES;
             
             if (sender.selected) {
                 [self.textView resignFirstResponder];
             }else {
                 [self.textView becomeFirstResponder];
             }
+            self.isInputting = YES;
             
             [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.recordBtn.hidden = YES;

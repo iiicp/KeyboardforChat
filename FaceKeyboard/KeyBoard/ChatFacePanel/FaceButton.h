@@ -10,6 +10,6 @@
 
 @interface FaceButton : UIButton
 
-@property (nonatomic, copy) NSString *emojiName;
+@property (nonatomic, copy) NSString *faceName;
 
 @end

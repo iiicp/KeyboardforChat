@@ -9,6 +9,8 @@
 #import "ViewController.h"
 #import "ChatKeyBoard.h"
 #import "FacePanel.h"
+#import "MorePanel.h"
+#import "MoreItem.h"
 
 @interface ViewController ()
 
@@ -27,6 +29,21 @@
     
     self.chatKeyBoard = [ChatKeyBoard keyBoard];
     [self.view addSubview:self.chatKeyBoard];
+    
+//    MorePanel *pannel = [MorePanel morePannel];
+//    
+//    MoreItem *item1 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
+//    MoreItem *item2 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
+//    MoreItem *item3 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
+//    MoreItem *item4 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
+//    MoreItem *item5 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
+//    MoreItem *item6 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
+//    MoreItem *item7 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
+//    MoreItem *item8 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
+//    MoreItem *item9 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
+//    
+//    [pannel loadMoreItems:@[item1, item2, item3, item4, item5,item6,item7,item8,item9]];
+//    [self.view addSubview:pannel];
 }
 
 - (IBAction)click:(id)sender {

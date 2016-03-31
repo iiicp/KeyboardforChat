@@ -7,13 +7,18 @@
 //
 
 #import "FaceView.h"
-#import "PageFaceView.h"
+#import "SmallSizePageFaceView.h"
+#import "MiddleSizePageFaceView.h"
 #import "FaceSubjectModel.h"
+#import "Macrol.h"
 
-NSString *const PageFaceViewIdentifier = @"pageFaceViewIdentifier";
+NSString *const SmallSizePageFaceViewIdentifier = @"SmallSizePageFaceViewIdentifier";
+NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdentifier";
 
 @interface FaceView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
+/** 表情主题 */
+@property (nonatomic, strong) FaceSubjectModel *subjectModel;
 @property (nonatomic, strong) NSArray *pageFaceArray;
 
 @end
@@ -29,36 +34,12 @@ NSString *const PageFaceViewIdentifier = @"pageFaceViewIdentifier";
     self = [super initWithFrame:frame];
     if (self) {
         
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        //这个 item 表示cell的大小
-        flowLayout.itemSize = self.bounds.size;
-        flowLayout.minimumLineSpacing = 0;
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
-        _collectionView.showsHorizontalScrollIndicator = YES;
-        _collectionView.pagingEnabled = YES;
-        _collectionView.bounces = NO;
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor clearColor];
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        
-        [_collectionView registerClass:[PageFaceView class] forCellWithReuseIdentifier:PageFaceViewIdentifier];
-        [self addSubview:_collectionView];
-        
-        _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height-30, self.frame.size.width, 30)];
-        _pageControl.currentPage = 0;
-        _pageControl.hidesForSinglePage = YES;
-        _pageControl.pageIndicatorTintColor = [UIColor grayColor];
-        _pageControl.currentPageIndicatorTintColor = [UIColor darkGrayColor];
-        [self addSubview:_pageControl];
-        
+        [self initSubViews];
     }
     return self;
 }
 
+#pragma mark -- UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return self.pageFaceArray.count;
@@ -66,11 +47,29 @@ NSString *const PageFaceViewIdentifier = @"pageFaceViewIdentifier";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:PageFaceViewIdentifier forIndexPath:indexPath];
-    [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
-    return cell;
+    if (_subjectModel.faceSize == SubjectFaceSizeKindSmall)
+    {
+        SmallSizePageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SmallSizePageFaceViewIdentifier forIndexPath:indexPath];
+        [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
+        
+        NSLog(@"indexPath %zd", indexPath.row);
+     
+        return cell;
+    }
+    else if (_subjectModel.faceSize == SubjectFaceSizeKindMiddle)
+    {
+        MiddleSizePageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MiddleSizePageFaceViewIdentifier forIndexPath:indexPath];
+        [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
+         NSLog(@"indexPath %zd", indexPath.row);
+        return cell;
+    }
+    else if (_subjectModel.faceSize == SubjectFaceSizeKindKindBig) {
+        return nil;
+    }
+    return [[UICollectionViewCell alloc] init];
 }
 
+#pragma mark -- UIScollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == _collectionView) {
@@ -85,59 +84,82 @@ NSString *const PageFaceViewIdentifier = @"pageFaceViewIdentifier";
 //加载表情主题
 - (void)loadFaceSubject:(FaceSubjectModel *)faceSubject;
 {
-    NSInteger colNumber = [self colNumber:faceSubject];
-    NSInteger lineNumber = [self lineNumber:faceSubject];
+    _subjectModel = faceSubject;
+    
+    NSInteger numbersOfPerPage = [self numbersOfPerPage:faceSubject];
     
     NSMutableArray *pagesArray = [NSMutableArray array];
     NSInteger counts = faceSubject.faceModels.count;
     
     NSMutableArray *page = nil;
     for (int i = 0; i < counts; ++i) {
-        if (i % (colNumber * lineNumber - 1) == 0) {
+        if (i % numbersOfPerPage == 0) {
             page = [NSMutableArray array];
             [pagesArray addObject:page];
         }
         [page addObject:faceSubject.faceModels[i]];
     }
     self.pageFaceArray = [NSArray arrayWithArray:pagesArray];
-    
     _pageControl.numberOfPages = self.pageFaceArray.count;
-    _pageControl.currentPage = 0;
 }
 
 
-//列数
-- (NSInteger)colNumber:(FaceSubjectModel *)faceSubject
+- (NSInteger)numbersOfPerPage:(FaceSubjectModel *)faceSubject
 {
-    CGFloat w = [[UIScreen mainScreen] bounds].size.width;
-    NSInteger number = 6;
-    if (faceSubject.faceSize == SubjectFaceSizeKindSmall) {
-        if (w == 320) {
-            number = 7;
-        }else if(w == 375){
-            number = 8;
-        }else if (w == 414){
-            number = 9;
-        }
-    }else if (faceSubject.faceSize == SubjectFaceSizeKindMiddle){
-        number = 2;
-    }else {
-        number = 2;
+    NSInteger perPageNum = 0;
+    
+    if (faceSubject.faceSize == SubjectFaceSizeKindSmall)
+    {
+        NSInteger colNumber = 7;
+        if (isIPhone4_5)
+            colNumber = 7;
+        else if (isIPhone6_6s)
+            colNumber = 8;
+        else if (isIPhone6p_6sp)
+            colNumber = 9;
+        perPageNum = colNumber * 3 - 1; //最后一个是删除符
     }
-    return number;
+    else if (faceSubject.faceSize == SubjectFaceSizeKindMiddle)
+    {
+        perPageNum = 4 * 2;
+    }
+    else
+    {
+        perPageNum = 4 * 2;
+    }
+    return perPageNum;
 }
 
-//行数
-- (NSInteger)lineNumber:(FaceSubjectModel *)faceSubject{
-    NSInteger lineNumber;
-    if (faceSubject.faceSize == SubjectFaceSizeKindSmall) {
-        lineNumber = 3;
-    }else if (faceSubject.faceSize == SubjectFaceSizeKindMiddle){
-        lineNumber = 2;
-    }else {
-        lineNumber = 2;
-    }
-    return lineNumber;
+- (void)initSubViews
+{
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    //这个 item 表示cell的大小
+    flowLayout.itemSize = self.bounds.size;
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    _collectionView.showsHorizontalScrollIndicator = YES;
+    _collectionView.pagingEnabled = YES;
+    _collectionView.bounces = NO;
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.showsVerticalScrollIndicator = NO;
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    
+    [_collectionView registerClass:[SmallSizePageFaceView class] forCellWithReuseIdentifier:SmallSizePageFaceViewIdentifier];
+    [_collectionView registerClass:[MiddleSizePageFaceView class] forCellWithReuseIdentifier:MiddleSizePageFaceViewIdentifier];
+    
+    [self addSubview:_collectionView];
+    
+    _pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height-kUIPageControllerHeight, self.frame.size.width, kUIPageControllerHeight)];
+    _pageControl.currentPage = 0;
+    _pageControl.hidesForSinglePage = YES;
+    _pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    _pageControl.currentPageIndicatorTintColor = [UIColor redColor];
+    [self addSubview:_pageControl];
 }
+
 
 @end

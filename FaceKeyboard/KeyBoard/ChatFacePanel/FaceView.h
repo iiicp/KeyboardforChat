@@ -10,7 +10,7 @@
 
 @class FaceSubjectModel;
 
-@interface FaceView : UICollectionViewCell
+@interface FaceView : UIView
 
 - (void)loadFaceSubject:(FaceSubjectModel *)faceSubject;
 

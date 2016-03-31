@@ -1,0 +1,36 @@
+//
+//  Macrol.h
+//  FaceKeyboard
+//
+//  Created by ruofei on 16/3/31.
+//  Copyright © 2016年 ruofei. All rights reserved.
+//
+
+#ifndef Macrol_h
+#define Macrol_h
+
+#define kScreenWidth  [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
+
+//键盘上面的工具条
+#define kChatToolBarHeight              49
+
+//表情模块高度
+#define kFacePanelHeight                216
+#define kFacePanelBottomToolBarHeight   40
+#define kUIPageControllerHeight         25
+
+//拍照、发视频等更多功能模块的面板的高度
+#define kMorePanelHeight                216
+#define kMoreItemH                      80
+#define kMoreItemIconSize               60
+
+
+//整个聊天工具的高度
+#define kChatKeyBoardHeight     kChatToolBarHeight + kFacePanelHeight
+
+#define isIPhone4_5                (kScreenWidth == 320)
+#define isIPhone6_6s               (kScreenWidth == 375)
+#define isIPhone6p_6sp             (kScreenWidth == 414)
+
+#endif /* Macrol_h */

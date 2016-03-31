@@ -5,17 +5,21 @@
 //  Created by ruofei on 16/3/30.
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
+//  2581502433@qq.com
+
+/**
+    尝试了 scroll + scroll
+          collection + collection
+    最终确定方案  scroll + collection
+ */
 
 #import "FacePanel.h"
 #import "FaceView.h"
+#import "PanelBottomView.h"
 #import "FaceSourceManager.h"
+#import "Macrol.h"
 
-#define FacePanelHeight                 216
-#define PanelBottomToolHeight           40
-
-NSString *const faceViewIdentifier = @"faceViewIdentifier";
-
-@interface FacePanel () <UICollectionViewDataSource>
+@interface FacePanel () <UIScrollViewDelegate, PanelBottomViewDelegate>
 
 @property (nonatomic, strong) NSArray *faceSources;
 
@@ -23,7 +27,8 @@ NSString *const faceViewIdentifier = @"faceViewIdentifier";
 
 @implementation FacePanel
 {
-    UICollectionView *_collectionView;
+    UIScrollView *_scrollView;
+    PanelBottomView  *_panelBottomView;
 }
 
 
@@ -36,44 +41,63 @@ NSString *const faceViewIdentifier = @"faceViewIdentifier";
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupFrame];
+        [self initSubViews];
     }
     return self;
 }
 
-- (void)setupFrame
+#pragma mark -- UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    //这个 item 表示cell的大小
-    flowLayout.itemSize = CGSizeMake(self.frame.size.width,  FacePanelHeight-PanelBottomToolHeight);
-    flowLayout.minimumLineSpacing = 0;
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    if (scrollView == _scrollView) {
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, FacePanelHeight-PanelBottomToolHeight) collectionViewLayout:flowLayout];
-    _collectionView.showsHorizontalScrollIndicator = YES;
-    _collectionView.pagingEnabled = YES;
-    _collectionView.bounces = NO;
-    _collectionView.dataSource = self;
-    _collectionView.showsHorizontalScrollIndicator = NO;
-    _collectionView.showsVerticalScrollIndicator = NO;
-    _collectionView.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.0f];
+        CGFloat pageWidth = scrollView.frame.size.width;
     
-    [_collectionView registerClass:[FaceView class] forCellWithReuseIdentifier:faceViewIdentifier];
-    [self addSubview:_collectionView];
-    
+        NSInteger currentIndex = floor((scrollView.contentOffset.x - pageWidth/2)/pageWidth)+1;
+        [_panelBottomView changeFaceSubjectIndex:currentIndex];
+    }
+}
+
+#pragma mark -- PanelBottomViewDelegate
+- (void)panelBottomView:(PanelBottomView *)panelBottomView didPickerFaceSubjectIndex:(NSInteger)faceSubjectIndex
+{
+    [_scrollView setContentOffset:CGPointMake(faceSubjectIndex*self.frame.size.width, 0) animated:YES];
+}
+
+- (void)initSubViews
+{
     self.faceSources = [FaceSourceManager loadFaceSource];
+    
+    self.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.0f];
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kFacePanelHeight-kFacePanelBottomToolBarHeight)];
+    _scrollView.contentSize = CGSizeMake(self.frame.size.width * self.faceSources.count, 0);
+    _scrollView.pagingEnabled = YES;
+    _scrollView.delegate = self;
+    _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView.showsHorizontalScrollIndicator = NO;
+    [self addSubview:_scrollView];
+    
+    for (int i = 0; i < self.faceSources.count; i++) {
+        FaceView *faceView = [[FaceView alloc] initWithFrame:CGRectMake(i*CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame))];
+        [faceView loadFaceSubject:self.faceSources[i]];
+        [_scrollView addSubview:faceView];
+    }
+    
+    _panelBottomView = [[PanelBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollView.frame), self.frame.size.width, kFacePanelBottomToolBarHeight)];
+    _panelBottomView.delegate = self;
+    [_panelBottomView loadfaceSubjectPickerSource:self.faceSources];
+    [self addSubview:_panelBottomView];
+    
+    
+    _panelBottomView.addAction = ^(){
+        NSLog(@"add动作");
+    };
+    
+    _panelBottomView.setAction = ^(){
+        NSLog(@"set动作");
+    };
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return self.faceSources.count;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    FaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:faceViewIdentifier forIndexPath:indexPath];
-    [cell loadFaceSubject:self.faceSources[indexPath.row]];
-    return cell;
-}
 
 @end

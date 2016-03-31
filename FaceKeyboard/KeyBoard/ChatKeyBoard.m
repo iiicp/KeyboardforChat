@@ -7,17 +7,14 @@
 //
 
 #import "ChatKeyBoard.h"
+#import "Macrol.h"
+#import "MoreItem.h"
 
-#define K_ScreenW               [[UIScreen mainScreen] bounds].size.width
-#define K_ScreenH               [[UIScreen mainScreen] bounds].size.height
-#define ChatToolBarH            49
-#define FaceViewH              216
-#define MoreViewH              216
-#define KeyBoardH              FaceViewH + ChatToolBarH
-
-@interface ChatKeyBoard ()
+@interface ChatKeyBoard () <ChatToolBarDelegate>
 
 @property (nonatomic, strong) ChatToolBar *chatToolBar;
+@property (nonatomic, strong) FacePanel *facePanel;
+@property (nonatomic, strong) MorePanel *morePanel;
 
 @end
 
@@ -25,7 +22,7 @@
 
 + (instancetype)keyBoard
 {
-    return [[self alloc] initWithFrame:CGRectMake(0, K_ScreenH - ChatToolBarH, K_ScreenW, KeyBoardH)];
+    return [[self alloc] initWithFrame:CGRectMake(0, kScreenHeight - kChatToolBarHeight, kScreenWidth, kChatKeyBoardHeight)];
 }
 
 - (void)dealloc
@@ -38,10 +35,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.chatToolBar = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, 0, K_ScreenW, ChatToolBarH)];
+        self.chatToolBar = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kChatToolBarHeight)];
+        self.chatToolBar.delegate = self;
         [self addSubview:self.chatToolBar];
         
+        self.facePanel = [[FacePanel alloc] initWithFrame:CGRectMake(0, kChatKeyBoardHeight-kFacePanelHeight, kScreenWidth, kFacePanelHeight)];
+        [self addSubview:self.facePanel];
+        
+        self.morePanel = [[MorePanel alloc] initWithFrame:self.facePanel.frame];
+        [self addSubview:self.morePanel];
+        
         [self setToolBar];
+        [self setMoreItems];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
         
@@ -68,8 +73,58 @@
         CGRect oldRect = [[change objectForKey:NSKeyValueChangeOldKey] CGRectValue];
         CGFloat changeHeight = newRect.size.height - oldRect.size.height;
         self.frame = CGRectMake(0, self.frame.origin.y - changeHeight, self.frame.size.width, self.frame.size.height + changeHeight);
+        self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
+        self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
     }
 }
+
+#pragma mark -- ChatToolBarDelegate
+
+- (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select
+{
+    if (select) {
+        if (!toolBar.textView.isFirstResponder) {
+            [UIView animateWithDuration:0.25 animations:^{
+                CGFloat y = self.frame.origin.y;
+                y = kScreenHeight - self.chatToolBar.frame.size.height;
+                self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+            }];
+        }
+    }
+}
+- (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select
+{
+    if (select) {
+        if (!toolBar.textView.isFirstResponder) {
+            self.morePanel.hidden = YES;
+            self.facePanel.hidden = NO;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.transform = CGAffineTransformMakeTranslation(0, -kFacePanelHeight);
+                self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
+                self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            }];
+        }
+    }
+}
+- (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select
+{
+    if (select) {
+        if (!toolBar.textView.isFirstResponder) {
+            self.morePanel.hidden = NO;
+            self.facePanel.hidden = YES;
+            [UIView animateWithDuration:0.25 animations:^{
+                self.transform = CGAffineTransformMakeTranslation(0, -kFacePanelHeight);
+                self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
+                self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            }];
+        }
+    }
+}
+- (void)chatToolBar:(ChatToolBar *)toolBar switchToolBarBtnPressed:(BOOL)select
+{
+    
+}
+
 
 - (void)setToolBar
 {
@@ -77,6 +132,20 @@
     [self.chatToolBar setBtn:kButKindVoice normalStateImageStr:@"voice" selectStateImageStr:@"keyboard" highLightStateImageStr:@"voice_HL"];
     [self.chatToolBar setBtn:kButKindMore normalStateImageStr:@"more_ios" selectStateImageStr:nil highLightStateImageStr:@"more_ios_HL"];
     [self.chatToolBar setBtn:kButKindSwitchBarViewBtn normalStateImageStr:@"jobDownArrow" selectStateImageStr:@"upArrow"highLightStateImageStr:nil];
+}
+
+- (void)setMoreItems
+{
+    MoreItem *item1 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
+    MoreItem *item2 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
+    MoreItem *item3 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
+    MoreItem *item4 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
+    MoreItem *item5 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
+    MoreItem *item6 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
+    MoreItem *item7 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
+    MoreItem *item8 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
+    MoreItem *item9 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
+    [self.morePanel loadMoreItems:@[item1, item2, item3, item4, item5,item6,item7,item8,item9]];
 }
 
 @end

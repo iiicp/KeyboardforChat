@@ -45,17 +45,17 @@ typedef NS_ENUM(NSInteger, ButKind)
 @property (nonatomic, weak) id delegate;
 
 /** 切换barView按钮 */
-@property (nonatomic, readonly) UIButton *switchBarViewBtn;
+@property (nonatomic, readonly, strong) UIButton *switchBarViewBtn;
 /** 语音按钮 */
-@property (nonatomic, readonly) UIButton *voiceBtn;
+@property (nonatomic, readonly, strong) UIButton *voiceBtn;
 /** 表情按钮 */
-@property (nonatomic, readonly) UIButton *faceBtn;
+@property (nonatomic, readonly, strong) UIButton *faceBtn;
 /** more按钮 */
-@property (nonatomic, readonly) UIButton *moreBtn;
+@property (nonatomic, readonly, strong) UIButton *moreBtn;
 /** 输入文本框 */
-@property (nonatomic, readonly) RFTextView *textView;
+@property (nonatomic, readonly, strong) RFTextView *textView;
 /** 按住录制语音按钮 */
-@property (nonatomic, readonly) RFRecordButton *recordBtn;
+@property (nonatomic, readonly, strong) RFRecordButton *recordBtn;
 
 /** 输入状态监测 */
 @property(readonly) BOOL isInputting;

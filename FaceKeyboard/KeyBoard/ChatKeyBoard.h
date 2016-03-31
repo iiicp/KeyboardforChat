@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatToolBar.h"
+#import "FacePanel.h"
+#import "MorePanel.h"
 
 @interface ChatKeyBoard : UIView
 
-@property (nonatomic, readonly) ChatToolBar *chatToolBar;
+@property (nonatomic, readonly, strong) ChatToolBar *chatToolBar;
+@property (nonatomic, readonly, strong) FacePanel *facePanel;
+@property (nonatomic, readonly, strong) MorePanel *morePanel;
 
 + (instancetype)keyBoard;
 

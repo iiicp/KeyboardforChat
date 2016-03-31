@@ -6,32 +6,32 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#import "PageFaceView.h"
+#import "SmallSizePageFaceView.h"
 #import "FaceSubjectModel.h"
 #import "FaceButton.h"
+#import "Macrol.h"
 
-#define PageFaceH       146.f
-#define Item            40.f
-#define EdgeDistance    10.f
-#define Lines           3
+#define FaceContainerHeight       kFacePanelHeight - kFacePanelBottomToolBarHeight - kUIPageControllerHeight //146
+#define Item                        40.f
+#define EdgeDistance                10.f
+#define Lines                       3
 
-@interface  PageFaceView ()
+@interface  SmallSizePageFaceView ()
 /** 按钮数组 */
 @property (nonatomic, strong) NSMutableArray *buttons;
 @end
 
-@implementation PageFaceView
+@implementation SmallSizePageFaceView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        CGFloat w =self.frame.size.width;
         NSInteger cols = 7;
-        if (w == 320) {cols = 7;}else if (w == 375) {cols = 8;}else if (w == 414){cols = 9;}
+        if (isIPhone4_5) {cols = 7;}else if (isIPhone6_6s) {cols = 8;}else if (isIPhone6p_6sp){cols = 9;}
 
-        CGFloat vMargin = (PageFaceH - Lines * Item) / (Lines+1);
+        CGFloat vMargin = (FaceContainerHeight - Lines * Item) / (Lines+1);
         CGFloat hMargin = (CGRectGetWidth(self.bounds) - cols * Item - 2*EdgeDistance) / cols;
 
         NSMutableArray *array = [NSMutableArray array];
@@ -56,12 +56,12 @@
         FaceButton *btn = self.buttons[i];
         btn.hidden = NO;
         [btn setImage:[UIImage imageNamed:fm.facePicName] forState:UIControlStateNormal];
-        btn.emojiName = fm.faceName;
+        btn.faceName = fm.faceName;
     }
     FaceButton *btn =self.buttons[faceData.count];
     btn.hidden = NO;
     [btn setImage:[UIImage imageNamed:@"Delete_ios7"] forState:UIControlStateNormal];
-    btn.emojiName = nil;
+    btn.faceName = nil;
     
     for (NSInteger i = faceData.count+1; i < self.buttons.count; ++i) {
         FaceButton *btn = self.buttons[i];
@@ -72,7 +72,7 @@
 
 - (void)faceBtnClick:(FaceButton *)button
 {
-    NSLog(@"name %@", button.emojiName);
+    NSLog(@"name %@", button.faceName);
 }
 
 @end
