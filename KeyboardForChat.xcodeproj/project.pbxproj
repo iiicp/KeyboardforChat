@@ -144,8 +144,8 @@
 			isa = PBXGroup;
 			children = (
 				792929B41CAD033700E4376E /* MorePanel */,
-				79F244AD1CAB726D00CF1B14 /* ChatFacePanel */,
-				79C90CDF1CA94D350059270D /* ChatToolBar */,
+				79F244AD1CAB726D00CF1B14 /* FacePanel */,
+				79C90CDF1CA94D350059270D /* ToolBarPanel */,
 				795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */,
 				795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */,
 				792929AD1CACB4D400E4376E /* Macrol.h */,
@@ -153,7 +153,7 @@
 			path = KeyBoard;
 			sourceTree = "<group>";
 		};
-		79C90CDF1CA94D350059270D /* ChatToolBar */ = {
+		79C90CDF1CA94D350059270D /* ToolBarPanel */ = {
 			isa = PBXGroup;
 			children = (
 				79C90CE01CA94D350059270D /* ChatToolBar.h */,
@@ -163,10 +163,10 @@
 				791305071CAA5153005D352E /* RFRecordButton.h */,
 				791305081CAA5153005D352E /* RFRecordButton.m */,
 			);
-			path = ChatToolBar;
+			path = ToolBarPanel;
 			sourceTree = "<group>";
 		};
-		79F244AD1CAB726D00CF1B14 /* ChatFacePanel */ = {
+		79F244AD1CAB726D00CF1B14 /* FacePanel */ = {
 			isa = PBXGroup;
 			children = (
 				79F244AE1CAB728000CF1B14 /* FacePanel.h */,
@@ -186,7 +186,7 @@
 				79F245141CABAB8C00CF1B14 /* FaceSubjectModel.h */,
 				79F245151CABAB8C00CF1B14 /* FaceSubjectModel.m */,
 			);
-			path = ChatFacePanel;
+			path = FacePanel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
