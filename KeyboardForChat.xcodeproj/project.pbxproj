@@ -45,7 +45,7 @@
 		792929BB1CAD08BA00E4376E /* MoreItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreItem.m; sourceTree = "<group>"; };
 		795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoard.h; sourceTree = "<group>"; };
 		795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatKeyBoard.m; sourceTree = "<group>"; };
-		79891E1C1CA8FFFF0031B2AE /* FaceKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79891E1C1CA8FFFF0031B2AE /* KeyboardForChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardForChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79891E201CA8FFFF0031B2AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		79891E221CA8FFFF0031B2AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		79891E231CA8FFFF0031B2AE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		79891E131CA8FFFF0031B2AE = {
 			isa = PBXGroup;
 			children = (
-				79891E1E1CA8FFFF0031B2AE /* FaceKeyboard */,
+				79891E1E1CA8FFFF0031B2AE /* KeyboardForChat */,
 				79891E1D1CA8FFFF0031B2AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,12 +108,12 @@
 		79891E1D1CA8FFFF0031B2AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				79891E1C1CA8FFFF0031B2AE /* FaceKeyboard.app */,
+				79891E1C1CA8FFFF0031B2AE /* KeyboardForChat.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		79891E1E1CA8FFFF0031B2AE /* FaceKeyboard */ = {
+		79891E1E1CA8FFFF0031B2AE /* KeyboardForChat */ = {
 			isa = PBXGroup;
 			children = (
 				79891E221CA8FFFF0031B2AE /* AppDelegate.h */,
@@ -125,7 +125,7 @@
 				E3CE7D391CAC24A900C096AE /* emotion.plist */,
 				79F244B11CAB7B9B00CF1B14 /* face.plist */,
 			);
-			path = FaceKeyboard;
+			path = KeyboardForChat;
 			sourceTree = "<group>";
 		};
 		79891E1F1CA8FFFF0031B2AE /* Supporting Files */ = {
@@ -192,9 +192,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		79891E1B1CA8FFFF0031B2AE /* FaceKeyboard */ = {
+		79891E1B1CA8FFFF0031B2AE /* KeyboardForChat */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 79891E331CA8FFFF0031B2AE /* Build configuration list for PBXNativeTarget "FaceKeyboard" */;
+			buildConfigurationList = 79891E331CA8FFFF0031B2AE /* Build configuration list for PBXNativeTarget "KeyboardForChat" */;
 			buildPhases = (
 				79891E181CA8FFFF0031B2AE /* Sources */,
 				79891E191CA8FFFF0031B2AE /* Frameworks */,
@@ -204,9 +204,9 @@
 			);
 			dependencies = (
 			);
-			name = FaceKeyboard;
+			name = KeyboardForChat;
 			productName = FaceKeyboard;
-			productReference = 79891E1C1CA8FFFF0031B2AE /* FaceKeyboard.app */;
+			productReference = 79891E1C1CA8FFFF0031B2AE /* KeyboardForChat.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -223,7 +223,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 79891E171CA8FFFF0031B2AE /* Build configuration list for PBXProject "FaceKeyboard" */;
+			buildConfigurationList = 79891E171CA8FFFF0031B2AE /* Build configuration list for PBXProject "KeyboardForChat" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -236,7 +236,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				79891E1B1CA8FFFF0031B2AE /* FaceKeyboard */,
+				79891E1B1CA8FFFF0031B2AE /* KeyboardForChat */,
 			);
 		};
 /* End PBXProject section */
@@ -389,11 +389,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = FaceKeyboard/Info.plist;
+				INFOPLIST_FILE = KeyboardForChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.suneee.FaceKeyboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = KeyboardForChat;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -404,11 +404,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = FaceKeyboard/Info.plist;
+				INFOPLIST_FILE = KeyboardForChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.suneee.FaceKeyboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = KeyboardForChat;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -416,7 +416,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		79891E171CA8FFFF0031B2AE /* Build configuration list for PBXProject "FaceKeyboard" */ = {
+		79891E171CA8FFFF0031B2AE /* Build configuration list for PBXProject "KeyboardForChat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79891E311CA8FFFF0031B2AE /* Debug */,
@@ -425,7 +425,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		79891E331CA8FFFF0031B2AE /* Build configuration list for PBXNativeTarget "FaceKeyboard" */ = {
+		79891E331CA8FFFF0031B2AE /* Build configuration list for PBXNativeTarget "KeyboardForChat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				79891E341CA8FFFF0031B2AE /* Debug */,

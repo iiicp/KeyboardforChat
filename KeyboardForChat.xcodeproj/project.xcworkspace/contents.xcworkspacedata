@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:FaceKeyboard.xcodeproj">
+      location = "self:/Users/cp/Desktop/FaceKeyboard/KeyboardForChat.xcodeproj">
    </FileRef>
 </Workspace>

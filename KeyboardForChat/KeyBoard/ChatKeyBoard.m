@@ -76,13 +76,14 @@
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
             
         }else if (self.chatToolBar.voiceSelected && !self.chatToolBar.textView.isFirstResponder){
+            
             CGFloat y = self.frame.origin.y;
             y = kScreenHeight - self.chatToolBar.frame.size.height;
             self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
-
+            
         }else{
-            CGFloat ty = [[UIScreen mainScreen] bounds].size.height - rect.origin.y;
-            self.transform = CGAffineTransformMakeTranslation(0, -ty);
+            CGFloat targetY = rect.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
+            self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
         }
         
     }];
