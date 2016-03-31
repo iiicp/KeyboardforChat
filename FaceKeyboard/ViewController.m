@@ -47,19 +47,19 @@
 }
 
 - (IBAction)click:(id)sender {
-    self.chatKeyBoard.chatToolBar.haveSwitchBarViewBtn = !self.chatKeyBoard.chatToolBar.haveSwitchBarViewBtn;
+    self.chatKeyBoard.chatToolBar.allowSwitchBar = !self.chatKeyBoard.chatToolBar.allowSwitchBar;
 }
 
 - (IBAction)clickVoice:(id)sender {
-    self.chatKeyBoard.chatToolBar.haveVoiceBtn = !self.chatKeyBoard.chatToolBar.haveVoiceBtn;
+    self.chatKeyBoard.chatToolBar.allowVoice = !self.chatKeyBoard.chatToolBar.allowVoice;
 }
 
 - (IBAction)clickface:(id)sender {
-    self.chatKeyBoard.chatToolBar.haveFaceBtn = !self.chatKeyBoard.chatToolBar.haveFaceBtn;
+    self.chatKeyBoard.chatToolBar.allowFace = !self.chatKeyBoard.chatToolBar.allowFace;
 }
 
 - (IBAction)clickmore:(id)sender {
-    self.chatKeyBoard.chatToolBar.haveMoreBtn = !self.chatKeyBoard.chatToolBar.haveMoreBtn;
+    self.chatKeyBoard.chatToolBar.allowMoreFunc = !self.chatKeyBoard.chatToolBar.allowMoreFunc;
 }
 
 

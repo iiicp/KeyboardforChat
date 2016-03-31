@@ -19,10 +19,9 @@
 @interface ChatToolBar ()<UITextViewDelegate>
 
 @property CGFloat previousTextViewHeight;
-@property(readwrite) BOOL isInputting;
 
 /** 切换barView按钮 */
-@property (nonatomic, strong) UIButton *switchBarViewBtn;
+@property (nonatomic, strong) UIButton *switchBarBtn;
 /** 语音按钮 */
 @property (nonatomic, strong) UIButton *voiceBtn;
 /** 表情按钮 */
@@ -33,6 +32,11 @@
 @property (nonatomic, strong) RFTextView *textView;
 /** 按住录制语音按钮 */
 @property (nonatomic, strong) RFRecordButton *recordBtn;
+
+@property (readwrite) BOOL voiceSelected;
+@property (readwrite) BOOL faceSelected;
+@property (readwrite) BOOL moreFuncSelected;
+@property (readwrite) BOOL switchBarSelected;
 
 @end
 
@@ -58,10 +62,10 @@
 
 - (void)setDefaultValue
 {
-    self.haveSwitchBarViewBtn = NO;
-    self.haveVoiceBtn = YES;
-    self.haveFaceBtn = YES;
-    self.haveMoreBtn = YES;
+    self.allowSwitchBar = NO;
+    self.allowVoice = YES;
+    self.allowFace = YES;
+    self.allowMoreFunc = YES;
 }
 
 - (void)setup
@@ -72,8 +76,8 @@
     self.previousTextViewHeight = TextViewH;
     
     // addSubView
-    self.switchBarViewBtn = [self createBtn:kButKindSwitchBarViewBtn action:@selector(toolbarBtnClick:)];
-    self.switchBarViewBtn.hidden = YES;
+    self.switchBarBtn = [self createBtn:kButKindSwitchBar action:@selector(toolbarBtnClick:)];
+    self.switchBarBtn.hidden = YES;
     self.voiceBtn = [self createBtn:kButKindVoice action:@selector(toolbarBtnClick:)];
     self.faceBtn = [self createBtn:kButKindFace action:@selector(toolbarBtnClick:)];
     self.moreBtn = [self createBtn:kButKindMore action:@selector(toolbarBtnClick:)];
@@ -86,7 +90,7 @@
     [self addSubview:self.voiceBtn];
     [self addSubview:self.faceBtn];
     [self addSubview:self.moreBtn];
-    [self addSubview:self.switchBarViewBtn];
+    [self addSubview:self.switchBarBtn];
     [self addSubview:self.textView];
     [self addSubview:self.recordBtn];
     
@@ -149,31 +153,31 @@
 {
     CGFloat barViewH = self.frame.size.height;
     
-    if (self.haveSwitchBarViewBtn) {
-        self.switchBarViewBtn.frame = CGRectMake(0, barViewH - ItemH, ItemW, ItemH);
+    if (self.allowSwitchBar) {
+        self.switchBarBtn.frame = CGRectMake(0, barViewH - ItemH, ItemW, ItemH);
     }else {
-        self.switchBarViewBtn.frame = CGRectZero;
+        self.switchBarBtn.frame = CGRectZero;
     }
     
-    if (self.haveVoiceBtn){
-        self.voiceBtn.frame = CGRectMake(CGRectGetMaxX(self.switchBarViewBtn.frame), barViewH - ItemH, ItemW, ItemH);
+    if (self.allowVoice){
+        self.voiceBtn.frame = CGRectMake(CGRectGetMaxX(self.switchBarBtn.frame), barViewH - ItemH, ItemW, ItemH);
     }else {
         self.voiceBtn.frame = CGRectZero;
     }
     
-    if (self.haveMoreBtn) {
+    if (self.allowMoreFunc) {
         self.moreBtn.frame = CGRectMake(self.frame.size.width - ItemW, barViewH - ItemH, ItemW, ItemH);
     }else {
         self.moreBtn.frame = CGRectZero;
     }
     
-    if (self.haveFaceBtn){
+    if (self.allowFace){
         self.faceBtn.frame = CGRectMake(self.frame.size.width - ItemW - CGRectGetWidth(self.moreBtn.frame), barViewH - ItemH, ItemW, ItemH);
     }else {
         self.faceBtn.frame = CGRectZero;
     }
     
-    self.textView.frame = CGRectMake(CGRectGetWidth(self.switchBarViewBtn.frame) + CGRectGetWidth(self.voiceBtn.frame), TextViewVerticalOffset, self.frame.size.width-CGRectGetWidth(self.switchBarViewBtn.frame)-CGRectGetWidth(self.voiceBtn.frame)-CGRectGetWidth(self.faceBtn.frame)-CGRectGetWidth(self.moreBtn.frame), self.textView.frame.size.height);
+    self.textView.frame = CGRectMake(CGRectGetWidth(self.switchBarBtn.frame) + CGRectGetWidth(self.voiceBtn.frame), TextViewVerticalOffset, self.frame.size.width-CGRectGetWidth(self.switchBarBtn.frame)-CGRectGetWidth(self.voiceBtn.frame)-CGRectGetWidth(self.faceBtn.frame)-CGRectGetWidth(self.moreBtn.frame), self.textView.frame.size.height);
     
     self.recordBtn.frame = self.textView.frame;
 }
@@ -195,8 +199,8 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
         case kButKindVoice:
             btn = self.voiceBtn;
             break;
-        case kButKindSwitchBarViewBtn:
-            btn = self.switchBarViewBtn;
+        case kButKindSwitchBar:
+            btn = self.switchBarBtn;
             break;
         default:
             break;
@@ -219,7 +223,7 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
         case kButKindMore:
             btn.tag = 3;
             break;
-        case kButKindSwitchBarViewBtn:
+        case kButKindSwitchBar:
             btn.tag = 4;
             break;
         default:
@@ -234,14 +238,14 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    self.voiceBtn.selected = NO;
-    self.faceBtn.selected = NO;
-    self.moreBtn.selected = NO;
+    self.voiceSelected = self.voiceBtn.selected = NO;
+    self.faceSelected = self.faceBtn.selected = NO;
+    self.moreFuncSelected = self.moreBtn.selected = NO;
+    
     return YES;
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    self.isInputting = YES;
     if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDidBeginEditing:)]) {
         [self.delegate chatToolBarTextViewDidBeginEditing:self.textView];
     }
@@ -280,110 +284,153 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     switch (sender.tag) {
         case 1:
         {
-            self.voiceBtn.selected = !self.voiceBtn.selected;
-            self.faceBtn.selected = NO;
-            self.moreBtn.selected = NO;
-            
-            if (sender.selected) {
-                [self.textView resignFirstResponder];
-                self.isInputting = NO;
-            }else {
-                [self.textView becomeFirstResponder];
-                self.isInputting = YES;
-            }
-            
-            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self.recordBtn.hidden = !sender.selected;
-                self.textView.hidden = sender.selected;
-            } completion:nil];
-            
-            if ([self.delegate respondsToSelector:@selector(chatToolBar:voiceBtnPressed:)]) {
-                [self.delegate chatToolBar:self voiceBtnPressed:sender.selected];
-            }
-            
+            [self handelVoiceClick:sender];
             break;
         }
         case 2:
         {
-            self.faceBtn.selected = !self.faceBtn.selected;
-            self.voiceBtn.selected = NO;
-            self.moreBtn.selected = NO;
-            
-            if (sender.selected) {
-                [self.textView resignFirstResponder];
-            }else {
-                [self.textView becomeFirstResponder];
-            }
-            self.isInputting = YES;
-            
-            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self.recordBtn.hidden = YES;
-                self.textView.hidden = NO;
-            } completion:nil];
-            
-            if ([self.delegate respondsToSelector:@selector(chatToolBar:faceBtnPressed:)]) {
-                [self.delegate chatToolBar:self faceBtnPressed:sender.selected];
-            }
-            
+            [self handelFaceClick:sender];
             break;
         }
         case 3:
         {
-            self.moreBtn.selected = !self.moreBtn.selected;
-            self.voiceBtn.selected = NO;
-            self.faceBtn.selected = NO;
-            
-            if (sender.selected) {
-                [self.textView resignFirstResponder];
-            }else {
-                [self.textView becomeFirstResponder];
-            }
-            self.isInputting = YES;
-            
-            [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self.recordBtn.hidden = YES;
-                self.textView.hidden = NO;
-            } completion:nil];
-            
-            if ([self.delegate respondsToSelector:@selector(chatToolBar:moreBtnPressed:)]) {
-                [self.delegate chatToolBar:self moreBtnPressed:sender.selected];
-            }
-            
+            [self handelMoreClick:sender];
             break;
         }
         case 4:
-            NSLog(@"切换barview");
-            if (sender.selected) {
-                [self.textView resignFirstResponder];
-            }
-            self.switchBarViewBtn.selected = !self.switchBarViewBtn.selected;
-            if ([self.delegate respondsToSelector:@selector(chatToolBar:switchToolBarBtnPressed:)]) {
-                [self.delegate chatToolBar:self switchToolBarBtnPressed:sender.selected];
-            }
+        {
+            [self handelSwitchBarClick:sender];
             break;
+        }
         default:
             break;
     }
 }
 
-#pragma mark -- 重写set方法
-- (void)setHaveSwitchBarViewBtn:(BOOL)haveSwitchBarViewBtn
-{
-    _haveSwitchBarViewBtn = haveSwitchBarViewBtn;
+- (void)handelVoiceClick:(UIButton *)sender{
+    self.voiceBtn.selected = !self.voiceBtn.selected;
+    self.faceSelected = self.faceBtn.selected = NO;
+    self.moreFuncSelected = self.moreBtn.selected = NO;
+    BOOL keyBoardChanged = YES;
     
-    if (_haveSwitchBarViewBtn) {
-        self.switchBarViewBtn.hidden = NO;
+    if (sender.selected) {
+        self.voiceSelected = YES;
+        if (!self.textView.isFirstResponder) {
+            keyBoardChanged = NO;
+        }
+        [self.textView resignFirstResponder];
     }else {
-        self.switchBarViewBtn.hidden = YES;
+        self.voiceSelected = NO;
+        [self.textView becomeFirstResponder];
+    }
+    
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.recordBtn.hidden = !sender.selected;
+        self.textView.hidden = sender.selected;
+    } completion:nil];
+    
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:voiceBtnPressed:keyBoardState:)]) {
+        [self.delegate chatToolBar:self voiceBtnPressed:sender.selected keyBoardState:keyBoardChanged];
+    }
+}
+
+- (void)handelFaceClick:(UIButton *)sender{
+    
+    self.faceBtn.selected = !self.faceBtn.selected;
+    self.voiceSelected = self.voiceBtn.selected = NO;
+    self.moreFuncSelected = self.moreBtn.selected = NO;
+    BOOL keyBoardChanged = YES;
+    
+    if (sender.selected) {
+        self.faceSelected = YES;
+        if (!self.textView.isFirstResponder) {
+            keyBoardChanged = NO;
+        }
+        [self.textView resignFirstResponder];
+    }else {
+        self.faceSelected = NO;
+        [self.textView becomeFirstResponder];
+    }
+    
+    
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.recordBtn.hidden = YES;
+        self.textView.hidden = NO;
+    } completion:nil];
+    
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:faceBtnPressed:keyBoardState:)]) {
+        [self.delegate chatToolBar:self faceBtnPressed:sender.selected keyBoardState:keyBoardChanged];
+    }
+
+}
+
+- (void)handelMoreClick:(UIButton *)sender{
+    self.moreBtn.selected = !self.moreBtn.selected;
+    self.voiceSelected = self.voiceBtn.selected = NO;
+    self.faceSelected = self.faceBtn.selected = NO;
+    
+    //标识一种特殊状态 （键盘无弹起）
+    BOOL keyBoardChanged = YES;
+    
+    if (sender.selected)
+    {
+        self.moreFuncSelected = YES;
+        
+        if (!self.textView.isFirstResponder) {
+            keyBoardChanged = NO;
+        }
+        [self.textView resignFirstResponder];
+    }else {
+        self.moreFuncSelected = NO;
+        [self.textView becomeFirstResponder];
+    }
+    
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.recordBtn.hidden = YES;
+        self.textView.hidden = NO;
+    } completion:nil];
+    
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:moreBtnPressed:keyBoardState:)]) {
+        [self.delegate chatToolBar:self moreBtnPressed:sender.selected keyBoardState:keyBoardChanged];
+    }
+
+}
+- (void)handelSwitchBarClick:(UIButton *)sender{
+    BOOL keyBoardChanged = YES;
+    if (sender.selected) {
+        self.switchBarSelected = YES;
+        if (!self.textView.isFirstResponder) {
+            keyBoardChanged = NO;
+        }
+        [self.textView resignFirstResponder];
+    }else {
+        self.switchBarSelected = NO;
+    }
+    self.switchBarBtn.selected = !self.switchBarBtn.selected;
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:switchToolBarBtnPressed:keyBoardState:)]) {
+        [self.delegate chatToolBar:self switchToolBarBtnPressed:sender.selected keyBoardState:keyBoardChanged];
+    }
+
+}
+
+#pragma mark -- 重写set方法
+- (void)setAllowSwitchBar:(BOOL)allowSwitchBar
+{
+    _allowSwitchBar = allowSwitchBar;
+    
+    if (_allowSwitchBar) {
+        self.switchBarBtn.hidden = NO;
+    }else {
+        self.switchBarBtn.hidden = YES;
     }
     [self setbarSubViewsFrame];
 }
 
-- (void)setHaveVoiceBtn:(BOOL)haveVoiceBtn
+- (void)setAllowVoice:(BOOL)allowVoice
 {
-    _haveVoiceBtn = haveVoiceBtn;
+    _allowVoice = allowVoice;
     
-    if (_haveVoiceBtn) {
+    if (_allowVoice) {
         self.voiceBtn.hidden = NO;
     }else {
         self.voiceBtn.hidden = YES;
@@ -392,11 +439,11 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     [self setbarSubViewsFrame];
 }
 
-- (void)setHaveFaceBtn:(BOOL)haveFaceBtn
+- (void)setAllowFace:(BOOL)allowFace
 {
-    _haveFaceBtn = haveFaceBtn;
+    _allowFace = allowFace;
     
-    if (_haveFaceBtn) {
+    if (_allowFace) {
         self.faceBtn.hidden = NO;
     }else {
         self.faceBtn.hidden = YES;
@@ -405,10 +452,10 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     [self setbarSubViewsFrame];
 }
 
-- (void)setHaveMoreBtn:(BOOL)haveMoreBtn
+- (void)setAllowMoreFunc:(BOOL)allowMoreFunc
 {
-    _haveMoreBtn = haveMoreBtn;
-    if (_haveMoreBtn) {
+    _allowMoreFunc = allowMoreFunc;
+    if (_allowMoreFunc) {
         self.moreBtn.hidden = NO;
     }else {
         self.moreBtn.hidden = YES;

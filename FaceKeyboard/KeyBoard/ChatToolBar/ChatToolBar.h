@@ -15,17 +15,17 @@ typedef NS_ENUM(NSInteger, ButKind)
     kButKindVoice,
     kButKindFace,
     kButKindMore,
-    kButKindSwitchBarViewBtn
+    kButKindSwitchBar
 };
 
 @class ChatToolBar;
 @protocol ChatToolBarDelegate <NSObject>
 
 @optional
-- (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select;
-- (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select;
-- (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select;
-- (void)chatToolBar:(ChatToolBar *)toolBar switchToolBarBtnPressed:(BOOL)select;
+- (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
+- (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
+- (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
+- (void)chatToolBar:(ChatToolBar *)toolBar switchToolBarBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
 
 - (void)chatToolBarDidStartRecording:(ChatToolBar *)toolBar;
 - (void)chatToolBarDidCancelRecording:(ChatToolBar *)toolBar;
@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, ButKind)
 @property (nonatomic, weak) id delegate;
 
 /** 切换barView按钮 */
-@property (nonatomic, readonly, strong) UIButton *switchBarViewBtn;
+@property (nonatomic, readonly, strong) UIButton *switchBarBtn;
 /** 语音按钮 */
 @property (nonatomic, readonly, strong) UIButton *voiceBtn;
 /** 表情按钮 */
@@ -57,15 +57,17 @@ typedef NS_ENUM(NSInteger, ButKind)
 /** 按住录制语音按钮 */
 @property (nonatomic, readonly, strong) RFRecordButton *recordBtn;
 
-/** 输入状态监测 */
-@property(readonly) BOOL isInputting;
-
 /** 默认为no */
-@property (nonatomic, assign) BOOL haveSwitchBarViewBtn;
+@property (nonatomic, assign) BOOL allowSwitchBar;
 /** 以下默认为yes*/
-@property (nonatomic, assign) BOOL haveVoiceBtn;
-@property (nonatomic, assign) BOOL haveFaceBtn;
-@property (nonatomic, assign) BOOL haveMoreBtn;
+@property (nonatomic, assign) BOOL allowVoice;
+@property (nonatomic, assign) BOOL allowFace;
+@property (nonatomic, assign) BOOL allowMoreFunc;
+
+@property (readonly) BOOL voiceSelected;
+@property (readonly) BOOL faceSelected;
+@property (readonly) BOOL moreFuncSelected;
+@property (readonly) BOOL switchBarSelected;
 
 
 /** 设置按钮图片 */

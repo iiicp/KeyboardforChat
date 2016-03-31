@@ -60,8 +60,31 @@
     CGRect rect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [UIView animateWithDuration:duration animations:^{
-        CGFloat ty = [[UIScreen mainScreen] bounds].size.height - rect.origin.y;
-        self.transform = CGAffineTransformMakeTranslation(0, -ty);
+        
+        if (self.chatToolBar.faceSelected) {
+            self.morePanel.hidden = YES;
+            self.facePanel.hidden = NO;
+            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
+            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            
+        }else if (self.chatToolBar.moreFuncSelected){
+            self.morePanel.hidden = NO;
+            self.facePanel.hidden = YES;
+            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
+            self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            
+        }else if (self.chatToolBar.voiceSelected && !self.chatToolBar.textView.isFirstResponder){
+            CGFloat y = self.frame.origin.y;
+            y = kScreenHeight - self.chatToolBar.frame.size.height;
+            self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+
+        }else{
+            CGFloat ty = [[UIScreen mainScreen] bounds].size.height - rect.origin.y;
+            self.transform = CGAffineTransformMakeTranslation(0, -ty);
+        }
+        
     }];
 }
 
@@ -80,47 +103,44 @@
 
 #pragma mark -- ChatToolBarDelegate
 
-- (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select
+- (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
-    if (select) {
-        if (!toolBar.textView.isFirstResponder) {
-            [UIView animateWithDuration:0.25 animations:^{
-                CGFloat y = self.frame.origin.y;
-                y = kScreenHeight - self.chatToolBar.frame.size.height;
-                self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
-            }];
-        }
+    if (select && change == NO) {
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            CGFloat y = self.frame.origin.y;
+            y = kScreenHeight - self.chatToolBar.frame.size.height;
+            self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+        }];
     }
 }
-- (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select
+- (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
-    if (select) {
-        if (!toolBar.textView.isFirstResponder) {
-            self.morePanel.hidden = YES;
-            self.facePanel.hidden = NO;
-            [UIView animateWithDuration:0.25 animations:^{
-                self.transform = CGAffineTransformMakeTranslation(0, -kFacePanelHeight);
-                self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
-                self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
-            }];
-        }
+    if (select && change == NO)
+    {
+        self.morePanel.hidden = YES;
+        self.facePanel.hidden = NO;
+        [UIView animateWithDuration:0.25 animations:^{
+            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
+            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+        }];
     }
 }
-- (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select
+- (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
-    if (select) {
-        if (!toolBar.textView.isFirstResponder) {
-            self.morePanel.hidden = NO;
-            self.facePanel.hidden = YES;
-            [UIView animateWithDuration:0.25 animations:^{
-                self.transform = CGAffineTransformMakeTranslation(0, -kFacePanelHeight);
-                self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
-                self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
-            }];
-        }
+    if (select && change == NO)
+    {
+        self.morePanel.hidden = NO;
+        self.facePanel.hidden = YES;
+        [UIView animateWithDuration:0.25 animations:^{
+            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
+            self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+        }];
     }
 }
-- (void)chatToolBar:(ChatToolBar *)toolBar switchToolBarBtnPressed:(BOOL)select
+- (void)chatToolBar:(ChatToolBar *)toolBar switchToolBarBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
     
 }
@@ -131,7 +151,7 @@
     [self.chatToolBar setBtn:kButKindFace normalStateImageStr:@"face" selectStateImageStr:@"keyboard" highLightStateImageStr:@"face_HL"];
     [self.chatToolBar setBtn:kButKindVoice normalStateImageStr:@"voice" selectStateImageStr:@"keyboard" highLightStateImageStr:@"voice_HL"];
     [self.chatToolBar setBtn:kButKindMore normalStateImageStr:@"more_ios" selectStateImageStr:nil highLightStateImageStr:@"more_ios_HL"];
-    [self.chatToolBar setBtn:kButKindSwitchBarViewBtn normalStateImageStr:@"jobDownArrow" selectStateImageStr:@"upArrow"highLightStateImageStr:nil];
+    [self.chatToolBar setBtn:kButKindSwitchBar normalStateImageStr:@"jobDownArrow" selectStateImageStr:@"upArrow"highLightStateImageStr:nil];
 }
 
 - (void)setMoreItems
