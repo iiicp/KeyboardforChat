@@ -263,9 +263,9 @@
 {
     NSString *text = self.chatToolBar.textView.text;
     if (isDelete) {
-        self.chatToolBar.textView.text = [text substringToIndex:text.length - 1];
+        [self.chatToolBar setTextContent:[text substringToIndex:text.length - 1]];
     }else {
-        self.chatToolBar.textView.text = [text stringByAppendingString:faceName];
+        [self.chatToolBar setTextContent:[text stringByAppendingString:faceName]];
     }
     
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardFacePicked:faceSize:faceName:delete:)]) {
@@ -275,12 +275,10 @@
 
 - (void)facePanelSendTextAction:(FacePanel *)facePanel
 {
-    
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardSendText:)]) {
         [self.delegate chatKeyBoardSendText:self.chatToolBar.textView.text];
     }
-    //内容清空
-    self.chatToolBar.textView.text = @"";
+    [self.chatToolBar clearText];
 }
 
 - (void)facePanelAddSubject:(FacePanel *)facePanel

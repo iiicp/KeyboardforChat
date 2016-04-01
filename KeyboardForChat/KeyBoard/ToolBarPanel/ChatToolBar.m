@@ -178,7 +178,15 @@
     
     self.recordBtn.frame = self.textView.frame;
 }
-
+#pragma mark -- 调整文本内容
+- (void)setTextContent:(NSString *)text
+{
+    self.currentText = self.textView.text = text;
+}
+- (void)clearText
+{
+    self.currentText = self.textView.text = @"";
+}
 
 #pragma mark -- 关于按钮
 - (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr

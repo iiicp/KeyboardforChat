@@ -69,6 +69,9 @@ typedef NS_ENUM(NSInteger, ButKind)
 @property (readonly) BOOL switchBarSelected;
 
 
+- (void)setTextContent:(NSString *)text;
+- (void)clearText;
+
 /** 设置按钮图片 */
 - (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr
 selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)highLightStr;
