@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, ButKind)
 - (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
 - (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
 - (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
-- (void)chatToolBar:(ChatToolBar *)toolBar switchToolBarBtnPressed:(BOOL)select keyBoardState:(BOOL)change;
+- (void)chatToolBarSwitchToolBarBtnPressed:(ChatToolBar *)toolBar keyBoardState:(BOOL)change;
 
 - (void)chatToolBarDidStartRecording:(ChatToolBar *)toolBar;
 - (void)chatToolBarDidCancelRecording:(ChatToolBar *)toolBar;
@@ -41,8 +41,7 @@ typedef NS_ENUM(NSInteger, ButKind)
 
 @interface ChatToolBar : UIImageView
 
-/** ChatToolBar代理 */
-@property (nonatomic, weak) id delegate;
+@property (nonatomic, weak) id<ChatToolBarDelegate> delegate;
 
 /** 切换barView按钮 */
 @property (nonatomic, readonly, strong) UIButton *switchBarBtn;

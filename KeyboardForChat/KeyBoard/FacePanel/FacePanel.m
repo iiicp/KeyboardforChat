@@ -19,6 +19,9 @@
 #import "FaceSourceManager.h"
 #import "Macrol.h"
 
+extern NSString * SmallSizeFacePanelfacePickedNotification;
+extern NSString * MiddleSizeFacePanelfacePickedNotification;
+
 @interface FacePanel () <UIScrollViewDelegate, PanelBottomViewDelegate>
 
 @property (nonatomic, strong) NSArray *faceSources;
@@ -31,11 +34,6 @@
     PanelBottomView  *_panelBottomView;
 }
 
-
-+ (instancetype)facePanel
-{
-     return [[self alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height-216, [[UIScreen mainScreen] bounds].size.width, 216)];
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -64,6 +62,33 @@
     [_scrollView setContentOffset:CGPointMake(faceSubjectIndex*self.frame.size.width, 0) animated:YES];
 }
 
+- (void)panelBottomViewSendAction:(PanelBottomView *)panelBottomView
+{
+    if ([self.delegate respondsToSelector:@selector(facePanelSendTextAction:)]) {
+        [self.delegate facePanelSendTextAction:self];
+    }
+}
+
+#pragma mark -- NSNotificationCenter
+- (void)smallFaceClick:(NSNotification *)noti
+{
+    NSDictionary *info = [noti object];
+    NSString *faceName = [info objectForKey:@"FaceName"];
+    BOOL isDelete = [[info objectForKey:@"IsDelete"] boolValue];
+    
+    if ([self.delegate respondsToSelector:@selector(facePanelFacePicked:faceSize:faceName:delete:)]) {
+        [self.delegate facePanelFacePicked:self faceSize:0 faceName:faceName delete:isDelete];
+    }
+}
+
+- (void)middleFaceClick:(NSNotification *)noti
+{
+    NSString *faceName = [noti object];
+    if ([self.delegate respondsToSelector:@selector(facePanelFacePicked:faceSize:faceName:delete:)]) {
+        [self.delegate facePanelFacePicked:self faceSize:1 faceName:faceName delete:NO];
+    }
+}
+
 - (void)initSubViews
 {
     self.faceSources = [FaceSourceManager loadFaceSource];
@@ -90,13 +115,21 @@
     [self addSubview:_panelBottomView];
     
     
+    __weak __typeof(self) weakSelf = self;
     _panelBottomView.addAction = ^(){
-        NSLog(@"add动作");
+        if ([weakSelf.delegate respondsToSelector:@selector(facePanelAddSubject:)]) {
+            [weakSelf.delegate facePanelAddSubject:weakSelf];
+        }
     };
     
     _panelBottomView.setAction = ^(){
-        NSLog(@"set动作");
+        if ([weakSelf.delegate respondsToSelector:@selector(facePanelSetSubject:)]) {
+            [weakSelf.delegate facePanelSetSubject:weakSelf];
+        }
     };
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(smallFaceClick:) name:SmallSizeFacePanelfacePickedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(middleFaceClick:) name:MiddleSizeFacePanelfacePickedNotification object:nil];
 }
 
 

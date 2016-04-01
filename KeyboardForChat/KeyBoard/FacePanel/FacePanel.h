@@ -8,8 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class FacePanel;
+@protocol FacePanelDelegate <NSObject>
+@optional
+
+- (void)facePanelFacePicked:(FacePanel *)facePanel faceSize:(NSInteger)faceSize faceName:(NSString *)faceName delete:(BOOL)isDelete;
+- (void)facePanelSendTextAction:(FacePanel *)facePanel;
+- (void)facePanelAddSubject:(FacePanel *)facePanel;
+- (void)facePanelSetSubject:(FacePanel *)facePanel;
+
+@end
+
 @interface FacePanel : UIView
 
-+ (instancetype)facePanel;
+@property (nonatomic, weak) id<FacePanelDelegate> delegate;
+
 
 @end

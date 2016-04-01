@@ -16,6 +16,8 @@
 #define Lines                       2
 #define Cols                        4
 
+NSString *const MiddleSizeFacePanelfacePickedNotification = @"MiddleSizeFacePanelfacePickedNotification";
+
 @interface MiddleSizePageFaceView ()
 /** buttons容器数组 */
 @property (nonatomic, strong) NSMutableArray *buttons;
@@ -65,6 +67,7 @@
 - (void)faceBtnClick:(FaceButton *)sender
 {
     NSLog(@"点击的图片 %@", sender.faceName);
+    [[NSNotificationCenter defaultCenter] postNotificationName:MiddleSizeFacePanelfacePickedNotification object:sender.faceName];
 }
 
 @end

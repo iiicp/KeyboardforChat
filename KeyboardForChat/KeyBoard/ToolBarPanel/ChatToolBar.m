@@ -7,30 +7,26 @@
 //
 
 #import "ChatToolBar.h"
+#import "Macrol.h"
 
-#define Image(str)  (str == nil || str.length == 0) ? nil : [UIImage imageNamed:str]
-#define ItemW       49
-#define ItemH       49
-#define TextViewH   36
+#define Image(str)              (str == nil || str.length == 0) ? nil : [UIImage imageNamed:str]
+#define ItemW                   44                  //44
+#define ItemH                   kChatToolBarHeight  //49
+#define TextViewH               36
 #define TextViewVerticalOffset  (ItemH-TextViewH)/2.0
-#define ScreenW [[UIScreen mainScreen] bounds].size.width
-#define kRandomColor [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1.0]
 
 @interface ChatToolBar ()<UITextViewDelegate>
 
 @property CGFloat previousTextViewHeight;
 
-/** 切换barView按钮 */
+/** 临时记录输入的textView */
+@property (nonatomic, copy) NSString *currentText;
+
 @property (nonatomic, strong) UIButton *switchBarBtn;
-/** 语音按钮 */
 @property (nonatomic, strong) UIButton *voiceBtn;
-/** 表情按钮 */
 @property (nonatomic, strong) UIButton *faceBtn;
-/** more按钮 */
 @property (nonatomic, strong) UIButton *moreBtn;
-/** 输入文本框 */
 @property (nonatomic, strong) RFTextView *textView;
-/** 按住录制语音按钮 */
 @property (nonatomic, strong) RFRecordButton *recordBtn;
 
 @property (readwrite) BOOL voiceSelected;
@@ -55,7 +51,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setDefaultValue];
-        [self setup];
+        [self initSubviews];
     }
     return self;
 }
@@ -68,7 +64,7 @@
     self.allowMoreFunc = YES;
 }
 
-- (void)setup
+- (void)initSubviews
 {
     // barView
     self.image = [[UIImage imageNamed:@"input-bar-flat"] resizableImageWithCapInsets:UIEdgeInsetsMake(2.0f, 0.0f, 0.0f, 0.0f) resizingMode:UIImageResizingModeStretch];
@@ -97,7 +93,7 @@
     //设置frame
     [self setbarSubViewsFrame];
     
-    //事件
+    //KVO
     [self addObserver:self forKeyPath:@"self.textView.contentSize" options:(NSKeyValueObservingOptionNew) context:nil];
    
     __weak __typeof(self) weekSelf = self;
@@ -149,6 +145,7 @@
     };
 }
 
+// 设置子视图frame
 - (void)setbarSubViewsFrame
 {
     CGFloat barViewH = self.frame.size.height;
@@ -183,7 +180,7 @@
 }
 
 
-#pragma mark -- 方法
+#pragma mark -- 关于按钮
 - (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr
 selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)highLightStr
 {
@@ -209,6 +206,7 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     [btn setImage:Image(selectStr) forState:UIControlStateSelected];
     [btn setImage:Image(highLightStr) forState:UIControlStateHighlighted];
 }
+
 
 - (UIButton *)createBtn:(ButKind)btnKind action:(SEL)sel
 {
@@ -246,16 +244,20 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDidBeginEditing:)]) {
+    if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDidBeginEditing:)])
+    {
         [self.delegate chatToolBarTextViewDidBeginEditing:self.textView];
     }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    if ([text isEqualToString:@"\n"]) {
-        if ([self.delegate respondsToSelector:@selector(chatToolBarSendText:)]) {
-            [self.delegate chatToolBarSendText:text];
+    if ([text isEqualToString:@"\n"])
+    {
+        if ([self.delegate respondsToSelector:@selector(chatToolBarSendText:)])
+        {
+            self.currentText = @"";
+            [self.delegate chatToolBarSendText:textView.text];
         }
         return NO;
     }
@@ -264,13 +266,15 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    NSLog(@"self.textview.content %@", NSStringFromCGSize(textView.contentSize));
-    if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDidChange:)]) {
+    self.currentText = textView.text;
+    
+    if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDidChange:)])
+    {
         [self.delegate chatToolBarTextViewDidChange:self.textView];
     }
 }
 
-#pragma mark - kvo
+#pragma mark - kvo回调
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if (object == self && [keyPath isEqualToString:@"self.textView.contentSize"]) {
@@ -278,7 +282,7 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     }
 }
 
-#pragma mark -- 事件
+#pragma mark -- 工具栏按钮点击事件
 - (void)toolbarBtnClick:(UIButton *)sender
 {
     switch (sender.tag) {
@@ -307,20 +311,28 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     }
 }
 
-- (void)handelVoiceClick:(UIButton *)sender{
-    self.voiceBtn.selected = !self.voiceBtn.selected;
+- (void)handelVoiceClick:(UIButton *)sender
+{
+    self.voiceSelected = self.voiceBtn.selected = !self.voiceBtn.selected;
     self.faceSelected = self.faceBtn.selected = NO;
     self.moreFuncSelected = self.moreBtn.selected = NO;
     BOOL keyBoardChanged = YES;
     
-    if (sender.selected) {
-        self.voiceSelected = YES;
-        if (!self.textView.isFirstResponder) {
+    if (sender.selected)
+    {
+        if (!self.textView.isFirstResponder)
+        {
             keyBoardChanged = NO;
         }
+        
+        [self adjustTextViewContentSize];
+        
         [self.textView resignFirstResponder];
-    }else {
-        self.voiceSelected = NO;
+    }
+    else
+    {
+        [self resumeTextViewContentSize];
+        
         [self.textView becomeFirstResponder];
     }
     
@@ -329,88 +341,96 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
         self.textView.hidden = sender.selected;
     } completion:nil];
     
-    if ([self.delegate respondsToSelector:@selector(chatToolBar:voiceBtnPressed:keyBoardState:)]) {
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:voiceBtnPressed:keyBoardState:)])
+    {
         [self.delegate chatToolBar:self voiceBtnPressed:sender.selected keyBoardState:keyBoardChanged];
     }
 }
 
-- (void)handelFaceClick:(UIButton *)sender{
-    
-    self.faceBtn.selected = !self.faceBtn.selected;
+- (void)handelFaceClick:(UIButton *)sender
+{
+    self.faceSelected = self.faceBtn.selected = !self.faceBtn.selected;
     self.voiceSelected = self.voiceBtn.selected = NO;
     self.moreFuncSelected = self.moreBtn.selected = NO;
     BOOL keyBoardChanged = YES;
     
-    if (sender.selected) {
-        self.faceSelected = YES;
-        if (!self.textView.isFirstResponder) {
+    if (sender.selected)
+    {
+        if (!self.textView.isFirstResponder)
+        {
             keyBoardChanged = NO;
         }
         [self.textView resignFirstResponder];
-    }else {
-        self.faceSelected = NO;
+    }
+    else
+    {
         [self.textView becomeFirstResponder];
     }
     
+    [self resumeTextViewContentSize];
     
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.recordBtn.hidden = YES;
         self.textView.hidden = NO;
     } completion:nil];
     
-    if ([self.delegate respondsToSelector:@selector(chatToolBar:faceBtnPressed:keyBoardState:)]) {
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:faceBtnPressed:keyBoardState:)])
+    {
         [self.delegate chatToolBar:self faceBtnPressed:sender.selected keyBoardState:keyBoardChanged];
     }
 
 }
 
-- (void)handelMoreClick:(UIButton *)sender{
-    self.moreBtn.selected = !self.moreBtn.selected;
+- (void)handelMoreClick:(UIButton *)sender
+{
+    self.moreFuncSelected = self.moreBtn.selected = !self.moreBtn.selected;
     self.voiceSelected = self.voiceBtn.selected = NO;
     self.faceSelected = self.faceBtn.selected = NO;
     
-    //标识一种特殊状态 （键盘无弹起）
     BOOL keyBoardChanged = YES;
     
     if (sender.selected)
     {
-        self.moreFuncSelected = YES;
-        
-        if (!self.textView.isFirstResponder) {
+        if (!self.textView.isFirstResponder)
+        {
             keyBoardChanged = NO;
         }
         [self.textView resignFirstResponder];
     }else {
-        self.moreFuncSelected = NO;
         [self.textView becomeFirstResponder];
     }
+    
+    [self resumeTextViewContentSize];
     
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.recordBtn.hidden = YES;
         self.textView.hidden = NO;
     } completion:nil];
     
-    if ([self.delegate respondsToSelector:@selector(chatToolBar:moreBtnPressed:keyBoardState:)]) {
+    if ([self.delegate respondsToSelector:@selector(chatToolBar:moreBtnPressed:keyBoardState:)])
+    {
         [self.delegate chatToolBar:self moreBtnPressed:sender.selected keyBoardState:keyBoardChanged];
     }
 
 }
-- (void)handelSwitchBarClick:(UIButton *)sender{
+- (void)handelSwitchBarClick:(UIButton *)sender
+{
     BOOL keyBoardChanged = YES;
-    if (sender.selected) {
-        self.switchBarSelected = YES;
-        if (!self.textView.isFirstResponder) {
-            keyBoardChanged = NO;
-        }
-        [self.textView resignFirstResponder];
-    }else {
-        self.switchBarSelected = NO;
+    
+    self.faceSelected = self.faceBtn.selected = NO;
+    self.moreFuncSelected =  self.moreBtn.selected = NO;
+    
+    if (!self.textView.isFirstResponder)
+    {
+        keyBoardChanged = NO;
     }
-    self.switchBarBtn.selected = !self.switchBarBtn.selected;
-    if ([self.delegate respondsToSelector:@selector(chatToolBar:switchToolBarBtnPressed:keyBoardState:)]) {
-        [self.delegate chatToolBar:self switchToolBarBtnPressed:sender.selected keyBoardState:keyBoardChanged];
+    
+    [self.textView resignFirstResponder];
+    
+    if ([self.delegate respondsToSelector:@selector(chatToolBarSwitchToolBarBtnPressed:keyBoardState:)])
+    {
+        [self.delegate chatToolBarSwitchToolBarBtnPressed:self keyBoardState:keyBoardChanged];
     }
-
 }
 
 #pragma mark -- 重写set方法
@@ -465,6 +485,24 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
 }
 
 #pragma mark -- 私有方法
+
+- (void)adjustTextViewContentSize
+{
+    //调整 textView和recordBtn frame
+    self.currentText = self.textView.text;
+    self.textView.text = @"";
+    self.textView.contentSize = CGSizeMake(CGRectGetWidth(self.textView.frame), TextViewH);
+    self.recordBtn.frame = CGRectMake(self.textView.frame.origin.x, TextViewVerticalOffset, self.textView.frame.size.width, TextViewH);
+}
+
+- (void)resumeTextViewContentSize
+{
+    self.textView.text = self.currentText;
+}
+
+
+#pragma mark -- 计算textViewContentSize改变
+
 - (CGFloat)getTextViewContentH:(RFTextView *)textView {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
         return ceilf([textView sizeThatFits:textView.frame.size].height);

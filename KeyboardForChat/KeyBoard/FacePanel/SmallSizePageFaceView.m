@@ -16,6 +16,8 @@
 #define EdgeDistance                10.f
 #define Lines                       3
 
+NSString *const SmallSizeFacePanelfacePickedNotification = @"SmallSizeFacePanelfacePickedNotification";
+
 @interface  SmallSizePageFaceView ()
 /** 按钮数组 */
 @property (nonatomic, strong) NSMutableArray *buttons;
@@ -73,6 +75,15 @@
 - (void)faceBtnClick:(FaceButton *)button
 {
     NSLog(@"name %@", button.faceName);
+    BOOL isDelete = NO;
+    if (button.faceName == nil) {
+        isDelete = YES;
+    }
+    NSDictionary *faceInfo = @{
+                               @"FaceName" : button.faceName,
+                               @"IsDelete" : @(isDelete)
+                               };
+    [[NSNotificationCenter defaultCenter] postNotificationName:SmallSizeFacePanelfacePickedNotification object:faceInfo];
 }
 
 @end

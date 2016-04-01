@@ -11,6 +11,7 @@
 /**
     负责展示中间尺寸的表情 ： 比如自定义gif，自己收藏的图片
  */
+
 @interface MiddleSizePageFaceView : UICollectionViewCell
 
 - (void)loadPerPageFaceData:(NSArray *)faceData;
