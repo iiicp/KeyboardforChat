@@ -99,7 +99,7 @@ typedef void (^ItemViewAction)(MoreItemView *itemView);
     return self;
 }
 
-- (void)loadMoreItems:(NSArray *)items
+- (void)loadMoreItems:(NSArray<MoreItem *> *)items;
 {
     NSInteger maxLinesOfPage = 2;
     NSInteger maxColsOfPage = 4;

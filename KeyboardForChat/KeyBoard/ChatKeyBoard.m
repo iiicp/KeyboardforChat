@@ -13,6 +13,9 @@
 #import "Macrol.h"
 #import "MoreItem.h"
 #import "OfficialAccountToolbar.h"
+#import "ChatToolBarItem.h"
+#import "MoreItem.h"
+#import "FaceSubjectModel.h"
 
 @interface ChatKeyBoard () <ChatToolBarDelegate, FacePanelDelegate, MorePannelDelegate>
 
@@ -58,8 +61,8 @@
         self.OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
         [self addSubview:self.OAtoolbar];
         
-        [self setToolBar];
-        [self setMoreItems];
+//        [self setToolBar];
+//        [self setMoreItems];
         
         __weak __typeof(self) weakself = self;
         self.OAtoolbar.switchAction = ^(){
@@ -248,8 +251,7 @@
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardSendText:)]) {
         [self.delegate chatKeyBoardSendText:text];
     }
-    //内容清空
-    self.chatToolBar.textView.text = @"";
+    [self.chatToolBar clearTextViewContent];
 }
 - (void)chatToolBarTextViewDidChange:(UITextView *)textView
 {
@@ -263,9 +265,9 @@
 {
     NSString *text = self.chatToolBar.textView.text;
     if (isDelete) {
-        [self.chatToolBar setTextContent:[text substringToIndex:text.length - 1]];
+        [self.chatToolBar setTextViewContent:[text substringToIndex:text.length - 1]];
     }else {
-        [self.chatToolBar setTextContent:[text stringByAppendingString:faceName]];
+        [self.chatToolBar setTextViewContent:[text stringByAppendingString:faceName]];
     }
     
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardFacePicked:faceSize:faceName:delete:)]) {
@@ -278,7 +280,7 @@
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardSendText:)]) {
         [self.delegate chatKeyBoardSendText:self.chatToolBar.textView.text];
     }
-    [self.chatToolBar clearText];
+    [self.chatToolBar clearTextViewContent];
 }
 
 - (void)facePanelAddSubject:(FacePanel *)facePanel
@@ -301,16 +303,29 @@
         [self.delegate chatKeyBoard:self didSelectMorePanelItemIndex:index];
     }
 }
+#pragma mark -- dataSource
 
-#pragma mark -- 配置keyboard
-- (void)configChatToolBar
+- (void)setDataSource:(id<ChatKeyBoardDataSource>)dataSource
 {
-    [self setToolBar];
-}
-
-- (void)configChatMorePanel
-{
-    [self setMoreItems];
+    _dataSource = dataSource;
+    if (dataSource == nil) {
+        return;
+    }
+    
+    if ([self.dataSource respondsToSelector:@selector(chatKeyBoardToolbarItems)]) {
+        NSArray<ChatToolBarItem *> *barItems = [self.dataSource chatKeyBoardToolbarItems];
+        [self.chatToolBar loadBarItems:barItems];
+    }
+    
+    if ([self.dataSource respondsToSelector:@selector(chatKeyBoardMorePanelItems)]) {
+        NSArray<MoreItem *> *moreItems = [self.dataSource chatKeyBoardMorePanelItems];
+        [self.morePanel loadMoreItems:moreItems];
+    }
+    
+    if ([self.dataSource respondsToSelector:@selector(chatKeyBoardFacePanelSubjectItems)]) {
+        NSArray<FaceSubjectModel *> *subjectMItems = [self.dataSource chatKeyBoardFacePanelSubjectItems];
+        [self.facePanel loadFaceSubjectItems:subjectMItems];
+    }
 }
 
 #pragma mark -- set方法
@@ -337,10 +352,7 @@
 #pragma mark -- 配置ChatKeyBoard
 - (void)setToolBar
 {
-    [self.chatToolBar setBtn:kButKindFace normalStateImageStr:@"face" selectStateImageStr:@"keyboard" highLightStateImageStr:@"face_HL"];
-    [self.chatToolBar setBtn:kButKindVoice normalStateImageStr:@"voice" selectStateImageStr:@"keyboard" highLightStateImageStr:@"voice_HL"];
-    [self.chatToolBar setBtn:kButKindMore normalStateImageStr:@"more_ios" selectStateImageStr:nil highLightStateImageStr:@"more_ios_HL"];
-    [self.chatToolBar setBtn:kButKindSwitchBar normalStateImageStr:@"switchDown" selectStateImageStr:@"" highLightStateImageStr:nil];
+    
 }
 
 - (void)setMoreItems

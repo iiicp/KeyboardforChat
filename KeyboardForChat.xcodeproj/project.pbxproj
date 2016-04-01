@@ -32,6 +32,7 @@
 		79F245131CABA83500CF1B14 /* FaceSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F245121CABA83500CF1B14 /* FaceSourceManager.m */; };
 		79F245161CABAB8C00CF1B14 /* FaceSubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F245151CABAB8C00CF1B14 /* FaceSubjectModel.m */; };
 		79F2451A1CABC5F200CF1B14 /* FaceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F245191CABC5F200CF1B14 /* FaceButton.m */; };
+		E30D31B51CAEA15100B96B43 /* ChatToolBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E30D31B41CAEA15100B96B43 /* ChatToolBarItem.m */; };
 		E3CE7D3A1CAC24A900C096AE /* emotion.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3CE7D391CAC24A900C096AE /* emotion.plist */; };
 		E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3CE7D3B1CAC266400C096AE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,8 @@
 		79F245151CABAB8C00CF1B14 /* FaceSubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceSubjectModel.m; sourceTree = "<group>"; };
 		79F245181CABC5F200CF1B14 /* FaceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceButton.h; sourceTree = "<group>"; };
 		79F245191CABC5F200CF1B14 /* FaceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceButton.m; sourceTree = "<group>"; };
+		E30D31B31CAEA15100B96B43 /* ChatToolBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolBarItem.h; sourceTree = "<group>"; };
+		E30D31B41CAEA15100B96B43 /* ChatToolBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolBarItem.m; sourceTree = "<group>"; };
 		E3CE7D391CAC24A900C096AE /* emotion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emotion.plist; sourceTree = "<group>"; };
 		E3CE7D3B1CAC266400C096AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -183,6 +186,8 @@
 				791305081CAA5153005D352E /* RFRecordButton.m */,
 				7938B7F81CAE0D1200D0AA9B /* OfficialAccountToolbar.h */,
 				7938B7F91CAE0D1200D0AA9B /* OfficialAccountToolbar.m */,
+				E30D31B31CAEA15100B96B43 /* ChatToolBarItem.h */,
+				E30D31B41CAEA15100B96B43 /* ChatToolBarItem.m */,
 			);
 			path = ToolBarPanel;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 				7901EAC11CAE5E2A00AB9871 /* FaceManagerCenterViewController.m in Sources */,
 				79F244B01CAB728000CF1B14 /* FacePanel.m in Sources */,
 				791305091CAA5153005D352E /* RFRecordButton.m in Sources */,
+				E30D31B51CAEA15100B96B43 /* ChatToolBarItem.m in Sources */,
 				79C90CE81CA94E790059270D /* RFTextView.m in Sources */,
 				79F2451A1CABC5F200CF1B14 /* FaceButton.m in Sources */,
 				792929B71CAD035D00E4376E /* MorePanel.m in Sources */,

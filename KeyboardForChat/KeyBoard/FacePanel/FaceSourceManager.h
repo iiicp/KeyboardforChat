@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FaceSubjectModel.h"
 
 @interface FaceSourceManager : NSObject
 

@@ -7,6 +7,7 @@
 //
 
 #import "ChatToolBar.h"
+#import "ChatToolBarItem.h"
 #import "Macrol.h"
 
 #define Image(str)              (str == nil || str.length == 0) ? nil : [UIImage imageNamed:str]
@@ -178,12 +179,21 @@
     
     self.recordBtn.frame = self.textView.frame;
 }
+#pragma mark -- 加载barItems
+- (void)loadBarItems:(NSArray<ChatToolBarItem *> *)barItems
+{
+    for (ChatToolBarItem* barItem in barItems)
+    {
+        [self setBtn:(NSInteger)barItem.itemKind normalStateImageStr:barItem.normalStr selectStateImageStr:barItem.selectStr highLightStateImageStr:barItem.highLStr];
+    }
+}
+
 #pragma mark -- 调整文本内容
-- (void)setTextContent:(NSString *)text
+- (void)setTextViewContent:(NSString *)text
 {
     self.currentText = self.textView.text = text;
 }
-- (void)clearText
+- (void)clearTextViewContent
 {
     self.currentText = self.textView.text = @"";
 }

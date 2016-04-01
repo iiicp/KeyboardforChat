@@ -7,7 +7,6 @@
 //
 
 #import "FaceSourceManager.h"
-#import "FaceSubjectModel.h"
 
 @implementation FaceSourceManager
 

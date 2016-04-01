@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, ButKind)
 };
 
 @class ChatToolBar;
+@class ChatToolBarItem;
+
 @protocol ChatToolBarDelegate <NSObject>
 
 @optional
@@ -69,11 +71,9 @@ typedef NS_ENUM(NSInteger, ButKind)
 @property (readonly) BOOL switchBarSelected;
 
 
-- (void)setTextContent:(NSString *)text;
-- (void)clearText;
+- (void)setTextViewContent:(NSString *)text;
+- (void)clearTextViewContent;
 
-/** 设置按钮图片 */
-- (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr
-selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)highLightStr;
+- (void)loadBarItems:(NSArray<ChatToolBarItem *> *)barItems;
 
 @end

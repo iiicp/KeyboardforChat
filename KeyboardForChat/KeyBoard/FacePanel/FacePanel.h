@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class FaceSubjectModel;
 @class FacePanel;
 @protocol FacePanelDelegate <NSObject>
 @optional
@@ -23,5 +24,6 @@
 
 @property (nonatomic, weak) id<FacePanelDelegate> delegate;
 
+- (void)loadFaceSubjectItems:(NSArray<FaceSubjectModel *>*)subjectItems;
 
 @end

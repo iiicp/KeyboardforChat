@@ -12,9 +12,12 @@
 @class FacePanel;
 @class MorePanel;
 
+@class MoreItem;
+@class ChatToolBarItem;
+@class FaceSubjectModel;
+
 @class ChatKeyBoard;
 @protocol ChatKeyBoardDelegate <NSObject>
-
 @optional
 /**
  *  语音状态
@@ -46,8 +49,22 @@
 
 @end
 
+/**
+ *  数据源
+ */
+@protocol ChatKeyBoardDataSource <NSObject>
+
+@required
+- (NSArray<MoreItem *> *)chatKeyBoardMorePanelItems;
+- (NSArray<ChatToolBarItem *> *)chatKeyBoardToolbarItems;
+- (NSArray<FaceSubjectModel *> *)chatKeyBoardFacePanelSubjectItems;
+@end
+
 @interface ChatKeyBoard : UIView
 
++ (instancetype)keyBoard;
+
+@property (nonatomic, weak) id<ChatKeyBoardDataSource> dataSource;
 @property (nonatomic, weak) id<ChatKeyBoardDelegate> delegate;
 
 @property (nonatomic, readonly, strong) ChatToolBar *chatToolBar;
@@ -70,11 +87,6 @@
  */
 @property (nonatomic, assign) BOOL allowSwitchBar;
 
-
-+ (instancetype)keyBoard;
-
-- (void)configChatToolBar;
-- (void)configChatMorePanel;
 
 @end
 

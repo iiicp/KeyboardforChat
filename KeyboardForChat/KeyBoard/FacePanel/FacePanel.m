@@ -34,6 +34,11 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
     PanelBottomView  *_panelBottomView;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SmallSizeFacePanelfacePickedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MiddleSizeFacePanelfacePickedNotification object:nil];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -42,6 +47,20 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
         [self initSubViews];
     }
     return self;
+}
+
+#pragma mark -- 数据源
+- (void)loadFaceSubjectItems:(NSArray<FaceSubjectModel *>*)subjectItems
+{
+    self.faceSources = subjectItems;
+    
+    for (int i = 0; i < self.faceSources.count; i++) {
+        FaceView *faceView = [[FaceView alloc] initWithFrame:CGRectMake(i*CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame))];
+        [faceView loadFaceSubject:self.faceSources[i]];
+        [_scrollView addSubview:faceView];
+    }
+    
+    [_panelBottomView loadfaceSubjectPickerSource:self.faceSources];
 }
 
 #pragma mark -- UIScrollViewDelegate
@@ -91,8 +110,6 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
 
 - (void)initSubViews
 {
-    self.faceSources = [FaceSourceManager loadFaceSource];
-    
     self.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.0f];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kFacePanelHeight-kFacePanelBottomToolBarHeight)];
@@ -103,15 +120,9 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
     _scrollView.showsHorizontalScrollIndicator = NO;
     [self addSubview:_scrollView];
     
-    for (int i = 0; i < self.faceSources.count; i++) {
-        FaceView *faceView = [[FaceView alloc] initWithFrame:CGRectMake(i*CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame))];
-        [faceView loadFaceSubject:self.faceSources[i]];
-        [_scrollView addSubview:faceView];
-    }
     
     _panelBottomView = [[PanelBottomView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_scrollView.frame), self.frame.size.width, kFacePanelBottomToolBarHeight)];
     _panelBottomView.delegate = self;
-    [_panelBottomView loadfaceSubjectPickerSource:self.faceSources];
     [self addSubview:_panelBottomView];
     
     

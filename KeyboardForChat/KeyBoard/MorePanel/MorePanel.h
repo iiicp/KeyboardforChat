@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class MoreItem;
 @class MorePanel;
 @protocol MorePannelDelegate <NSObject>
 
@@ -23,6 +24,6 @@
 
 + (instancetype)morePannel;
 
-- (void)loadMoreItems:(NSArray *)items;
+- (void)loadMoreItems:(NSArray<MoreItem *> *)items;
 
 @end
