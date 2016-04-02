@@ -54,6 +54,8 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
 {
     self.faceSources = subjectItems;
     
+    _scrollView.contentSize = CGSizeMake(self.frame.size.width * self.faceSources.count, 0);
+    
     for (int i = 0; i < self.faceSources.count; i++) {
         FaceView *faceView = [[FaceView alloc] initWithFrame:CGRectMake(i*CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame))];
         [faceView loadFaceSubject:self.faceSources[i]];
@@ -113,7 +115,6 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
     self.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.0f];
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kFacePanelHeight-kFacePanelBottomToolBarHeight)];
-    _scrollView.contentSize = CGSizeMake(self.frame.size.width * self.faceSources.count, 0);
     _scrollView.pagingEnabled = YES;
     _scrollView.delegate = self;
     _scrollView.showsVerticalScrollIndicator = NO;

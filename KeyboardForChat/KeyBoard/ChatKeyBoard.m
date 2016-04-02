@@ -61,9 +61,6 @@
         self.OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
         [self addSubview:self.OAtoolbar];
         
-//        [self setToolBar];
-//        [self setMoreItems];
-        
         __weak __typeof(self) weakself = self;
         self.OAtoolbar.switchAction = ^(){
             [UIView animateWithDuration:0.25 animations:^{
@@ -347,26 +344,6 @@
 - (void)setAllowSwitchBar:(BOOL)allowSwitchBar
 {
     self.chatToolBar.allowSwitchBar = allowSwitchBar;
-}
-
-#pragma mark -- 配置ChatKeyBoard
-- (void)setToolBar
-{
-    
-}
-
-- (void)setMoreItems
-{
-    MoreItem *item1 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
-    MoreItem *item2 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
-    MoreItem *item3 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
-    MoreItem *item4 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
-    MoreItem *item5 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
-    MoreItem *item6 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
-    MoreItem *item7 = [MoreItem moreItemWithPicName:@"sharemore_location" highLightPicName:nil itemName:@"位置"];
-    MoreItem *item8 = [MoreItem moreItemWithPicName:@"sharemore_pic" highLightPicName:nil itemName:@"图片"];
-    MoreItem *item9 = [MoreItem moreItemWithPicName:@"sharemore_video" highLightPicName:nil itemName:@"拍照"];
-    [self.morePanel loadMoreItems:@[item1, item2, item3, item4, item5,item6,item7,item8,item9]];
 }
 
 @end
