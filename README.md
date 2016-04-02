@@ -1,7 +1,7 @@
 # KeyboardForChat
 仿微信聊天键盘工具封装 
 
-交流 25811502433@qq.com
+交流 2581502433@qq.com
 
 # 控件使用效果
 ![](2016-04-02 11_31_12.gif)
@@ -52,9 +52,10 @@
 ```
 
 ##控件可以更具业务需要，更换业务模型
-`MoreItem` 
-`ChatToolBarItem` 
-`FaceSubjectModel` 
-`FaceSourceManager` 
+`MoreItem`  
+`ChatToolBarItem`  
+`FaceSubjectModel`   
+`FaceSourceManager`   
 
-##感谢`MessageDisplayKit`
+##感谢  
+`MessageDisplayKit`
