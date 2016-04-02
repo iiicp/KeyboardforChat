@@ -1,8 +1,6 @@
 # KeyboardForChat
 仿微信聊天键盘。  
-优点：无污染，无任何第三方。  
-      对表情键盘采用scrollView + collectionView 来做，有效的优化了表情模块。
-      使用简单
+优点：无污染，无任何第三方，使用简单。
 
 交流 2581502433@qq.com
 
