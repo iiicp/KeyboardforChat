@@ -82,6 +82,8 @@ NSString *const SmallSizeFacePanelfacePickedNotification = @"SmallSizeFacePanelf
     BOOL isDelete = NO;
     if (button.faceName == nil) {
         isDelete = YES;
+    }else {
+        button.faceName = @"";
     }
     NSDictionary *faceInfo = @{
                                @"FaceName" : button.faceName,
