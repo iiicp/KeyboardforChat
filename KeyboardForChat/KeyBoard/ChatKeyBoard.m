@@ -266,7 +266,11 @@
 {
     NSString *text = self.chatToolBar.textView.text;
     if (isDelete) {
-        [self.chatToolBar setTextViewContent:[text substringToIndex:text.length - 1]];
+        if (text.length > 1) {
+            [self.chatToolBar setTextViewContent:[text substringToIndex:text.length - 1]];
+        }else {
+            [self.chatToolBar setTextViewContent:@""];
+        }
     }else {
         [self.chatToolBar setTextViewContent:[text stringByAppendingString:faceName]];
     }

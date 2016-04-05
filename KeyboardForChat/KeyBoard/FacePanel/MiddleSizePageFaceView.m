@@ -64,6 +64,7 @@ NSString *const MiddleSizeFacePanelfacePickedNotification = @"MiddleSizeFacePane
     for (NSInteger i = faceData.count; i < self.buttons.count; ++i) {
         FaceButton *btn = self.buttons[i];
         btn.hidden = YES;
+        btn.faceName = nil;
         [btn setImage:nil forState:UIControlStateNormal];
     }
 }

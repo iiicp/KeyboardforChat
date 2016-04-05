@@ -72,6 +72,7 @@ NSString *const SmallSizeFacePanelfacePickedNotification = @"SmallSizeFacePanelf
     for (NSInteger i = faceData.count+1; i < self.buttons.count; ++i) {
         FaceButton *btn = self.buttons[i];
         btn.hidden = YES;
+        btn.faceName = nil;
         [btn setImage:nil forState:UIControlStateNormal];
     }
 }
@@ -82,11 +83,10 @@ NSString *const SmallSizeFacePanelfacePickedNotification = @"SmallSizeFacePanelf
     BOOL isDelete = NO;
     if (button.faceName == nil) {
         isDelete = YES;
-    }else {
-        button.faceName = @"";
     }
+    
     NSDictionary *faceInfo = @{
-                               @"FaceName" : button.faceName,
+                               @"FaceName" : button.faceName ? button.faceName : @"",
                                @"IsDelete" : @(isDelete)
                                };
     [[NSNotificationCenter defaultCenter] postNotificationName:SmallSizeFacePanelfacePickedNotification object:faceInfo];
