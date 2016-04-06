@@ -14,7 +14,7 @@
 #import "SmallSizePageFaceView.h"
 #import "MiddleSizePageFaceView.h"
 #import "FaceSubjectModel.h"
-#import "ChatKeyBoardMacrolDefine.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 NSString *const SmallSizePageFaceViewIdentifier = @"SmallSizePageFaceViewIdentifier";
 NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdentifier";

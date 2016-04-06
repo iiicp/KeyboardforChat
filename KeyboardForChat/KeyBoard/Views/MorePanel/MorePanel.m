@@ -12,7 +12,7 @@
 
 #import "MorePanel.h"
 #import "MoreItem.h"
-#import "ChatKeyBoardMacrolDefine.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 @class MoreItemView;
 

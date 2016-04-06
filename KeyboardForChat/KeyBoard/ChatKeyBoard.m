@@ -11,15 +11,17 @@
 //
 
 #import "ChatKeyBoard.h"
+
 #import "ChatToolBar.h"
 #import "FacePanel.h"
 #import "MorePanel.h"
-#import "Macrol.h"
+
 #import "MoreItem.h"
-#import "OfficialAccountToolbar.h"
 #import "ChatToolBarItem.h"
-#import "MoreItem.h"
 #import "FaceSubjectModel.h"
+
+#import "OfficialAccountToolbar.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 @interface ChatKeyBoard () <ChatToolBarDelegate, FacePanelDelegate, MorePannelDelegate>
 

@@ -13,7 +13,7 @@
 #import "MiddleSizePageFaceView.h"
 #import "FaceSubjectModel.h"
 #import "FaceButton.h"
-#import "ChatKeyBoardMacrolDefine.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 #define FaceContainerHeight       kFacePanelHeight - kFacePanelBottomToolBarHeight - kUIPageControllerHeight //146
 #define Item                        60.f

@@ -11,7 +11,7 @@
 //
 
 #import "OfficialAccountToolbar.h"
-#import "ChatKeyBoardMacrolDefine.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 @implementation OfficialAccountToolbar
 {

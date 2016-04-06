@@ -44,7 +44,7 @@
 		7901EABE1CAE5E2A00AB9871 /* FaceManagerCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceManagerCenterViewController.h; sourceTree = "<group>"; };
 		7901EABF1CAE5E2A00AB9871 /* FaceManagerCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceManagerCenterViewController.m; sourceTree = "<group>"; };
 		7901EAC01CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceManagerCenterViewController.xib; sourceTree = "<group>"; };
-		792929AD1CACB4D400E4376E /* ChatKeyBoardMacrolDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoardMacrolDefine.h; sourceTree = "<group>"; };
+		792929AD1CACB4D400E4376E /* ChatKeyBoardMacroDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoardMacroDefine.h; sourceTree = "<group>"; };
 		795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoard.h; sourceTree = "<group>"; };
 		795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatKeyBoard.m; sourceTree = "<group>"; };
 		79891E1C1CA8FFFF0031B2AE /* KeyboardForChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardForChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,7 +226,7 @@
 				79A125961CB4AE2E0017EEA0 /* Views */,
 				795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */,
 				795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */,
-				792929AD1CACB4D400E4376E /* ChatKeyBoardMacrolDefine.h */,
+				792929AD1CACB4D400E4376E /* ChatKeyBoardMacroDefine.h */,
 			);
 			path = KeyBoard;
 			sourceTree = "<group>";
