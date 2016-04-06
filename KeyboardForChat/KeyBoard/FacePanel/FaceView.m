@@ -143,7 +143,6 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
-    _collectionView.showsHorizontalScrollIndicator = YES;
     _collectionView.pagingEnabled = YES;
     _collectionView.bounces = NO;
     _collectionView.dataSource = self;
