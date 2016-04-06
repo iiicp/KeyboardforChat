@@ -10,6 +10,10 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
+/**
+ *  可以定制，控件只是为了演示，（原因是缺少图片）
+ */
+
 #import <UIKit/UIKit.h>
 
 typedef void (^ADDACTIONBLOCK)();

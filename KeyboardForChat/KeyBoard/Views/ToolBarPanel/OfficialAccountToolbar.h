@@ -10,6 +10,11 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
+
+/**
+ *  可以完全定制，控件只是为了演示效果
+ */
+
 #import <UIKit/UIKit.h>
 
 typedef void (^SWITCHACTION) ();
