@@ -2,7 +2,7 @@
 仿微信聊天键盘。  
 优点：无污染，无任何第三方，使用简单。
 
-博客：[devcai.com](devcai.com)  
+博客：[devcai.com](http://devcai.com)  
 
   qq: 2581502433@qq.com
 
