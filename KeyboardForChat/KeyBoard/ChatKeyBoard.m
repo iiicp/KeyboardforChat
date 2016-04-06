@@ -88,38 +88,56 @@
 #pragma mark -- 跟随键盘的坐标变化
 - (void)keyBoardWillChangeFrame:(NSNotification *)notification
 {
-    [UIView animateWithDuration:0.25 animations:^{
-        
-        if (self.chatToolBar.faceSelected) {
+    // 键盘已经弹起时，表情按钮被选择
+    if (self.chatToolBar.faceSelected && (kScreenHeight - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
+    {
+        [UIView animateWithDuration:0.25 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = YES;
             self.facePanel.hidden = NO;
             self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
-            
-        }else if (self.chatToolBar.moreFuncSelected){
+        } completion:nil];
+    }
+    // 键盘已经弹起时，more按钮被选择
+    else if (self.chatToolBar.moreFuncSelected && (kScreenHeight - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
+    {
+        [UIView animateWithDuration:0.25 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = NO;
             self.facePanel.hidden = YES;
             self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
-            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
+            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+        } completion:nil];
+    }
+    //语音按钮被选择，且textview并不是第一响应者
+    else if (self.chatToolBar.voiceSelected && !self.chatToolBar.textView.isFirstResponder)
+    {
+        [UIView animateWithDuration:0.25 animations:^{
+            self.morePanel.hidden = YES;
+            self.facePanel.hidden = YES;
+            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
+            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+        }];
+    }
+    else
+    {
+        [UIView animateWithDuration:0.25 animations:^{
             
-        }else if (self.chatToolBar.voiceSelected && !self.chatToolBar.textView.isFirstResponder){
-            CGFloat y = self.frame.origin.y;
-            y = kScreenHeight - self.chatToolBar.frame.size.height;
-            self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
-            
-        }else{
             CGRect begin = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
             CGRect end = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
             CGFloat duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-
-           
+            
+            
             if(begin.size.height>0 && (begin.origin.y-end.origin.y>0))
             {
                 // 键盘弹起 (包括，第三方键盘回调三次问题，监听仅执行最后一次)
                 CGFloat targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
+                self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+                self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+                
             }
             else if (end.origin.y == kScreenHeight && begin.origin.y!=end.origin.y && duration > 0)
             {
@@ -132,8 +150,9 @@
                 CGFloat targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
             }
-        }
-    }];
+
+        }];
+    }
 }
 
 #pragma mark -- kvo

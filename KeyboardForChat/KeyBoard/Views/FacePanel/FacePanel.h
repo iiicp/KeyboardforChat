@@ -10,6 +10,11 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
+
+/**
+ *  管理所有的表情主题
+ */
+
 #import <UIKit/UIKit.h>
 
 @class FaceSubjectModel;

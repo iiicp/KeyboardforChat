@@ -56,18 +56,16 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
         SmallSizePageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SmallSizePageFaceViewIdentifier forIndexPath:indexPath];
         [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
         
-        NSLog(@"indexPath %zd", indexPath.row);
-     
         return cell;
     }
     else if (_subjectModel.faceSize == SubjectFaceSizeKindMiddle)
     {
         MiddleSizePageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MiddleSizePageFaceViewIdentifier forIndexPath:indexPath];
         [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
-         NSLog(@"indexPath %zd", indexPath.row);
+  
         return cell;
     }
-    else if (_subjectModel.faceSize == SubjectFaceSizeKindKindBig) {
+    else if (_subjectModel.faceSize == SubjectFaceSizeKindBig) {
         return nil;
     }
     return [[UICollectionViewCell alloc] init];
@@ -85,7 +83,9 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
     }
 }
 
-//加载表情主题
+/**
+ *  加载表情主题，并进行分页
+ */
 - (void)loadFaceSubject:(FaceSubjectModel *)faceSubject;
 {
     _subjectModel = faceSubject;

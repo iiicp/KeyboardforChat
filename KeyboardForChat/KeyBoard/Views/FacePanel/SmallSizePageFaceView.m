@@ -64,6 +64,7 @@ NSString *const SmallSizeFacePanelfacePickedNotification = @"SmallSizeFacePanelf
         [btn setImage:[UIImage imageNamed:fm.facePicName] forState:UIControlStateNormal];
         btn.faceName = fm.faceName;
     }
+    
     FaceButton *btn =self.buttons[faceData.count];
     btn.hidden = NO;
     [btn setImage:[UIImage imageNamed:@"Delete_ios7"] forState:UIControlStateNormal];

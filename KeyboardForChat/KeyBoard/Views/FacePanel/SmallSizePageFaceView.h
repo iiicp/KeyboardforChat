@@ -16,8 +16,6 @@
 /**
     负责小尺寸的表情图片展示 比如：展示emoji类型的
  */
-
-
 @interface SmallSizePageFaceView : UICollectionViewCell
 
 - (void)loadPerPageFaceData:(NSArray *)faceData;

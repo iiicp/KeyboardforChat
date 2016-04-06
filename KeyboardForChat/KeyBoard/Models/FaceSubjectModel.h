@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, SubjectFaceSizeKind)
 {
     SubjectFaceSizeKindSmall,       //40
     SubjectFaceSizeKindMiddle,      //60
-    SubjectFaceSizeKindKindBig      //...
+    SubjectFaceSizeKindBig          //... maybe 100
 };
 
 @interface FaceModel : NSObject

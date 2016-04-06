@@ -14,6 +14,10 @@
 
 @class FaceSubjectModel;
 
+/**
+ *  负责展示，每一个表情主题
+ */
+
 @interface FaceView : UIView
 
 - (void)loadFaceSubject:(FaceSubjectModel *)faceSubject;

@@ -179,18 +179,18 @@
 		79A125971CB4AE2E0017EEA0 /* FacePanel */ = {
 			isa = PBXGroup;
 			children = (
-				79A125981CB4AE2E0017EEA0 /* FaceButton.h */,
-				79A125991CB4AE2E0017EEA0 /* FaceButton.m */,
 				79A1259A1CB4AE2E0017EEA0 /* FacePanel.h */,
 				79A1259B1CB4AE2E0017EEA0 /* FacePanel.m */,
 				79A1259C1CB4AE2E0017EEA0 /* FaceView.h */,
 				79A1259D1CB4AE2E0017EEA0 /* FaceView.m */,
+				79A125981CB4AE2E0017EEA0 /* FaceButton.h */,
+				79A125991CB4AE2E0017EEA0 /* FaceButton.m */,
+				79A125A21CB4AE2E0017EEA0 /* SmallSizePageFaceView.h */,
+				79A125A31CB4AE2E0017EEA0 /* SmallSizePageFaceView.m */,
 				79A1259E1CB4AE2E0017EEA0 /* MiddleSizePageFaceView.h */,
 				79A1259F1CB4AE2E0017EEA0 /* MiddleSizePageFaceView.m */,
 				79A125A01CB4AE2E0017EEA0 /* PanelBottomView.h */,
 				79A125A11CB4AE2E0017EEA0 /* PanelBottomView.m */,
-				79A125A21CB4AE2E0017EEA0 /* SmallSizePageFaceView.h */,
-				79A125A31CB4AE2E0017EEA0 /* SmallSizePageFaceView.m */,
 			);
 			path = FacePanel;
 			sourceTree = "<group>";
