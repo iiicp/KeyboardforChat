@@ -16,24 +16,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"我的表情";
     
-    self.title = @"表情管理器";
+    [self addleftBtn];
+    [self addRightBtn];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)addleftBtn
+{
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(0, 0, 44, 44);
+    [leftBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)addRightBtn
+{
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 44, 44);
+    [rightBtn setTitle:@"排序" forState:UIControlStateNormal];
+    [rightBtn setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(sortAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
 }
-*/
+
+#pragma mark -- action
+- (void)closeAction:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)sortAction:(UIButton *)sender
+{
+    
+}
+
 
 @end

@@ -22,16 +22,17 @@ typedef NS_ENUM(NSInteger, SubjectFaceSizeKind)
 @interface FaceModel : NSObject
 
 /** 表情名字 */
-@property (nonatomic, copy) NSString *faceName;
+@property (nonatomic, copy) NSString *faceTitle;
 /** 表情图片名字 */
-@property (nonatomic, copy) NSString *facePicName;
+@property (nonatomic, copy) NSString *faceIcon;
 
 @end
 
 @interface FaceSubjectModel : NSObject
 
 @property (nonatomic, assign) SubjectFaceSizeKind faceSize;
-@property (nonatomic, copy)   NSString *subjectName;
+@property (nonatomic, copy)   NSString *subjectIcon;
+@property (nonatomic, copy)   NSString *subjectTitle;
 @property (nonatomic, strong) NSArray *faceModels;
 
 @end

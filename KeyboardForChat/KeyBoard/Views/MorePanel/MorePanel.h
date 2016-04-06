@@ -17,7 +17,6 @@
 @protocol MorePannelDelegate <NSObject>
 
 @optional
-
 - (void)morePannel:(MorePanel *)morePannel didSelectItemIndex:(NSInteger)index;
 
 @end

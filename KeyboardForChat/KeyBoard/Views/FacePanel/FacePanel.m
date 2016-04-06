@@ -115,7 +115,7 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
 
 - (void)initSubViews
 {
-    self.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.0f];
+    self.backgroundColor = kChatKeyBoardColor;
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kFacePanelHeight-kFacePanelBottomToolBarHeight)];
     _scrollView.pagingEnabled = YES;

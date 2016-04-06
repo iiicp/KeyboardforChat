@@ -125,13 +125,14 @@
 - (void)chatKeyBoardAddFaceSubject:(ChatKeyBoard *)chatKeyBoard
 {
     FaceStoreViewController *faceStore = [[FaceStoreViewController alloc] init];
-    [self.navigationController pushViewController:faceStore animated:YES];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faceStore];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 - (void)chatKeyBoardSetFaceSubject:(ChatKeyBoard *)chatKeyBoard
 {
     FaceManagerCenterViewController *faceManage = [[FaceManagerCenterViewController alloc] init];
-    [self.navigationController pushViewController:faceManage animated:YES];
-
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faceManage];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark -- 更多

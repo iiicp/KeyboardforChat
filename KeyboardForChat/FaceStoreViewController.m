@@ -18,22 +18,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"表情商店";
+    [self addleftBtn];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)addleftBtn
+{
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(0, 0, 44, 44);
+    [leftBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(closeAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark -- action
+- (void)closeAction:(UIButton *)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
 
 @end

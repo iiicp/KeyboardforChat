@@ -33,19 +33,21 @@
         
         if ([plistName isEqualToString:@"face"]) {
             subjectM.faceSize = SubjectFaceSizeKindSmall;
+            subjectM.subjectTitle = [NSString stringWithFormat:@"f%d", i];
+            subjectM.subjectIcon = @"section0_emotion0";
         }else {
             subjectM.faceSize = SubjectFaceSizeKindMiddle;
+            subjectM.subjectTitle = [NSString stringWithFormat:@"e%d", i];
+            subjectM.subjectIcon = @"f_static_000";
         }
         
-        //可以自己配置成图片名
-        subjectM.subjectName = [NSString stringWithFormat:@"f%d", i];
         
         NSMutableArray *modelsArr = [NSMutableArray array];
         
         for (NSString *name in allkeys) {
             FaceModel *fm = [[FaceModel alloc] init];
-            fm.faceName = name;
-            fm.facePicName = [faceDic objectForKey:name];
+            fm.faceTitle = name;
+            fm.faceIcon = [faceDic objectForKey:name];
             [modelsArr addObject:fm];
         }
         subjectM.faceModels = modelsArr;

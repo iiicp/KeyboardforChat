@@ -14,6 +14,6 @@
 
 @interface FaceButton : UIButton
 
-@property (nonatomic, copy) NSString *faceName;
+@property (nonatomic, copy) NSString *faceTitle;
 
 @end

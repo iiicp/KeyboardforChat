@@ -68,7 +68,7 @@
             btn.selected = YES;
         }
         btn.tag = i+100;
-        [btn setTitle:subjectM.subjectName forState:UIControlStateNormal];
+        [btn setTitle:subjectM.subjectTitle forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor purpleColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(subjectPicBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.frame = CGRectMake(i*kFacePanelBottomToolBarHeight, 0, kFacePanelBottomToolBarHeight, kFacePanelBottomToolBarHeight);
@@ -78,8 +78,6 @@
              NSInteger pages = CGRectGetMaxX(btn.frame) / CGRectGetWidth(_facePickerView.frame) + 1;
             _facePickerView.contentSize = CGSizeMake(pages*CGRectGetWidth(_facePickerView.frame), 0);
         }
-        
-//        _facePickerView.contentSize = CGSizeMake(CGRectGetMaxX(btn.frame), 0);
     }
 }
 

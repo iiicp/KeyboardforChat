@@ -61,33 +61,33 @@ NSString *const SmallSizeFacePanelfacePickedNotification = @"SmallSizeFacePanelf
         FaceModel *fm = faceData[i];
         FaceButton *btn = self.buttons[i];
         btn.hidden = NO;
-        [btn setImage:[UIImage imageNamed:fm.facePicName] forState:UIControlStateNormal];
-        btn.faceName = fm.faceName;
+        [btn setImage:[UIImage imageNamed:fm.faceIcon] forState:UIControlStateNormal];
+        btn.faceTitle = fm.faceTitle;
     }
     
     FaceButton *btn =self.buttons[faceData.count];
     btn.hidden = NO;
     [btn setImage:[UIImage imageNamed:@"Delete_ios7"] forState:UIControlStateNormal];
-    btn.faceName = nil;
+    btn.faceTitle = nil;
     
     for (NSInteger i = faceData.count+1; i < self.buttons.count; ++i) {
         FaceButton *btn = self.buttons[i];
         btn.hidden = YES;
-        btn.faceName = nil;
+        btn.faceTitle = nil;
         [btn setImage:nil forState:UIControlStateNormal];
     }
 }
 
 - (void)faceBtnClick:(FaceButton *)button
 {
-    NSLog(@"name %@", button.faceName);
+    NSLog(@"name %@", button.faceTitle);
     BOOL isDelete = NO;
-    if (button.faceName == nil) {
+    if (button.faceTitle == nil) {
         isDelete = YES;
     }
     
     NSDictionary *faceInfo = @{
-                               @"FaceName" : button.faceName ? button.faceName : @"",
+                               @"FaceName" : button.faceTitle ? button.faceTitle : @"",
                                @"IsDelete" : @(isDelete)
                                };
     [[NSNotificationCenter defaultCenter] postNotificationName:SmallSizeFacePanelfacePickedNotification object:faceInfo];

@@ -84,7 +84,7 @@ typedef void (^ItemViewAction)(MoreItemView *itemView);
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1.0f];
+        self.backgroundColor = kChatKeyBoardColor;
         
         _contentView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, kMorePanelHeight - kUIPageControllerHeight)];
         _contentView.showsHorizontalScrollIndicator = NO;

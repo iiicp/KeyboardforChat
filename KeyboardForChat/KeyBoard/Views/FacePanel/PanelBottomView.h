@@ -21,7 +21,6 @@ typedef void (^SETACTIONBLOCK)();
 
 @optional
 - (void)panelBottomView:(PanelBottomView*)panelBottomView didPickerFaceSubjectIndex:(NSInteger)faceSubjectIndex;
-
 - (void)panelBottomViewSendAction:(PanelBottomView*)panelBottomView;
 
 @end

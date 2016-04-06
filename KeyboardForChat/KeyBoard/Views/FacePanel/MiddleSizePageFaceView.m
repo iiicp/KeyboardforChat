@@ -57,22 +57,22 @@ NSString *const MiddleSizeFacePanelfacePickedNotification = @"MiddleSizeFacePane
         FaceModel *fm = faceData[i];
         FaceButton *btn = self.buttons[i];
         btn.hidden = NO;
-        [btn setImage:[UIImage imageNamed:fm.facePicName] forState:UIControlStateNormal];
-        btn.faceName = fm.facePicName;
+        [btn setImage:[UIImage imageNamed:fm.faceIcon] forState:UIControlStateNormal];
+        btn.faceTitle = fm.faceTitle;
     }
     
     for (NSInteger i = faceData.count; i < self.buttons.count; ++i) {
         FaceButton *btn = self.buttons[i];
         btn.hidden = YES;
-        btn.faceName = nil;
+        btn.faceTitle = nil;
         [btn setImage:nil forState:UIControlStateNormal];
     }
 }
 
 - (void)faceBtnClick:(FaceButton *)sender
 {
-    NSLog(@"点击的图片 %@", sender.faceName);
-    [[NSNotificationCenter defaultCenter] postNotificationName:MiddleSizeFacePanelfacePickedNotification object:sender.faceName];
+    NSLog(@"点击的图片 %@", sender.faceTitle);
+    [[NSNotificationCenter defaultCenter] postNotificationName:MiddleSizeFacePanelfacePickedNotification object:sender.faceTitle];
 }
 
 @end
