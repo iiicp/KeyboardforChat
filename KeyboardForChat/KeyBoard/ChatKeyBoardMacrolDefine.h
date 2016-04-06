@@ -6,8 +6,8 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#ifndef Macrol_h
-#define Macrol_h
+#ifndef ChatKeyBoardMacrolDefine_h
+#define ChatKeyBoardMacrolDefine_h
 
 #define kScreenWidth  [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
@@ -33,4 +33,4 @@
 #define isIPhone6_6s               (kScreenWidth == 375)
 #define isIPhone6p_6sp             (kScreenWidth == 414)
 
-#endif /* Macrol_h */
+#endif /* ChatKeyBoardMacrolDefine_h */

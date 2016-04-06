@@ -12,7 +12,7 @@
 
 #import "PanelBottomView.h"
 #import "FaceSubjectModel.h"
-#import "Macrol.h"
+#import "ChatKeyBoardMacrolDefine.h"
 
 @implementation PanelBottomView
 {

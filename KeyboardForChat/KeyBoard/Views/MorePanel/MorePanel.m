@@ -11,8 +11,8 @@
 //
 
 #import "MorePanel.h"
-#import "Macrol.h"
 #import "MoreItem.h"
+#import "ChatKeyBoardMacrolDefine.h"
 
 @class MoreItemView;
 

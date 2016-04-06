@@ -21,7 +21,7 @@
 #import "FaceView.h"
 #import "PanelBottomView.h"
 #import "FaceSourceManager.h"
-#import "Macrol.h"
+#import "ChatKeyBoardMacrolDefine.h"
 
 extern NSString * SmallSizeFacePanelfacePickedNotification;
 extern NSString * MiddleSizeFacePanelfacePickedNotification;

@@ -12,7 +12,7 @@
 
 #import "ChatToolBar.h"
 #import "ChatToolBarItem.h"
-#import "Macrol.h"
+#import "ChatKeyBoardMacrolDefine.h"
 
 #define Image(str)              (str == nil || str.length == 0) ? nil : [UIImage imageNamed:str]
 #define ItemW                   44                  //44
