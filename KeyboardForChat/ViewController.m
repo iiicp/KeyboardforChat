@@ -34,8 +34,13 @@
 {
     [super viewDidLoad];
     
-    //默认导航栏是透明的
-//    self.chatKeyBoard = [ChatKeyBoard keyBoard];
+    /**
+     *  导航栏不透明，则用这个初始化方法
+     *  NO 表示导航栏不透明
+     *  YES 表示导航栏透明
+     *
+     *  导航栏透明默认使用 [ChatKeyBoard keyBoard]
+     */
     self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO];
     
     self.chatKeyBoard.delegate = self;
