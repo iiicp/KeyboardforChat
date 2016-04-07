@@ -373,11 +373,15 @@
 #pragma mark -- set方法
 - (void)setPlaceHolder:(NSString *)placeHolder
 {
+    _placeHolder = placeHolder;
+    
     [self.chatToolBar setTextViewPlaceHolder:placeHolder];
 }
 
 - (void)setPlaceHolderColor:(UIColor *)placeHolderColor
 {
+    _placeHolderColor = placeHolderColor;
+    
     [self.chatToolBar setTextViewPlaceHolderColor:placeHolderColor];
 }
 
