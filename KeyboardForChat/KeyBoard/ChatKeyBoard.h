@@ -73,6 +73,9 @@
 
 /**
  *  初始化，传入导航栏是否透明的标识
+ *
+ *  translucent == YES 表示导航栏是透明
+ *  translucent == NO  表示导航栏不透明
  */
 + (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent;
 
