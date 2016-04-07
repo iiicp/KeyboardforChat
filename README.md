@@ -20,11 +20,19 @@
 ```objc
     // 使用 keyBoard 默认导航栏是透明的
     self.chatKeyBoard = [ChatKeyBoard keyBoard];
+    
     // 如果导航栏不透明，请使用 + (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent;
     // self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO];
 
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
+    
+    //可以设置placeHolder
+    self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
+    /**
+     *  placeHolderColor 默认是 浅灰色
+     */
+    //self.chatKeyBoard.placeHolderColor = [UIColor redColor];
     
     [self.view addSubview:self.chatKeyBoard];
 ```
