@@ -13,7 +13,11 @@
 
 ## 添加数据源
 ```objc
+    // 使用 keyBoard 默认导航栏是透明的
     self.chatKeyBoard = [ChatKeyBoard keyBoard];
+    // 如果导航栏不透明，请使用 + (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent;
+    // self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO];
+
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
     
@@ -53,6 +57,10 @@
     return [FaceSourceManager loadFaceSource];
 }
 ```
+
+##控件里面的一些View可以自己定制，里面只是稍微演示
+`PanelBottomView`
+`OfficialAccountToolbar`
 
 ##控件可以根据业务需要，更换业务模型
 `MoreItem`  
