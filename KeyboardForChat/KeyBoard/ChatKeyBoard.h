@@ -67,7 +67,7 @@
 @interface ChatKeyBoard : UIView
 
 /**
- *  默认是导航栏透明
+ *  默认是导航栏透明，或者没有导航栏
  */
 + (instancetype)keyBoard;
 
