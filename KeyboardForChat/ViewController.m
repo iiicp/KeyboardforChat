@@ -39,9 +39,10 @@
      *  NO 表示导航栏不透明
      *  YES 表示导航栏透明
      *
-     *  导航栏透明默认使用 [ChatKeyBoard keyBoard]
+     *  导航栏透明或者没有导航栏，默认使用 [ChatKeyBoard keyBoard] 
      */
-    self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO];
+    
+    self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:YES];
     
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
