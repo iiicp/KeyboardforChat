@@ -86,6 +86,16 @@
 @property (nonatomic, readonly, strong) ChatToolBar *chatToolBar;
 @property (nonatomic, readonly, strong) FacePanel *facePanel;
 @property (nonatomic, readonly, strong) MorePanel *morePanel;
+
+/**
+ *  placeHolder内容
+ */
+@property (nonatomic, copy) NSString * placeHolder;
+/**
+ *  placeHolder颜色
+ */
+@property (nonatomic, strong) UIColor *placeHolderColor;
+
 /**
  *  是否开启语音, 默认开启
  */

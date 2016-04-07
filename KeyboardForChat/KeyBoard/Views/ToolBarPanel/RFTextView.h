@@ -14,6 +14,10 @@
 
 @interface RFTextView : UITextView
 
+@property (nonatomic, copy) NSString * placeHolder;
+
+@property (nonatomic, strong) UIColor * placeHolderTextColor;
+
 - (NSUInteger)numberOfLinesOfText;
 
 @end

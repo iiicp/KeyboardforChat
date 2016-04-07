@@ -78,6 +78,10 @@ typedef NS_ENUM(NSInteger, ButKind)
 - (void)setTextViewContent:(NSString *)text;
 - (void)clearTextViewContent;
 
+- (void)setTextViewPlaceHolder:(NSString *)placeholder;
+- (void)setTextViewPlaceHolderColor:(UIColor *)placeHolderColor;
+
+
 - (void)loadBarItems:(NSArray<ChatToolBarItem *> *)barItems;
 
 @end

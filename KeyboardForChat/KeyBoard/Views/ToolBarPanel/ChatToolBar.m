@@ -202,6 +202,24 @@
     self.currentText = self.textView.text = @"";
 }
 
+#pragma mark -- 调整placeHolder
+- (void)setTextViewPlaceHolder:(NSString *)placeholder
+{
+    if (placeholder == nil) {
+        return;
+    }
+    
+    self.textView.placeHolder = placeholder;
+}
+
+- (void)setTextViewPlaceHolderColor:(UIColor *)placeHolderColor
+{
+    if (placeHolderColor == nil) {
+        return;
+    }
+    self.textView.placeHolderTextColor = placeHolderColor;
+}
+
 #pragma mark -- 关于按钮
 - (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr
 selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)highLightStr

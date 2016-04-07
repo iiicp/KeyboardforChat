@@ -41,11 +41,17 @@
      *
      *  导航栏透明或者没有导航栏，默认使用 [ChatKeyBoard keyBoard] 
      */
-    
     self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:YES];
     
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
+    
+    self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
+    
+    /**
+     *  placeHolderColor 默认是 浅灰色
+     */
+    //self.chatKeyBoard.placeHolderColor = [UIColor redColor];
     
     [self.view addSubview:self.chatKeyBoard];
 }
