@@ -12,9 +12,9 @@
 # 控件使用步骤
 
 ## 代码
-1，导入KeyBoard文件夹
-2，资源文件是 emotion.plist 和 face.plist 图片在 Assets.xcassets
-3，导入ChatKeyBoard.h即可使用，具体参考demo
+1. 导入KeyBoard文件夹  
+2. 资源文件是 emotion.plist 和 face.plist 图片在 Assets.xcassets
+3. 导入ChatKeyBoard.h即可使用，具体参考demo
 
 ## 添加数据源
 ```objc
