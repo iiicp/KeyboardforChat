@@ -23,12 +23,16 @@
 #import "OfficialAccountToolbar.h"
 #import "ChatKeyBoardMacroDefine.h"
 
+#define kScreenH(translucent) (translucent ? kScreenHeight : kScreenHeight - 64)
+
 @interface ChatKeyBoard () <ChatToolBarDelegate, FacePanelDelegate, MorePannelDelegate>
 
 @property (nonatomic, strong) ChatToolBar *chatToolBar;
 @property (nonatomic, strong) FacePanel *facePanel;
 @property (nonatomic, strong) MorePanel *morePanel;
 @property (nonatomic, strong) OfficialAccountToolbar *OAtoolbar;
+
+@property (nonatomic, assign) BOOL translucent;
 
 @end
 
@@ -38,7 +42,13 @@
 
 + (instancetype)keyBoard
 {
-    return [[self alloc] initWithFrame:CGRectMake(0, kScreenHeight - kChatToolBarHeight, kScreenWidth, kChatKeyBoardHeight)];
+    return [self keyBoardWithNavgationBarTranslucent:YES];
+}
+
++ (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent
+{
+    CGRect frame = CGRectMake(0, kScreenH(translucent) - kChatToolBarHeight, kScreenWidth, kChatKeyBoardHeight);
+    return [[self alloc] initWithFrame:frame navigationBarTranslucent:translucent];
 }
 
 - (void)dealloc
@@ -47,24 +57,26 @@
     [self removeObserver:self forKeyPath:@"self.chatToolBar.frame"];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame navigationBarTranslucent:(BOOL)translucent
 {
     self = [super initWithFrame:frame];
     if (self)
     {
-        self.chatToolBar = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kChatToolBarHeight)];
-        self.chatToolBar.delegate = self;
+        _translucent = translucent;
+        
+        _chatToolBar = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kChatToolBarHeight)];
+        _chatToolBar.delegate = self;
         [self addSubview:self.chatToolBar];
         
-        self.facePanel = [[FacePanel alloc] initWithFrame:CGRectMake(0, kChatKeyBoardHeight-kFacePanelHeight, kScreenWidth, kFacePanelHeight)];
-        self.facePanel.delegate = self;
+        _facePanel = [[FacePanel alloc] initWithFrame:CGRectMake(0, kChatKeyBoardHeight-kFacePanelHeight, kScreenWidth, kFacePanelHeight)];
+        _facePanel.delegate = self;
         [self addSubview:self.facePanel];
         
-        self.morePanel = [[MorePanel alloc] initWithFrame:self.facePanel.frame];
-        self.morePanel.delegate = self;
+        _morePanel = [[MorePanel alloc] initWithFrame:self.facePanel.frame];
+        _morePanel.delegate = self;
         [self addSubview:self.morePanel];
         
-        self.OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
+        _OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
         [self addSubview:self.OAtoolbar];
         
         __weak __typeof(self) weakself = self;
@@ -72,7 +84,7 @@
             [UIView animateWithDuration:0.25 animations:^{
                 weakself.OAtoolbar.frame = CGRectMake(0, CGRectGetMaxY(weakself.frame), CGRectGetWidth(weakself.frame), kChatToolBarHeight);
                 CGFloat y = weakself.frame.origin.y;
-                y = kScreenHeight - self.chatToolBar.frame.size.height;
+                y = kScreenH(_translucent) - self.chatToolBar.frame.size.height;
                 weakself.frame = CGRectMake(0, y, weakself.frame.size.width, weakself.frame.size.height);
             }];
         };
@@ -89,23 +101,23 @@
 - (void)keyBoardWillChangeFrame:(NSNotification *)notification
 {
     // 键盘已经弹起时，表情按钮被选择
-    if (self.chatToolBar.faceSelected && (kScreenHeight - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
+    if (self.chatToolBar.faceSelected && (kScreenH(_translucent) - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
     {
         [UIView animateWithDuration:0.25 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = YES;
             self.facePanel.hidden = NO;
-            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.frame = CGRectMake(0, kScreenH(_translucent)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
         } completion:nil];
     }
     // 键盘已经弹起时，more按钮被选择
-    else if (self.chatToolBar.moreFuncSelected && (kScreenHeight - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
+    else if (self.chatToolBar.moreFuncSelected && (kScreenH(_translucent) - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
     {
         [UIView animateWithDuration:0.25 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = NO;
             self.facePanel.hidden = YES;
-            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.frame = CGRectMake(0, kScreenH(_translucent)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
         } completion:nil];
@@ -116,7 +128,7 @@
         [UIView animateWithDuration:0.25 animations:^{
             self.morePanel.hidden = YES;
             self.facePanel.hidden = YES;
-            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.frame = CGRectMake(0, kScreenH(_translucent)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
         }];
@@ -129,11 +141,16 @@
             CGRect end = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
             CGFloat duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
             
+            CGFloat targetY;
+            if (_translucent) {
+                targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
+            }else {
+                targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight) - 64;
+            }
             
             if(begin.size.height>0 && (begin.origin.y-end.origin.y>0))
             {
                 // 键盘弹起 (包括，第三方键盘回调三次问题，监听仅执行最后一次)
-                CGFloat targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
                 self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
                 self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
@@ -142,15 +159,14 @@
             else if (end.origin.y == kScreenHeight && begin.origin.y!=end.origin.y && duration > 0)
             {
                 //键盘收起
-                CGFloat targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
             }
             else if ((begin.origin.y-end.origin.y<0) && duration == 0)
-            {   //键盘切换
-                CGFloat targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight);
+            {
+                //键盘切换
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
             }
-
+            
         }];
     }
 }
@@ -178,7 +194,7 @@
         
         [UIView animateWithDuration:0.25 animations:^{
             CGFloat y = self.frame.origin.y;
-            y = kScreenHeight - self.chatToolBar.frame.size.height;
+            y = kScreenH(_translucent) - self.chatToolBar.frame.size.height;
             self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
         }];
     }
@@ -190,7 +206,7 @@
         self.morePanel.hidden = YES;
         self.facePanel.hidden = NO;
         [UIView animateWithDuration:0.25 animations:^{
-            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.frame = CGRectMake(0, kScreenH(_translucent)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
         }];
@@ -203,7 +219,7 @@
         self.morePanel.hidden = NO;
         self.facePanel.hidden = YES;
         [UIView animateWithDuration:0.25 animations:^{
-            self.frame = CGRectMake(0, kScreenHeight-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
+            self.frame = CGRectMake(0, kScreenH(_translucent)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
         }];
@@ -215,16 +231,16 @@
     {
         [UIView animateWithDuration:0.25 animations:^{
             CGFloat y = self.frame.origin.y;
-            y = kScreenHeight - kChatToolBarHeight;
-            self.frame = CGRectMake(0, kScreenHeight, self.frame.size.width, self.frame.size.height);
+            y = kScreenH(_translucent) - kChatToolBarHeight;
+            self.frame = CGRectMake(0, kScreenH(_translucent), self.frame.size.width, self.frame.size.height);
             self.OAtoolbar.frame = CGRectMake(0, 0, self.frame.size.width, kChatToolBarHeight);
             self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
         }];
     }
     else
     {
-        CGFloat y = kScreenHeight - kChatToolBarHeight;
-        self.frame = CGRectMake(0, kScreenHeight, self.frame.size.width, self.frame.size.height);
+        CGFloat y = kScreenH(_translucent) - kChatToolBarHeight;
+        self.frame = CGRectMake(0, kScreenH(_translucent), self.frame.size.width, self.frame.size.height);
         self.OAtoolbar.frame = CGRectMake(0, 0, self.frame.size.width, kChatToolBarHeight);
         self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
     }

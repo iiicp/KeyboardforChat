@@ -121,12 +121,12 @@
 		79891E1E1CA8FFFF0031B2AE /* KeyboardForChat */ = {
 			isa = PBXGroup;
 			children = (
-				79A1258C1CB4AD8A0017EEA0 /* FaceSourceManager.h */,
-				79A1258D1CB4AD8A0017EEA0 /* FaceSourceManager.m */,
 				79891E221CA8FFFF0031B2AE /* AppDelegate.h */,
 				79891E231CA8FFFF0031B2AE /* AppDelegate.m */,
 				79891E251CA8FFFF0031B2AE /* ViewController.h */,
 				79891E261CA8FFFF0031B2AE /* ViewController.m */,
+				79A1258C1CB4AD8A0017EEA0 /* FaceSourceManager.h */,
+				79A1258D1CB4AD8A0017EEA0 /* FaceSourceManager.m */,
 				7901EAB91CAE5E1100AB9871 /* FaceStoreViewController.h */,
 				7901EABA1CAE5E1100AB9871 /* FaceStoreViewController.m */,
 				7901EABB1CAE5E1100AB9871 /* FaceStoreViewController.xib */,

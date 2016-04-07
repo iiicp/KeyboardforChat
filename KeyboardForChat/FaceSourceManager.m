@@ -44,7 +44,8 @@
         
         NSMutableArray *modelsArr = [NSMutableArray array];
         
-        for (NSString *name in allkeys) {
+        for (int i = 0; i < allkeys.count; ++i) {
+            NSString *name = allkeys[i];
             FaceModel *fm = [[FaceModel alloc] init];
             fm.faceTitle = name;
             fm.faceIcon = [faceDic objectForKey:name];

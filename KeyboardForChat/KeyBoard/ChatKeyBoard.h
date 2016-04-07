@@ -66,7 +66,16 @@
 
 @interface ChatKeyBoard : UIView
 
+/**
+ *  默认是导航栏透明
+ */
 + (instancetype)keyBoard;
+
+/**
+ *  初始化，传入导航栏是否透明的标识
+ */
++ (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent;
+
 
 @property (nonatomic, weak) id<ChatKeyBoardDataSource> dataSource;
 @property (nonatomic, weak) id<ChatKeyBoardDelegate> delegate;
