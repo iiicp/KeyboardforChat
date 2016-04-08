@@ -55,6 +55,14 @@
     
     self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
     
+    /*
+     *  支持切换评论键盘
+     *  self.chatKeyBoard.keyBoardStyle = KeyBoardStyleComment;
+     *
+     *  则可以使用下面两个方法，开启评论和关闭评论键盘
+      - (void)beginComment;
+      - (void)endComment;
+     */
     
     [self.view addSubview:self.chatKeyBoard];
 ```
