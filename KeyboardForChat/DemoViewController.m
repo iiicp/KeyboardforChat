@@ -111,10 +111,10 @@
 }
 - (IBAction)closekeyboard:(id)sender {
     
-    [self.chatKeyBoard endComment];
+    [self.chatKeyBoard keyboardDownForComment];
 }
 - (IBAction)beginComment:(id)sender {
-    [self.chatKeyBoard beginComment];
+    [self.chatKeyBoard keyboardUpforComment];
 }
 
 - (IBAction)switchVoice:(UISwitch *)sender

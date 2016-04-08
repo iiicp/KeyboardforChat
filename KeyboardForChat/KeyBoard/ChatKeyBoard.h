@@ -138,20 +138,26 @@ typedef NS_ENUM(NSInteger, KeyBoardStyle)
 @property (nonatomic, assign) BOOL allowSwitchBar;
 
 /**
- *  主动出发键盘弹下去操作
+ *  键盘弹出
  */
-- (void)onlyChatKeyboardToolbarShow;
+- (void)keyboardUp;
+
+/**
+ *  键盘收起
+ */
+- (void)keyboardDown;
+
 
 /************************************************************************************************
  *  如果设置键盘风格为 KeyBoardStyleComment 则可以使用下面两个方法
  *  开启评论键盘
  */
-- (void)beginComment;
+- (void)keyboardUpforComment;
 
 /**
  *  隐藏评论键盘
  */
-- (void)endComment;
+- (void)keyboardDownForComment;
 
 @end
 

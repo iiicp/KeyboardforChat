@@ -105,7 +105,7 @@ CGFloat getDifferenceH(CGRect frame)
             [UIView animateWithDuration:0.25 animations:^{
                 weakself.OAtoolbar.frame = CGRectMake(0, CGRectGetMaxY(weakself.frame), CGRectGetWidth(weakself.frame), kChatToolBarHeight);
                 CGFloat y = weakself.frame.origin.y;
-                y = getSupviewH(self.keyboardInitialFrame) - self.chatToolBar.frame.size.height;
+                y = getSupviewH(weakself.keyboardInitialFrame) - weakself.chatToolBar.frame.size.height;
                 weakself.frame = CGRectMake(0, y, weakself.frame.size.width, weakself.frame.size.height);
             }];
         };
@@ -142,17 +142,6 @@ CGFloat getDifferenceH(CGRect frame)
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
         } completion:nil];
     }
-    //语音按钮被选择，且textview并不是第一响应者
-    else if (self.chatToolBar.voiceSelected && !self.chatToolBar.textView.isFirstResponder)
-    {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.morePanel.hidden = YES;
-            self.facePanel.hidden = YES;
-            self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
-            self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
-            self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
-        }];
-    }
     else
     {
         [UIView animateWithDuration:0.25 animations:^{
@@ -174,15 +163,18 @@ CGFloat getDifferenceH(CGRect frame)
             else if (end.origin.y == kScreenHeight && begin.origin.y!=end.origin.y && duration > 0)
             {
                 //键盘收起
-                if (self.keyBoardStyle == KeyBoardStyleChat) {
-                    
+                if (self.keyBoardStyle == KeyBoardStyleChat)
+                {
                     self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
                     
                 }else if (self.keyBoardStyle == KeyBoardStyleComment)
                 {
-                    if (self.chatToolBar.voiceSelected){
+                    if (self.chatToolBar.voiceSelected)
+                    {
                        self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
-                    }else {
+                    }
+                    else
+                    {
                         self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame), CGRectGetWidth(self.frame), self.frame.size.height);
                     }
                 }
@@ -439,24 +431,45 @@ CGFloat getDifferenceH(CGRect frame)
     }
 }
 
-- (void)onlyChatKeyboardToolbarShow
+- (void)keyboardUp
 {
-    if (self.keyBoardStyle == KeyBoardStyleChat) {
+    if (self.keyBoardStyle == KeyBoardStyleChat)
+    {
+        [self.chatToolBar prepareForBeginComment];
+        [self.chatToolBar.textView becomeFirstResponder];
+    }
+    else {
+        NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"键盘开启了评论风格请使用- (void)keyboardUpforComment" userInfo:nil];
+        [excp raise];
+
+    }
+}
+
+
+- (void)keyboardDown
+{
+    if (self.keyBoardStyle == KeyBoardStyleChat)
+    {
         if ([self.chatToolBar.textView isFirstResponder])
         {
             [self.chatToolBar.textView resignFirstResponder];
         }
-        else {
+        else
+        {
             [UIView animateWithDuration:0.25 animations:^{
                 CGFloat y = self.frame.origin.y;
                 y = getSupviewH(self.keyboardInitialFrame) - self.chatToolBar.frame.size.height;
                 self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
             }];
         }
+    }else {
+        NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"键盘开启了评论风格请使用- (void)keyboardDownForComment" userInfo:nil];
+        [excp raise];
     }
 }
 
-- (void)beginComment
+
+- (void)keyboardUpforComment
 {
     if (self.keyBoardStyle != KeyBoardStyleComment) {
         NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"键盘未开启评论风格" userInfo:nil];
@@ -466,7 +479,7 @@ CGFloat getDifferenceH(CGRect frame)
     [self.chatToolBar.textView becomeFirstResponder];
 }
 
-- (void)endComment
+- (void)keyboardDownForComment
 {
     if (self.keyBoardStyle != KeyBoardStyleComment) {
         NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"键盘未开启评论风格" userInfo:nil];
@@ -477,6 +490,5 @@ CGFloat getDifferenceH(CGRect frame)
         self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame), self.frame.size.width, CGRectGetHeight(self.frame));
     } completion:nil];
 }
-
 
 @end

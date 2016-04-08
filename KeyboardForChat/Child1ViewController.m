@@ -28,14 +28,19 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:arc4random_uniform(255)/255.f green:arc4random_uniform(255)/255.f  blue:arc4random_uniform(255)/255.f  alpha:1.f];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn.frame = CGRectMake(100, 150, 150, 44);
-    btn.tag = 2;
-    [btn setTitle:@"让键盘下去" forState:UIControlStateNormal];
-    btn.backgroundColor = [UIColor purpleColor];
-    [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn1.frame = CGRectMake(50, 150, 120, 44);
+    [btn1 setTitle:@"让键盘弹起" forState:UIControlStateNormal];
+    btn1.backgroundColor = [UIColor purpleColor];
+    [btn1 addTarget:self action:@selector(clickBtnUp:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
+    
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn2.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 170, 150, 120, 44);
+    [btn2 setTitle:@"让键盘下去" forState:UIControlStateNormal];
+    btn2.backgroundColor = [UIColor purpleColor];
+    [btn2 addTarget:self action:@selector(clickBtnDown:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
     /**
      *  只需要调整子控制器的View， 确定好frame，传入控制器即可
      */
@@ -50,9 +55,14 @@
     [self.view addSubview:self.chatKeyBoard];
 }
 
-- (void)clickBtn:(UIButton *)btn
+- (void)clickBtnUp:(UIButton *)btn
 {
-    [self.chatKeyBoard onlyChatKeyboardToolbarShow];
+    [self.chatKeyBoard keyboardUp];
+}
+
+- (void)clickBtnDown:(UIButton *)btn
+{
+    [self.chatKeyBoard keyboardDown];
 }
 
 #pragma mark -- ChatKeyBoardDataSource
