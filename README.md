@@ -60,8 +60,14 @@
      *  self.chatKeyBoard.keyBoardStyle = KeyBoardStyleComment;
      *
      *  则可以使用下面两个方法，开启评论和关闭评论键盘
-      - (void)beginComment;
-      - (void)endComment;
+     - (void)keyboardUpforComment;
+     - (void)keyboardDownForComment;
+     */
+     
+    /*
+     *  支持外部操纵键盘  (这两个方法是在正常聊天界面，非评论)
+    - (void)keyboardUp;
+    - (void)keyboardDown;
      */
     
     [self.view addSubview:self.chatKeyBoard];
