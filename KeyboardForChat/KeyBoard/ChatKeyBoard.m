@@ -439,6 +439,23 @@ CGFloat getDifferenceH(CGRect frame)
     }
 }
 
+- (void)onlyChatKeyboardToolbarShow
+{
+    if (self.keyBoardStyle == KeyBoardStyleChat) {
+        if ([self.chatToolBar.textView isFirstResponder])
+        {
+            [self.chatToolBar.textView resignFirstResponder];
+        }
+        else {
+            [UIView animateWithDuration:0.25 animations:^{
+                CGFloat y = self.frame.origin.y;
+                y = getSupviewH(self.keyboardInitialFrame) - self.chatToolBar.frame.size.height;
+                self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+            }];
+        }
+    }
+}
+
 - (void)beginComment
 {
     if (self.keyBoardStyle != KeyBoardStyleComment) {

@@ -30,6 +30,14 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = NO;
 
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(100, 150, 150, 44);
+    btn.tag = 2;
+    [btn setTitle:@"让键盘下去" forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor purpleColor];
+    [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+
     
     self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO];
     
@@ -38,6 +46,11 @@
     
     self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
     [self.view addSubview:self.chatKeyBoard];
+}
+
+- (void)clickBtn:(UIButton *)btn
+{
+    [self.chatKeyBoard onlyChatKeyboardToolbarShow];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

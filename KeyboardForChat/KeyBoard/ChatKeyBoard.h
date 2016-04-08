@@ -137,14 +137,13 @@ typedef NS_ENUM(NSInteger, KeyBoardStyle)
  */
 @property (nonatomic, assign) BOOL allowSwitchBar;
 
-
 /**
- *  如果设置键盘风格为 KeyBoardStyleComment
- *
- *  则以下 两个方法有效
+ *  让ChatKeyBoard只显示chatToolBar
  */
+- (void)onlyChatKeyboardToolbarShow;
 
-/**
+/************************************************************************************************
+ *  如果设置键盘风格为 KeyBoardStyleComment 则可以使用下面两个方法
  *  开启评论键盘
  */
 - (void)beginComment;
