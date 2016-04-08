@@ -138,7 +138,7 @@ typedef NS_ENUM(NSInteger, KeyBoardStyle)
 @property (nonatomic, assign) BOOL allowSwitchBar;
 
 /**
- *  让ChatKeyBoard只显示chatToolBar
+ *  主动出发键盘弹下去操作
  */
 - (void)onlyChatKeyboardToolbarShow;
 
