@@ -66,6 +66,8 @@
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
     
+    self.chatKeyBoard.keyBoardStyle = KeyBoardStyleComment;
+    
     self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
     [self.view addSubview:self.chatKeyBoard];
 }
@@ -106,6 +108,13 @@
 - (IBAction)switchBar:(UISwitch *)sender
 {
     self.chatKeyBoard.allowSwitchBar = sender.on;
+}
+- (IBAction)closekeyboard:(id)sender {
+    
+    [self.chatKeyBoard endComment];
+}
+- (IBAction)beginComment:(id)sender {
+    [self.chatKeyBoard beginComment];
 }
 
 - (IBAction)switchVoice:(UISwitch *)sender

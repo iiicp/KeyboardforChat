@@ -220,6 +220,27 @@
     self.textView.placeHolderTextColor = placeHolderColor;
 }
 
+#pragma mark -- 重新配置各个按钮
+- (void)prepareForBeginComment
+{
+    self.voiceSelected = self.voiceBtn.selected = NO;
+    self.faceSelected = self.faceBtn.selected = NO;
+    self.moreFuncSelected = self.moreBtn.selected = NO;
+    self.recordBtn.hidden = YES;
+    self.textView.hidden = NO;
+}
+- (void)prepareForEndComment
+{
+    self.voiceSelected = self.voiceBtn.selected = NO;
+    self.faceSelected = self.faceBtn.selected = NO;
+    self.moreFuncSelected = self.moreBtn.selected = NO;
+    self.recordBtn.hidden = YES;
+    self.textView.hidden = NO;
+    if ([self.textView isFirstResponder]) {
+        [self.textView resignFirstResponder];
+    }
+}
+
 #pragma mark -- 关于按钮
 - (void)setBtn:(ButKind)btnKind normalStateImageStr:(NSString *)normalStr
 selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)highLightStr

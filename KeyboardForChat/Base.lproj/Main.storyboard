@@ -168,6 +168,20 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIZ-sY-ybV">
+                                <rect key="frame" x="311" y="109" width="46" height="30"/>
+                                <state key="normal" title="评论完"/>
+                                <connections>
+                                    <action selector="closekeyboard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8ZX-UP-SRx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ir9-jU-cVh">
+                                <rect key="frame" x="311" y="63" width="61" height="30"/>
+                                <state key="normal" title="开始评论"/>
+                                <connections>
+                                    <action selector="beginComment:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U4I-c9-6dl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -209,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1809" y="-245"/>
+            <point key="canvasLocation" x="-1986" y="-247"/>
         </scene>
         <!--Top Tab View Controller-->
         <scene sceneID="c27-NK-5yF">

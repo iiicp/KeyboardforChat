@@ -20,6 +20,12 @@
 @class ChatToolBarItem;
 @class FaceSubjectModel;
 
+typedef NS_ENUM(NSInteger, KeyBoardStyle)
+{
+    KeyBoardStyleChat = 0,
+    KeyBoardStyleComment
+};
+
 @class ChatKeyBoard;
 @protocol ChatKeyBoardDelegate <NSObject>
 @optional
@@ -72,7 +78,7 @@
 + (instancetype)keyBoard;
 
 /**
- *  当导航栏不透明时（导航栏设置图片了，或者强制要导航栏不透明）
+ *  当导航栏不透明时（强制要导航栏不透明）
  *
  *  @param translucent 是否透明
  *
@@ -97,6 +103,13 @@
 @property (nonatomic, readonly, strong) ChatToolBar *chatToolBar;
 @property (nonatomic, readonly, strong) FacePanel *facePanel;
 @property (nonatomic, readonly, strong) MorePanel *morePanel;
+
+/**
+ *  设置键盘的风格
+ *
+ *  默认是 KeyBoardStyleChat
+ */
+@property (nonatomic, assign) KeyBoardStyle keyBoardStyle;
 
 /**
  *  placeHolder内容
@@ -124,6 +137,22 @@
  */
 @property (nonatomic, assign) BOOL allowSwitchBar;
 
+
+/**
+ *  如果设置键盘风格为 KeyBoardStyleComment
+ *
+ *  则以下 两个方法有效
+ */
+
+/**
+ *  开启评论键盘
+ */
+- (void)beginComment;
+
+/**
+ *  隐藏评论键盘
+ */
+- (void)endComment;
 
 @end
 

@@ -75,13 +75,28 @@ typedef NS_ENUM(NSInteger, ButKind)
 @property (readonly) BOOL switchBarSelected;
 
 
+/**
+ *  配置textView内容
+ */
 - (void)setTextViewContent:(NSString *)text;
 - (void)clearTextViewContent;
 
+/**
+ *  配置placeHolder
+ */
 - (void)setTextViewPlaceHolder:(NSString *)placeholder;
 - (void)setTextViewPlaceHolderColor:(UIColor *)placeHolderColor;
 
+/**
+ *  为开始评论和结束评论做准备
+ */
+- (void)prepareForBeginComment;
+- (void)prepareForEndComment;
 
+
+/**
+ *  加载数据
+ */
 - (void)loadBarItems:(NSArray<ChatToolBarItem *> *)barItems;
 
 @end
