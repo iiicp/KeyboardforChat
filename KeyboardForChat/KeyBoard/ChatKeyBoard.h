@@ -72,12 +72,23 @@
 + (instancetype)keyBoard;
 
 /**
- *  初始化，传入导航栏是否透明的标识
+ *  当导航栏不透明时（导航栏设置图片了，或者强制要导航栏不透明）
  *
- *  translucent == YES 表示导航栏是透明
- *  translucent == NO  表示导航栏不透明
+ *  @param translucent 是否透明
+ *
+ *  @return keyboard对象
  */
 + (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent;
+
+
+/**
+ *  直接传入父视图的bounds过来
+ *
+ *  @param bounds 父视图的bounds，一般为控制器的view
+ *
+ *  @return keyboard对象
+ */
++ (instancetype)keyBoardWithParentViewBounds:(CGRect)bounds;
 
 
 @property (nonatomic, weak) id<ChatKeyBoardDataSource> dataSource;

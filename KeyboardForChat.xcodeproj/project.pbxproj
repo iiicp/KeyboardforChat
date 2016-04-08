@@ -11,10 +11,17 @@
 		7901EABD1CAE5E1100AB9871 /* FaceStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7901EABB1CAE5E1100AB9871 /* FaceStoreViewController.xib */; };
 		7901EAC11CAE5E2A00AB9871 /* FaceManagerCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7901EABF1CAE5E2A00AB9871 /* FaceManagerCenterViewController.m */; };
 		7901EAC21CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7901EAC01CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib */; };
+		792106461CB74A6600A2296D /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106451CB74A6600A2296D /* MainTableViewController.m */; };
+		792106491CB74BF600A2296D /* TopTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106481CB74BF600A2296D /* TopTabViewController.m */; };
+		7921064C1CB74C1400A2296D /* TestNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7921064B1CB74C1400A2296D /* TestNavViewController.m */; };
+		7921064F1CB74EA900A2296D /* Child1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7921064E1CB74EA900A2296D /* Child1ViewController.m */; };
+		792106521CB74EB600A2296D /* Child2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106511CB74EB600A2296D /* Child2ViewController.m */; };
+		792106571CB756D100A2296D /* Child3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106561CB756D100A2296D /* Child3ViewController.m */; };
+		7921065A1CB75A1400A2296D /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 792106591CB75A1400A2296D /* bg@2x.png */; };
 		795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */; };
 		79891E211CA8FFFF0031B2AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E201CA8FFFF0031B2AE /* main.m */; };
 		79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E231CA8FFFF0031B2AE /* AppDelegate.m */; };
-		79891E271CA8FFFF0031B2AE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E261CA8FFFF0031B2AE /* ViewController.m */; };
+		79891E271CA8FFFF0031B2AE /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E261CA8FFFF0031B2AE /* DemoViewController.m */; };
 		79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E281CA8FFFF0031B2AE /* Main.storyboard */; };
 		79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79891E2D1CA8FFFF0031B2AE /* LaunchScreen.storyboard */; };
 		79A1258E1CB4AD8A0017EEA0 /* FaceSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A1258D1CB4AD8A0017EEA0 /* FaceSourceManager.m */; };
@@ -44,6 +51,19 @@
 		7901EABE1CAE5E2A00AB9871 /* FaceManagerCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceManagerCenterViewController.h; sourceTree = "<group>"; };
 		7901EABF1CAE5E2A00AB9871 /* FaceManagerCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceManagerCenterViewController.m; sourceTree = "<group>"; };
 		7901EAC01CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceManagerCenterViewController.xib; sourceTree = "<group>"; };
+		792106441CB74A6600A2296D /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
+		792106451CB74A6600A2296D /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
+		792106471CB74BF600A2296D /* TopTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTabViewController.h; sourceTree = "<group>"; };
+		792106481CB74BF600A2296D /* TopTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopTabViewController.m; sourceTree = "<group>"; };
+		7921064A1CB74C1400A2296D /* TestNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestNavViewController.h; sourceTree = "<group>"; };
+		7921064B1CB74C1400A2296D /* TestNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestNavViewController.m; sourceTree = "<group>"; };
+		7921064D1CB74EA900A2296D /* Child1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Child1ViewController.h; sourceTree = "<group>"; };
+		7921064E1CB74EA900A2296D /* Child1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Child1ViewController.m; sourceTree = "<group>"; };
+		792106501CB74EB600A2296D /* Child2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Child2ViewController.h; sourceTree = "<group>"; };
+		792106511CB74EB600A2296D /* Child2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Child2ViewController.m; sourceTree = "<group>"; };
+		792106551CB756D100A2296D /* Child3ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Child3ViewController.h; sourceTree = "<group>"; };
+		792106561CB756D100A2296D /* Child3ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Child3ViewController.m; sourceTree = "<group>"; };
+		792106591CB75A1400A2296D /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		792929AD1CACB4D400E4376E /* ChatKeyBoardMacroDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoardMacroDefine.h; sourceTree = "<group>"; };
 		795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoard.h; sourceTree = "<group>"; };
 		795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatKeyBoard.m; sourceTree = "<group>"; };
@@ -51,8 +71,8 @@
 		79891E201CA8FFFF0031B2AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		79891E221CA8FFFF0031B2AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		79891E231CA8FFFF0031B2AE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		79891E251CA8FFFF0031B2AE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		79891E261CA8FFFF0031B2AE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		79891E251CA8FFFF0031B2AE /* DemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		79891E261CA8FFFF0031B2AE /* DemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		79891E291CA8FFFF0031B2AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		79891E2E1CA8FFFF0031B2AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79891E301CA8FFFF0031B2AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -121,10 +141,23 @@
 		79891E1E1CA8FFFF0031B2AE /* KeyboardForChat */ = {
 			isa = PBXGroup;
 			children = (
+				792106591CB75A1400A2296D /* bg@2x.png */,
 				79891E221CA8FFFF0031B2AE /* AppDelegate.h */,
 				79891E231CA8FFFF0031B2AE /* AppDelegate.m */,
-				79891E251CA8FFFF0031B2AE /* ViewController.h */,
-				79891E261CA8FFFF0031B2AE /* ViewController.m */,
+				792106441CB74A6600A2296D /* MainTableViewController.h */,
+				792106451CB74A6600A2296D /* MainTableViewController.m */,
+				79891E251CA8FFFF0031B2AE /* DemoViewController.h */,
+				79891E261CA8FFFF0031B2AE /* DemoViewController.m */,
+				792106471CB74BF600A2296D /* TopTabViewController.h */,
+				792106481CB74BF600A2296D /* TopTabViewController.m */,
+				7921064D1CB74EA900A2296D /* Child1ViewController.h */,
+				7921064E1CB74EA900A2296D /* Child1ViewController.m */,
+				792106501CB74EB600A2296D /* Child2ViewController.h */,
+				792106511CB74EB600A2296D /* Child2ViewController.m */,
+				792106551CB756D100A2296D /* Child3ViewController.h */,
+				792106561CB756D100A2296D /* Child3ViewController.m */,
+				7921064A1CB74C1400A2296D /* TestNavViewController.h */,
+				7921064B1CB74C1400A2296D /* TestNavViewController.m */,
 				79A1258C1CB4AD8A0017EEA0 /* FaceSourceManager.h */,
 				79A1258D1CB4AD8A0017EEA0 /* FaceSourceManager.m */,
 				7901EAB91CAE5E1100AB9871 /* FaceStoreViewController.h */,
@@ -290,6 +323,7 @@
 			files = (
 				E3CE7D3A1CAC24A900C096AE /* emotion.plist in Resources */,
 				79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */,
+				7921065A1CB75A1400A2296D /* bg@2x.png in Resources */,
 				7901EAC21CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib in Resources */,
 				79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */,
 				7901EABD1CAE5E1100AB9871 /* FaceStoreViewController.xib in Resources */,
@@ -305,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792106461CB74A6600A2296D /* MainTableViewController.m in Sources */,
 				7901EABC1CAE5E1100AB9871 /* FaceStoreViewController.m in Sources */,
 				79A125B41CB4AE2E0017EEA0 /* FacePanel.m in Sources */,
 				79A125B61CB4AE2E0017EEA0 /* MiddleSizePageFaceView.m in Sources */,
@@ -312,19 +347,24 @@
 				7901EAC11CAE5E2A00AB9871 /* FaceManagerCenterViewController.m in Sources */,
 				79A1258E1CB4AD8A0017EEA0 /* FaceSourceManager.m in Sources */,
 				79A125BC1CB4AE2E0017EEA0 /* RFRecordButton.m in Sources */,
+				792106571CB756D100A2296D /* Child3ViewController.m in Sources */,
 				79A125BB1CB4AE2E0017EEA0 /* OfficialAccountToolbar.m in Sources */,
-				79891E271CA8FFFF0031B2AE /* ViewController.m in Sources */,
+				79891E271CA8FFFF0031B2AE /* DemoViewController.m in Sources */,
 				79A125B51CB4AE2E0017EEA0 /* FaceView.m in Sources */,
+				792106491CB74BF600A2296D /* TopTabViewController.m in Sources */,
+				792106521CB74EB600A2296D /* Child2ViewController.m in Sources */,
 				79A125B71CB4AE2E0017EEA0 /* PanelBottomView.m in Sources */,
 				79A125BA1CB4AE2E0017EEA0 /* ChatToolBar.m in Sources */,
 				79A125B21CB4AE2E0017EEA0 /* MoreItem.m in Sources */,
 				79A125B91CB4AE2E0017EEA0 /* MorePanel.m in Sources */,
+				7921064F1CB74EA900A2296D /* Child1ViewController.m in Sources */,
 				79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */,
 				79A125B11CB4AE2E0017EEA0 /* FaceSubjectModel.m in Sources */,
 				79A125B01CB4AE2E0017EEA0 /* ChatToolBarItem.m in Sources */,
 				79A125B81CB4AE2E0017EEA0 /* SmallSizePageFaceView.m in Sources */,
 				79A125B31CB4AE2E0017EEA0 /* FaceButton.m in Sources */,
 				79A125BD1CB4AE2E0017EEA0 /* RFTextView.m in Sources */,
+				7921064C1CB74C1400A2296D /* TestNavViewController.m in Sources */,
 				79891E211CA8FFFF0031B2AE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

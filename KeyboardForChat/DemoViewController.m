@@ -10,7 +10,7 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "DemoViewController.h"
 #import "ChatKeyBoard.h"
 #import "MoreItem.h"
 #import "ChatToolBarItem.h"
@@ -19,7 +19,7 @@
 #import "FaceManagerCenterViewController.h"
 
 
-@interface ViewController () <ChatKeyBoardDelegate, ChatKeyBoardDataSource>
+@interface DemoViewController () <ChatKeyBoardDelegate, ChatKeyBoardDataSource>
 
 /** 聊天键盘 */
 @property (nonatomic, strong) ChatKeyBoard *chatKeyBoard;
@@ -28,31 +28,45 @@
 
 @end
 
-@implementation ViewController
+@implementation DemoViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    /**
-     *  导航栏不透明，则用这个初始化方法
-     *  NO 表示导航栏不透明
-     *  YES 表示导航栏透明
+
+    /****************************************************************
+     *  关于初始化方法
      *
-     *  导航栏透明或者没有导航栏，默认使用 [ChatKeyBoard keyBoard] 
-     */
-    self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:YES];
+     *  1，如果只是一个带导航栏的页面，且导航栏透明。
+           或者根本就没有导航栏
+     *
+     *  使用  [ChatKeyBoard keyBoard]; 
+             [ChatKeyBoard keyBoardWithNavgationBarTranslucent:YES]
+     *       [ChatKeyBoard keyBoardWithParentViewBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]
+     *
+     *
+     *  2，如果只是一个带导航栏的页面，导航栏不透明
+     
+     * 使用  [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO]
+            [ChatKeyBoard keyBoardWithParentViewBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)]
+     *
+     *
+     *  3, 如果页面顶部还有一些标签栏，类似腾讯视频、今日头条、网易新闻之类的
+     *
+     * 请使用  [ChatKeyBoard keyBoardWithParentViewBounds:bounds]
+        传入子视图控制器的bounds
+     *
+     ******************************************************************/
+
+    self.chatKeyBoard = [ChatKeyBoard keyBoard];
+//    self.chatKeyBoard = [ChatKeyBoard keyBoardWithParentViewBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
+
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
     
     self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
-    
-    /**
-     *  placeHolderColor 默认是 浅灰色
-     */
-    //self.chatKeyBoard.placeHolderColor = [UIColor redColor];
-    
     [self.view addSubview:self.chatKeyBoard];
 }
 
