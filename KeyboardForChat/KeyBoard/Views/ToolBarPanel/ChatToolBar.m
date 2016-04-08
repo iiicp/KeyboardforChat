@@ -19,6 +19,7 @@
 #define ItemH                   kChatToolBarHeight  //49
 #define TextViewH               36
 #define TextViewVerticalOffset  (ItemH-TextViewH)/2.0
+#define TextViewMargin          8
 
 @interface ChatToolBar ()<UITextViewDelegate>
 
@@ -179,7 +180,20 @@
         self.faceBtn.frame = CGRectZero;
     }
     
-    self.textView.frame = CGRectMake(CGRectGetWidth(self.switchBarBtn.frame) + CGRectGetWidth(self.voiceBtn.frame), TextViewVerticalOffset, self.frame.size.width-CGRectGetWidth(self.switchBarBtn.frame)-CGRectGetWidth(self.voiceBtn.frame)-CGRectGetWidth(self.faceBtn.frame)-CGRectGetWidth(self.moreBtn.frame), self.textView.frame.size.height);
+    CGFloat textViewX = CGRectGetWidth(self.switchBarBtn.frame) + CGRectGetWidth(self.voiceBtn.frame);
+    CGFloat textViewW = self.frame.size.width-CGRectGetWidth(self.switchBarBtn.frame)-CGRectGetWidth(self.voiceBtn.frame)-CGRectGetWidth(self.faceBtn.frame)-CGRectGetWidth(self.moreBtn.frame);
+    
+    // 调整边距
+    if (textViewX == 0) {
+        textViewX = TextViewMargin;
+        textViewW = textViewW - TextViewMargin;
+    }
+    
+    if (CGRectGetWidth(self.faceBtn.frame) + CGRectGetWidth(self.moreBtn.frame) == 0) {
+        textViewW = textViewW - TextViewMargin;
+    }
+    
+    self.textView.frame = CGRectMake(textViewX, TextViewVerticalOffset, textViewW, self.textView.frame.size.height);
     
     self.recordBtn.frame = self.textView.frame;
 }
