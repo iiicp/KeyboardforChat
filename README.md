@@ -5,6 +5,12 @@
 博客：[devcai.com](http://devcai.com)  
 
   qq: 2581502433@qq.com
+  
+#特性
+1. 支持语音、表情、more，并且可以主动选择
+2. 表情采用collectionView，节约内存空间
+3. 支持placehold
+4. 支持在控制器比较复杂的界面上添加，比如子视图控制器。注意初始化方法,传入的frame.
 
 # 控件使用效果
 ![](2016-04-02 11_31_12.gif)
@@ -18,21 +24,36 @@
 
 ## 添加数据源
 ```objc
-    // 使用 keyBoard 默认导航栏是透明的
-    self.chatKeyBoard = [ChatKeyBoard keyBoard];
-    
-    // 如果导航栏不透明，请使用 + (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent;
-    // self.chatKeyBoard = [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO];
+    /****************************************************************
+     *  关于初始化方法
+     *
+     *  1，如果只是一个带导航栏的页面，且导航栏透明。
+           或者根本就没有导航栏
+     *
+     *  使用  [ChatKeyBoard keyBoard]; 
+             [ChatKeyBoard keyBoardWithNavgationBarTranslucent:YES]
+     *       [ChatKeyBoard keyBoardWithParentViewBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)]
+     *
+     *
+     *  2，如果只是一个带导航栏的页面，导航栏不透明
+     
+     * 使用  [ChatKeyBoard keyBoardWithNavgationBarTranslucent:NO]
+            [ChatKeyBoard keyBoardWithParentViewBounds:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64)]
+     *
+     *
+     *  3, 如果页面顶部还有一些标签栏，类似腾讯视频、今日头条、网易新闻之类的
+     *
+     * 请使用  [ChatKeyBoard keyBoardWithParentViewBounds:bounds]
+        传入子视图控制器的bounds
+     *
+     ******************************************************************/
 
+    self.chatKeyBoard = [ChatKeyBoard keyBoard];
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
     
-    //可以设置placeHolder
     self.chatKeyBoard.placeHolder = @"请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息，请输入消息";
-    /**
-     *  placeHolderColor 默认是 浅灰色
-     */
-    //self.chatKeyBoard.placeHolderColor = [UIColor redColor];
+    
     
     [self.view addSubview:self.chatKeyBoard];
 ```
