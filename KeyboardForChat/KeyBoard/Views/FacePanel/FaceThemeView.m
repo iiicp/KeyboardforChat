@@ -103,12 +103,12 @@ NSString *const PageFaceViewIdentifier = @"PageFaceViewIdentifier";
         
         NSInteger colNumber = 7;
         if (isIPhone4_5)
-            colNumber = 8;
+            colNumber = 7;
         else if (isIPhone6_6s)
-            colNumber = 9;
+            colNumber = 8;
         else if (isIPhone6p_6sp)
-            colNumber = 10;
-        perPageNum = colNumber * 4 - 1; //最后一个是删除符
+            colNumber = 9;
+        perPageNum = colNumber * 3 - 1; //最后一个是删除符
         
     }else if (faceSubject.themeStyle == FaceThemeStyleCustomEmoji){
         NSInteger colNumber = 7;

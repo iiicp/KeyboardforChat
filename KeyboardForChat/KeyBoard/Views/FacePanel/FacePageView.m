@@ -75,10 +75,10 @@ NSString * const FacePageViewFaceThemeStyle = @"FacePageViewFaceThemeStyle";
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     NSInteger cols = 8;
-    if (isIPhone4_5) {cols = 8;}else if (isIPhone6_6s) {cols = 9;}else if (isIPhone6p_6sp){cols = 10;}
-    NSInteger lines = 4;
+    if (isIPhone4_5) {cols = 7;}else if (isIPhone6_6s) {cols = 8;}else if (isIPhone6p_6sp){cols = 9;}
+    NSInteger lines = 3;
     
-    CGFloat item = 30.f;
+    CGFloat item = 40.f;//30
     NSInteger edgeDistance = 10.f;
     
     CGFloat vMargin = (FaceContainerHeight - lines * item) / (lines+1);
@@ -173,6 +173,7 @@ NSString * const FacePageViewFaceThemeStyle = @"FacePageViewFaceThemeStyle";
         FaceButton *btn = self.buttons[i];
         btn.hidden = NO;
         [btn setTitle:fm.faceIcon forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:25.f];
         [btn setImage:nil forState:UIControlStateNormal];
         btn.faceTitle = fm.faceTitle;
     }
