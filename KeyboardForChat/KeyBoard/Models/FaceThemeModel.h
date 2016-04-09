@@ -12,11 +12,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, SubjectFaceSizeKind)
+typedef NS_ENUM(NSInteger, FaceThemeStyle)
 {
-    SubjectFaceSizeKindSmall,       //40
-    SubjectFaceSizeKindMiddle,      //60
-    SubjectFaceSizeKindBig          //... maybe 100
+    FaceThemeStyleSystemEmoji,       //30*30
+    FaceThemeStyleCustomEmoji,       //40*40
+    FaceThemeStyleGif                //60*60
 };
 
 @interface FaceModel : NSObject
@@ -28,11 +28,11 @@ typedef NS_ENUM(NSInteger, SubjectFaceSizeKind)
 
 @end
 
-@interface FaceSubjectModel : NSObject
+@interface FaceThemeModel : NSObject
 
-@property (nonatomic, assign) SubjectFaceSizeKind faceSize;
-@property (nonatomic, copy)   NSString *subjectIcon;
-@property (nonatomic, copy)   NSString *subjectTitle;
+@property (nonatomic, assign) FaceThemeStyle themeStyle;
+@property (nonatomic, copy)   NSString *themeIcon;
+@property (nonatomic, copy)   NSString *themeDecribe;
 @property (nonatomic, strong) NSArray *faceModels;
 
 @end

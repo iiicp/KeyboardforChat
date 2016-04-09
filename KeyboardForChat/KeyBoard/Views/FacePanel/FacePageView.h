@@ -1,22 +1,23 @@
 //
-//  MiddleSizePageFaceView.h
+//  PageFaceView.h
 //  FaceKeyboard
 
 //  Company：     SunEee
 //  Blog:        devcai.com
 //  Communicate: 2581502433@qq.com
 
-//  Created by ruofei on 16/3/31.
+//  Created by ruofei on 16/3/30.
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FaceThemeModel.h"
 /**
-    负责展示中间尺寸的表情 ： 比如自定义gif，自己收藏的图片
+    负责展示主题的每一页
  */
+@interface FacePageView : UICollectionViewCell
 
-@interface MiddleSizePageFaceView : UICollectionViewCell
+@property (nonatomic, assign) FaceThemeStyle themeStyle;
 
 - (void)loadPerPageFaceData:(NSArray *)faceData;
 

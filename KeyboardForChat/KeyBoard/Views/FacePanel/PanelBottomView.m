@@ -11,7 +11,7 @@
 //
 
 #import "PanelBottomView.h"
-#import "FaceSubjectModel.h"
+#import "FaceThemeModel.h"
 #import "ChatKeyBoardMacroDefine.h"
 
 @implementation PanelBottomView
@@ -59,16 +59,16 @@
 }
 
 
-- (void)loadfaceSubjectPickerSource:(NSArray *)pickerSource
+- (void)loadfaceThemePickerSource:(NSArray *)pickerSource
 {
     for (int i = 0; i<pickerSource.count; i++) {
-        FaceSubjectModel *subjectM = pickerSource[i];
+        FaceThemeModel *themeM = pickerSource[i];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
         if (i == 0) {
             btn.selected = YES;
         }
         btn.tag = i+100;
-        [btn setTitle:subjectM.subjectTitle forState:UIControlStateNormal];
+        [btn setTitle:themeM.themeDecribe forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor purpleColor] forState:UIControlStateSelected];
         [btn addTarget:self action:@selector(subjectPicBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.frame = CGRectMake(i*kFacePanelBottomToolBarHeight, 0, kFacePanelBottomToolBarHeight, kFacePanelBottomToolBarHeight);

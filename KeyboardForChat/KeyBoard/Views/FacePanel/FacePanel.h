@@ -16,13 +16,12 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "FaceThemeModel.h"
 
-@class FaceSubjectModel;
 @class FacePanel;
 @protocol FacePanelDelegate <NSObject>
 @optional
-
-- (void)facePanelFacePicked:(FacePanel *)facePanel faceSize:(NSInteger)faceSize faceName:(NSString *)faceName delete:(BOOL)isDelete;
+- (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName isDeleteKey:(BOOL)deletekey;
 - (void)facePanelSendTextAction:(FacePanel *)facePanel;
 - (void)facePanelAddSubject:(FacePanel *)facePanel;
 - (void)facePanelSetSubject:(FacePanel *)facePanel;
@@ -33,6 +32,6 @@
 
 @property (nonatomic, weak) id<FacePanelDelegate> delegate;
 
-- (void)loadFaceSubjectItems:(NSArray<FaceSubjectModel *>*)subjectItems;
+- (void)loadFaceThemeItems:(NSArray<FaceThemeModel *>*)themeItems;
 
 @end

@@ -19,7 +19,7 @@
 {
     NSMutableArray *subjectArray = [NSMutableArray array];
     
-    NSArray *sources = @[@"face", @"emotion",@"face",@"emotion",@"emotion",@"face",@"face",@"emotion",@"face", @"emotion",@"face", @"emotion"];
+    NSArray *sources = @[@"face", @"systemEmoji",@"emotion",@"systemEmoji",@"face",@"systemEmoji",@"emotion",@"emotion",@"face",@"face",@"emotion",@"face", @"emotion",@"face", @"emotion"];
     
     for (int i = 0; i < sources.count; ++i)
     {
@@ -29,16 +29,21 @@
         NSDictionary *faceDic = [NSDictionary dictionaryWithContentsOfFile:plistPath];
         NSArray *allkeys = faceDic.allKeys;
         
-        FaceSubjectModel *subjectM = [[FaceSubjectModel alloc] init];
+        FaceThemeModel *themeM = [[FaceThemeModel alloc] init];
         
         if ([plistName isEqualToString:@"face"]) {
-            subjectM.faceSize = SubjectFaceSizeKindSmall;
-            subjectM.subjectTitle = [NSString stringWithFormat:@"f%d", i];
-            subjectM.subjectIcon = @"section0_emotion0";
-        }else {
-            subjectM.faceSize = SubjectFaceSizeKindMiddle;
-            subjectM.subjectTitle = [NSString stringWithFormat:@"e%d", i];
-            subjectM.subjectIcon = @"f_static_000";
+            themeM.themeStyle = FaceThemeStyleCustomEmoji;
+            themeM.themeDecribe = [NSString stringWithFormat:@"f%d", i];
+            themeM.themeIcon = @"section0_emotion0";
+        }else if ([plistName isEqualToString:@"systemEmoji"]){
+            themeM.themeStyle = FaceThemeStyleSystemEmoji;
+            themeM.themeDecribe = @"sEmoji";
+            themeM.themeIcon = @"";
+        }
+        else {
+            themeM.themeStyle = FaceThemeStyleGif;
+            themeM.themeDecribe = [NSString stringWithFormat:@"e%d", i];
+            themeM.themeIcon = @"f_static_000";
         }
         
         
@@ -51,9 +56,9 @@
             fm.faceIcon = [faceDic objectForKey:name];
             [modelsArr addObject:fm];
         }
-        subjectM.faceModels = modelsArr;
+        themeM.faceModels = modelsArr;
         
-        [subjectArray addObject:subjectM];
+        [subjectArray addObject:themeM];
     }
     
     

@@ -18,7 +18,7 @@
 
 #import "MoreItem.h"
 #import "ChatToolBarItem.h"
-#import "FaceSubjectModel.h"
+#import "FaceThemeModel.h"
 
 #import "OfficialAccountToolbar.h"
 #import "ChatKeyBoardMacroDefine.h"
@@ -316,21 +316,30 @@ CGFloat getDifferenceH(CGRect frame)
 }
 
 #pragma mark -- FacePanelDelegate
-- (void)facePanelFacePicked:(FacePanel *)facePanel faceSize:(NSInteger)faceSize faceName:(NSString *)faceName delete:(BOOL)isDelete
+- (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName isDeleteKey:(BOOL)deletekey
 {
     NSString *text = self.chatToolBar.textView.text;
-    if (isDelete) {
-        if (text.length > 1) {
-            [self.chatToolBar setTextViewContent:[text substringToIndex:text.length - 1]];
+    if (deletekey == YES)
+    {
+        if (themeStyle == FaceThemeStyleSystemEmoji) {
+            if (text.length <= 0) {
+                [self.chatToolBar setTextViewContent:@""];
+            }else {
+                [self.chatToolBar.textView deleteBackward];
+            }
         }else {
-            [self.chatToolBar setTextViewContent:@""];
+            if (text.length > 1) {
+                [self.chatToolBar setTextViewContent:[text substringToIndex:text.length - 1]];
+            }else {
+                [self.chatToolBar setTextViewContent:@""];
+            }
         }
     }else {
         [self.chatToolBar setTextViewContent:[text stringByAppendingString:faceName]];
     }
     
-    if ([self.delegate respondsToSelector:@selector(chatKeyBoardFacePicked:faceSize:faceName:delete:)]) {
-        [self.delegate chatKeyBoardFacePicked:self faceSize:faceSize faceName:faceName delete:isDelete];
+    if ([self.delegate respondsToSelector:@selector(chatKeyBoardFacePicked:faceStyle:faceName:delete:)]) {
+        [self.delegate chatKeyBoardFacePicked:self faceStyle:themeStyle faceName:faceName delete:deletekey];
     }
 }
 
@@ -382,8 +391,8 @@ CGFloat getDifferenceH(CGRect frame)
     }
     
     if ([self.dataSource respondsToSelector:@selector(chatKeyBoardFacePanelSubjectItems)]) {
-        NSArray<FaceSubjectModel *> *subjectMItems = [self.dataSource chatKeyBoardFacePanelSubjectItems];
-        [self.facePanel loadFaceSubjectItems:subjectMItems];
+        NSArray<FaceThemeModel *> *themeItems = [self.dataSource chatKeyBoardFacePanelSubjectItems];
+        [self.facePanel loadFaceThemeItems:themeItems];
     }
 }
 

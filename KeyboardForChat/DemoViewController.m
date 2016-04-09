@@ -12,9 +12,11 @@
 
 #import "DemoViewController.h"
 #import "ChatKeyBoard.h"
+
 #import "MoreItem.h"
 #import "ChatToolBarItem.h"
 #import "FaceSourceManager.h"
+
 #import "FaceStoreViewController.h"
 #import "FaceManagerCenterViewController.h"
 
@@ -99,7 +101,7 @@
     return @[item1, item2, item3, item4];
 }
 
-- (NSArray<FaceSubjectModel *> *)chatKeyBoardFacePanelSubjectItems
+- (NSArray<FaceThemeModel *> *)chatKeyBoardFacePanelSubjectItems
 {
     return [FaceSourceManager loadFaceSource];
 }

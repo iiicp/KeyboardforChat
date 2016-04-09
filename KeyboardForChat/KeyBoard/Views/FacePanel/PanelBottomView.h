@@ -36,7 +36,7 @@ typedef void (^SETACTIONBLOCK)();
 @property (nonatomic, copy) ADDACTIONBLOCK addAction;
 @property (nonatomic, copy) SETACTIONBLOCK setAction;
 
-- (void)loadfaceSubjectPickerSource:(NSArray *)pickerSource;
+- (void)loadfaceThemePickerSource:(NSArray *)pickerSource;
 - (void)changeFaceSubjectIndex:(NSInteger)subjectIndex;
 
 @end

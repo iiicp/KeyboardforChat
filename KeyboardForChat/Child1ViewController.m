@@ -12,7 +12,7 @@
 #import "MoreItem.h"
 #import "ChatToolBarItem.h"
 #import "FaceSourceManager.h"
-#import "FaceSubjectModel.h"
+#import "FaceThemeModel.h"
 
 @interface Child1ViewController () <ChatKeyBoardDataSource, ChatKeyBoardDelegate>
 
@@ -92,7 +92,7 @@
     return @[item1, item2, item3, item4];
 }
 
-- (NSArray<FaceSubjectModel *> *)chatKeyBoardFacePanelSubjectItems
+- (NSArray<FaceThemeModel *> *)chatKeyBoardFacePanelSubjectItems
 {
     return [FaceSourceManager loadFaceSource];
 }

@@ -18,12 +18,19 @@
  */
 
 #import "FacePanel.h"
-#import "FaceView.h"
+
+#import "FaceThemeView.h"
 #import "PanelBottomView.h"
+
+#import "FaceThemeModel.h"
+
 #import "ChatKeyBoardMacroDefine.h"
 
-extern NSString * SmallSizeFacePanelfacePickedNotification;
-extern NSString * MiddleSizeFacePanelfacePickedNotification;
+extern NSString * const FacePageViewFaceSelectedNotification;
+extern NSString * const FacePageViewFaceName;
+extern NSString * const FacePageViewDeleteKey;
+extern NSString * const FacePageViewFaceThemeStyle;
+
 
 @interface FacePanel () <UIScrollViewDelegate, PanelBottomViewDelegate>
 
@@ -39,8 +46,7 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SmallSizeFacePanelfacePickedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:MiddleSizeFacePanelfacePickedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:FacePageViewFaceSelectedNotification object:nil];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -53,19 +59,19 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
 }
 
 #pragma mark -- 数据源
-- (void)loadFaceSubjectItems:(NSArray<FaceSubjectModel *>*)subjectItems
+- (void)loadFaceThemeItems:(NSArray<FaceThemeModel *>*)themeItems;
 {
-    self.faceSources = subjectItems;
+    self.faceSources = themeItems;
     
     _scrollView.contentSize = CGSizeMake(self.frame.size.width * self.faceSources.count, 0);
     
     for (int i = 0; i < self.faceSources.count; i++) {
-        FaceView *faceView = [[FaceView alloc] initWithFrame:CGRectMake(i*CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame))];
-        [faceView loadFaceSubject:self.faceSources[i]];
+        FaceThemeView *faceView = [[FaceThemeView alloc] initWithFrame:CGRectMake(i*CGRectGetWidth(_scrollView.frame), 0, CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame))];
+        [faceView loadFaceTheme:self.faceSources[i]];
         [_scrollView addSubview:faceView];
     }
     
-    [_panelBottomView loadfaceSubjectPickerSource:self.faceSources];
+    [_panelBottomView loadfaceThemePickerSource:self.faceSources];
 }
 
 #pragma mark -- UIScrollViewDelegate
@@ -94,22 +100,15 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
 }
 
 #pragma mark -- NSNotificationCenter
-- (void)smallFaceClick:(NSNotification *)noti
+- (void)facePageViewFaceSelected:(NSNotification *)noti
 {
     NSDictionary *info = [noti object];
-    NSString *faceName = [info objectForKey:@"FaceName"];
-    BOOL isDelete = [[info objectForKey:@"IsDelete"] boolValue];
+    NSString *faceName = [info objectForKey:FacePageViewFaceName];
+    BOOL isDelete = [[info objectForKey:FacePageViewDeleteKey] boolValue];
+    FaceThemeStyle themeStyle = [[info objectForKey:FacePageViewFaceThemeStyle] integerValue];
     
-    if ([self.delegate respondsToSelector:@selector(facePanelFacePicked:faceSize:faceName:delete:)]) {
-        [self.delegate facePanelFacePicked:self faceSize:0 faceName:faceName delete:isDelete];
-    }
-}
-
-- (void)middleFaceClick:(NSNotification *)noti
-{
-    NSString *faceName = [noti object];
-    if ([self.delegate respondsToSelector:@selector(facePanelFacePicked:faceSize:faceName:delete:)]) {
-        [self.delegate facePanelFacePicked:self faceSize:1 faceName:faceName delete:NO];
+    if ([self.delegate respondsToSelector:@selector(facePanelFacePicked:faceStyle:faceName:isDeleteKey:)]) {
+        [self.delegate facePanelFacePicked:self faceStyle:themeStyle faceName:faceName isDeleteKey:isDelete];
     }
 }
 
@@ -143,8 +142,7 @@ extern NSString * MiddleSizeFacePanelfacePickedNotification;
         }
     };
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(smallFaceClick:) name:SmallSizeFacePanelfacePickedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(middleFaceClick:) name:MiddleSizeFacePanelfacePickedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(facePageViewFaceSelected:) name:FacePageViewFaceSelectedNotification object:nil];
 }
 
 

@@ -18,7 +18,7 @@
 
 @class MoreItem;
 @class ChatToolBarItem;
-@class FaceSubjectModel;
+@class FaceThemeModel;
 
 typedef NS_ENUM(NSInteger, KeyBoardStyle)
 {
@@ -48,7 +48,7 @@ typedef NS_ENUM(NSInteger, KeyBoardStyle)
 /**
  * 表情
  */
-- (void)chatKeyBoardFacePicked:(ChatKeyBoard *)chatKeyBoard faceSize:(NSInteger)faceSize faceName:(NSString *)faceName delete:(BOOL)isDelete;
+- (void)chatKeyBoardFacePicked:(ChatKeyBoard *)chatKeyBoard faceStyle:(NSInteger)faceStyle faceName:(NSString *)faceName delete:(BOOL)isDeleteKey;
 - (void)chatKeyBoardAddFaceSubject:(ChatKeyBoard *)chatKeyBoard;
 - (void)chatKeyBoardSetFaceSubject:(ChatKeyBoard *)chatKeyBoard;
 
@@ -67,7 +67,7 @@ typedef NS_ENUM(NSInteger, KeyBoardStyle)
 @required
 - (NSArray<MoreItem *> *)chatKeyBoardMorePanelItems;
 - (NSArray<ChatToolBarItem *> *)chatKeyBoardToolbarItems;
-- (NSArray<FaceSubjectModel *> *)chatKeyBoardFacePanelSubjectItems;
+- (NSArray<FaceThemeModel *> *)chatKeyBoardFacePanelSubjectItems;
 @end
 
 @interface ChatKeyBoard : UIView

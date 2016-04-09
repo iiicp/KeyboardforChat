@@ -10,24 +10,24 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#import "FaceView.h"
-#import "SmallSizePageFaceView.h"
-#import "MiddleSizePageFaceView.h"
-#import "FaceSubjectModel.h"
+#import "FaceThemeView.h"
+
+#import "FacePageView.h"
+
+#import "FaceThemeModel.h"
 #import "ChatKeyBoardMacroDefine.h"
 
-NSString *const SmallSizePageFaceViewIdentifier = @"SmallSizePageFaceViewIdentifier";
-NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdentifier";
+NSString *const PageFaceViewIdentifier = @"PageFaceViewIdentifier";
 
-@interface FaceView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface FaceThemeView () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 /** 表情主题 */
-@property (nonatomic, strong) FaceSubjectModel *subjectModel;
+@property (nonatomic, strong) FaceThemeModel *themeModel;
 @property (nonatomic, strong) NSArray *pageFaceArray;
 
 @end
 
-@implementation FaceView
+@implementation FaceThemeView
 {
     UICollectionView *_collectionView;
     UIPageControl    * _pageControl;
@@ -51,24 +51,11 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_subjectModel.faceSize == SubjectFaceSizeKindSmall)
-    {
-        SmallSizePageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SmallSizePageFaceViewIdentifier forIndexPath:indexPath];
-        [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
-        
-        return cell;
-    }
-    else if (_subjectModel.faceSize == SubjectFaceSizeKindMiddle)
-    {
-        MiddleSizePageFaceView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:MiddleSizePageFaceViewIdentifier forIndexPath:indexPath];
-        [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
-  
-        return cell;
-    }
-    else if (_subjectModel.faceSize == SubjectFaceSizeKindBig) {
-        return nil;
-    }
-    return [[UICollectionViewCell alloc] init];
+    FacePageView *cell = [collectionView dequeueReusableCellWithReuseIdentifier:PageFaceViewIdentifier forIndexPath:indexPath];
+    cell.themeStyle = self.themeModel.themeStyle;
+    [cell loadPerPageFaceData:self.pageFaceArray[indexPath.row]];
+    
+    return cell;
 }
 
 #pragma mark -- UIScollViewDelegate
@@ -86,14 +73,14 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
 /**
  *  加载表情主题，并进行分页
  */
-- (void)loadFaceSubject:(FaceSubjectModel *)faceSubject;
+- (void)loadFaceTheme:(FaceThemeModel *)faceTheme;
 {
-    _subjectModel = faceSubject;
+    _themeModel = faceTheme;
     
-    NSInteger numbersOfPerPage = [self numbersOfPerPage:faceSubject];
+    NSInteger numbersOfPerPage = [self numbersOfPerPage:faceTheme];
     
     NSMutableArray *pagesArray = [NSMutableArray array];
-    NSInteger counts = faceSubject.faceModels.count;
+    NSInteger counts = faceTheme.faceModels.count;
     
     NSMutableArray *page = nil;
     for (int i = 0; i < counts; ++i) {
@@ -101,19 +88,29 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
             page = [NSMutableArray array];
             [pagesArray addObject:page];
         }
-        [page addObject:faceSubject.faceModels[i]];
+        [page addObject:faceTheme.faceModels[i]];
     }
     self.pageFaceArray = [NSArray arrayWithArray:pagesArray];
     _pageControl.numberOfPages = self.pageFaceArray.count;
 }
 
 
-- (NSInteger)numbersOfPerPage:(FaceSubjectModel *)faceSubject
+- (NSInteger)numbersOfPerPage:(FaceThemeModel *)faceSubject
 {
     NSInteger perPageNum = 0;
     
-    if (faceSubject.faceSize == SubjectFaceSizeKindSmall)
-    {
+    if (faceSubject.themeStyle == FaceThemeStyleSystemEmoji) {
+        
+        NSInteger colNumber = 7;
+        if (isIPhone4_5)
+            colNumber = 8;
+        else if (isIPhone6_6s)
+            colNumber = 9;
+        else if (isIPhone6p_6sp)
+            colNumber = 10;
+        perPageNum = colNumber * 4 - 1; //最后一个是删除符
+        
+    }else if (faceSubject.themeStyle == FaceThemeStyleCustomEmoji){
         NSInteger colNumber = 7;
         if (isIPhone4_5)
             colNumber = 7;
@@ -123,11 +120,7 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
             colNumber = 9;
         perPageNum = colNumber * 3 - 1; //最后一个是删除符
     }
-    else if (faceSubject.faceSize == SubjectFaceSizeKindMiddle)
-    {
-        perPageNum = 4 * 2;
-    }
-    else
+    else if (faceSubject.themeStyle == FaceThemeStyleGif)
     {
         perPageNum = 4 * 2;
     }
@@ -151,8 +144,8 @@ NSString *const MiddleSizePageFaceViewIdentifier = @"MiddleSizePageFaceViewIdent
     _collectionView.showsVerticalScrollIndicator = NO;
     _collectionView.showsHorizontalScrollIndicator = NO;
     
-    [_collectionView registerClass:[SmallSizePageFaceView class] forCellWithReuseIdentifier:SmallSizePageFaceViewIdentifier];
-    [_collectionView registerClass:[MiddleSizePageFaceView class] forCellWithReuseIdentifier:MiddleSizePageFaceViewIdentifier];
+    [_collectionView registerClass:[FacePageView class] forCellWithReuseIdentifier:PageFaceViewIdentifier];
+
     
     [self addSubview:_collectionView];
     

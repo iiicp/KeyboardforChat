@@ -1,5 +1,5 @@
 //
-//  FaceSourceManager.h
+//  FaceModel.m
 //  FaceKeyboard
 
 //  Company：     SunEee
@@ -10,11 +10,17 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "FaceThemeModel.h"
 
-@interface FaceSourceManager : NSObject
+@implementation FaceModel
 
-+ (NSArray *)loadFaceSource;
+@end
+
+@implementation FaceThemeModel
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ %@", self.themeIcon, self.themeDecribe];
+}
 
 @end

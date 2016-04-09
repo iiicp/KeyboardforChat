@@ -1,5 +1,5 @@
 //
-//  FaceModel.m
+//  FaceView.h
 //  FaceKeyboard
 
 //  Company：     SunEee
@@ -10,12 +10,16 @@
 //  Copyright © 2016年 ruofei. All rights reserved.
 //
 
-#import "FaceSubjectModel.h"
+#import <UIKit/UIKit.h>
 
-@implementation FaceModel
+@class FaceThemeModel;
 
-@end
+/**
+ *  负责管理主题
+ */
 
-@implementation FaceSubjectModel
+@interface FaceThemeView : UIView
+
+- (void)loadFaceTheme:(FaceThemeModel *)faceTheme;
 
 @end
