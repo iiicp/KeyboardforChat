@@ -102,7 +102,7 @@
     return @[item1, item2, item3, item4];
 }
 
-- (NSArray<FaceSubjectModel *> *)chatKeyBoardFacePanelSubjectItems
+- (NSArray<FaceThemeModel *> *)chatKeyBoardFacePanelSubjectItems
 {
     return [FaceSourceManager loadFaceSource];
 }
@@ -115,7 +115,7 @@
 ##控件可以根据业务需要，更换业务模型
 `MoreItem`  
 `ChatToolBarItem`  
-`FaceSubjectModel`   
+`FaceThemeModel`   
 `FaceSourceManager`   
 
 ##感谢  
