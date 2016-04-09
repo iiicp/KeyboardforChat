@@ -321,18 +321,10 @@ CGFloat getDifferenceH(CGRect frame)
     NSString *text = self.chatToolBar.textView.text;
     if (deletekey == YES)
     {
-        if (themeStyle == FaceThemeStyleSystemEmoji) {
-            if (text.length <= 0) {
-                [self.chatToolBar setTextViewContent:@""];
-            }else {
-                [self.chatToolBar.textView deleteBackward];
-            }
+        if (text.length <= 0) {
+            [self.chatToolBar setTextViewContent:@""];
         }else {
-            if (text.length > 1) {
-                [self.chatToolBar setTextViewContent:[text substringToIndex:text.length - 1]];
-            }else {
-                [self.chatToolBar setTextViewContent:@""];
-            }
+            [self.chatToolBar.textView deleteBackward];
         }
     }else {
         [self.chatToolBar setTextViewContent:[text stringByAppendingString:faceName]];
