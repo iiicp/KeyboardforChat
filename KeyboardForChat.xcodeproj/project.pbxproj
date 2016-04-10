@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7901EABC1CAE5E1100AB9871 /* FaceStoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7901EABA1CAE5E1100AB9871 /* FaceStoreViewController.m */; };
-		7901EABD1CAE5E1100AB9871 /* FaceStoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7901EABB1CAE5E1100AB9871 /* FaceStoreViewController.xib */; };
-		7901EAC11CAE5E2A00AB9871 /* FaceManagerCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7901EABF1CAE5E2A00AB9871 /* FaceManagerCenterViewController.m */; };
-		7901EAC21CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7901EAC01CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib */; };
 		792106461CB74A6600A2296D /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106451CB74A6600A2296D /* MainTableViewController.m */; };
 		792106491CB74BF600A2296D /* TopTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106481CB74BF600A2296D /* TopTabViewController.m */; };
 		7921064C1CB74C1400A2296D /* TestNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7921064B1CB74C1400A2296D /* TestNavViewController.m */; };
@@ -45,12 +41,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7901EAB91CAE5E1100AB9871 /* FaceStoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceStoreViewController.h; sourceTree = "<group>"; };
-		7901EABA1CAE5E1100AB9871 /* FaceStoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceStoreViewController.m; sourceTree = "<group>"; };
-		7901EABB1CAE5E1100AB9871 /* FaceStoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceStoreViewController.xib; sourceTree = "<group>"; };
-		7901EABE1CAE5E2A00AB9871 /* FaceManagerCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceManagerCenterViewController.h; sourceTree = "<group>"; };
-		7901EABF1CAE5E2A00AB9871 /* FaceManagerCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceManagerCenterViewController.m; sourceTree = "<group>"; };
-		7901EAC01CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceManagerCenterViewController.xib; sourceTree = "<group>"; };
 		792106441CB74A6600A2296D /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		792106451CB74A6600A2296D /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		792106471CB74BF600A2296D /* TopTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopTabViewController.h; sourceTree = "<group>"; };
@@ -159,12 +149,6 @@
 				7921064B1CB74C1400A2296D /* TestNavViewController.m */,
 				79A1258C1CB4AD8A0017EEA0 /* FaceSourceManager.h */,
 				79A1258D1CB4AD8A0017EEA0 /* FaceSourceManager.m */,
-				7901EAB91CAE5E1100AB9871 /* FaceStoreViewController.h */,
-				7901EABA1CAE5E1100AB9871 /* FaceStoreViewController.m */,
-				7901EABB1CAE5E1100AB9871 /* FaceStoreViewController.xib */,
-				7901EABE1CAE5E2A00AB9871 /* FaceManagerCenterViewController.h */,
-				7901EABF1CAE5E2A00AB9871 /* FaceManagerCenterViewController.m */,
-				7901EAC01CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib */,
 				79C90CDD1CA94D350059270D /* KeyBoard */,
 				79891E1F1CA8FFFF0031B2AE /* Supporting Files */,
 				E3CE7D391CAC24A900C096AE /* emotion.plist */,
@@ -323,9 +307,7 @@
 				E3CE7D3A1CAC24A900C096AE /* emotion.plist in Resources */,
 				79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */,
 				7921065A1CB75A1400A2296D /* bg@2x.png in Resources */,
-				7901EAC21CAE5E2A00AB9871 /* FaceManagerCenterViewController.xib in Resources */,
 				79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */,
-				7901EABD1CAE5E1100AB9871 /* FaceStoreViewController.xib in Resources */,
 				79F244B21CAB7B9B00CF1B14 /* face.plist in Resources */,
 				E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */,
 				E30E3E291CB8A9A20085264A /* systemEmoji.plist in Resources */,
@@ -340,10 +322,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				792106461CB74A6600A2296D /* MainTableViewController.m in Sources */,
-				7901EABC1CAE5E1100AB9871 /* FaceStoreViewController.m in Sources */,
 				79A125B41CB4AE2E0017EEA0 /* FacePanel.m in Sources */,
 				795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */,
-				7901EAC11CAE5E2A00AB9871 /* FaceManagerCenterViewController.m in Sources */,
 				79A1258E1CB4AD8A0017EEA0 /* FaceSourceManager.m in Sources */,
 				79A125BC1CB4AE2E0017EEA0 /* RFRecordButton.m in Sources */,
 				792106571CB756D100A2296D /* Child3ViewController.m in Sources */,

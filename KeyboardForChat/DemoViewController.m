@@ -17,10 +17,6 @@
 #import "ChatToolBarItem.h"
 #import "FaceSourceManager.h"
 
-#import "FaceStoreViewController.h"
-#import "FaceManagerCenterViewController.h"
-
-
 @interface DemoViewController () <ChatKeyBoardDelegate, ChatKeyBoardDataSource>
 
 /** 聊天键盘 */
@@ -156,24 +152,6 @@
     self.voiceState.text = @"继续录音";
 }
 
-#pragma mark -- 表情
-
-- (void)chatKeyBoardFacePicked:(ChatKeyBoard *)chatKeyBoard faceSize:(NSInteger)faceSize faceName:(NSString *)faceName delete:(BOOL)isDelete;
-{
-    
-}
-- (void)chatKeyBoardAddFaceSubject:(ChatKeyBoard *)chatKeyBoard
-{
-    FaceStoreViewController *faceStore = [[FaceStoreViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faceStore];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-- (void)chatKeyBoardSetFaceSubject:(ChatKeyBoard *)chatKeyBoard
-{
-    FaceManagerCenterViewController *faceManage = [[FaceManagerCenterViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:faceManage];
-    [self presentViewController:nav animated:YES completion:nil];
-}
 
 #pragma mark -- 更多
 - (void)chatKeyBoard:(ChatKeyBoard *)chatKeyBoard didSelectMorePanelItemIndex:(NSInteger)index
