@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, ButKind)
 - (void)chatToolBarTextViewDidBeginEditing:(UITextView *)textView;
 - (void)chatToolBarSendText:(NSString *)text;
 - (void)chatToolBarTextViewDidChange:(UITextView *)textView;
+- (void)chatToolBarTextViewDeleteBackward:(RFTextView *)textView;
 @end
 
 

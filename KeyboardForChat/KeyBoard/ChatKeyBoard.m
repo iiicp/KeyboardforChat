@@ -23,6 +23,8 @@
 #import "OfficialAccountToolbar.h"
 #import "ChatKeyBoardMacroDefine.h"
 
+#import "NSString+Emoji.h"
+
 CGFloat getSupviewH(CGRect frame)
 {
     return frame.origin.y + kChatToolBarHeight;
@@ -123,7 +125,7 @@ CGFloat getDifferenceH(CGRect frame)
     // 键盘已经弹起时，表情按钮被选择
     if (self.chatToolBar.faceSelected && (getSupviewH(self.keyboardInitialFrame) - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
     {
-        [UIView animateWithDuration:0.25 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = YES;
             self.facePanel.hidden = NO;
             self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
@@ -134,7 +136,7 @@ CGFloat getDifferenceH(CGRect frame)
     // 键盘已经弹起时，more按钮被选择
     else if (self.chatToolBar.moreFuncSelected && (getSupviewH(self.keyboardInitialFrame) - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
     {
-        [UIView animateWithDuration:0.25 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = NO;
             self.facePanel.hidden = YES;
             self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
@@ -315,6 +317,26 @@ CGFloat getDifferenceH(CGRect frame)
     }
 }
 
+//聊天键盘删除内容
+- (void)chatToolBarTextViewDeleteBackward:(RFTextView *)textView
+{
+    NSRange range = textView.selectedRange;
+    NSString *handleText;
+    NSString *appendText;
+    if (range.location == textView.text.length) {
+        handleText = textView.text;
+        appendText = @"";
+    }else {
+        handleText = [textView.text substringToIndex:range.location];
+        appendText = [textView.text substringFromIndex:range.location];
+    }
+    
+    if (handleText.length > 0) {
+        
+        [self deleteBackward:handleText appendText:appendText];
+    }
+}
+
 #pragma mark -- FacePanelDelegate
 - (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName isDeleteKey:(BOOL)deletekey
 {
@@ -324,7 +346,7 @@ CGFloat getDifferenceH(CGRect frame)
         if (text.length <= 0) {
             [self.chatToolBar setTextViewContent:@""];
         }else {
-            [self.chatToolBar.textView deleteBackward];
+            [self deleteBackward:text appendText:@""];
         }
     }else {
         [self.chatToolBar setTextViewContent:[text stringByAppendingString:faceName]];
@@ -491,5 +513,34 @@ CGFloat getDifferenceH(CGRect frame)
         self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame), self.frame.size.width, CGRectGetHeight(self.frame));
     } completion:nil];
 }
+
+#pragma mark - 回删表情或文字
+
+- (void)deleteBackward:(NSString *)text appendText:(NSString *)appendText
+{
+    if (IsTextContainFace(text)) { // 如果最后一个是表情
+        
+        NSRange startRang = [text rangeOfString:@"[" options:NSBackwardsSearch];
+        NSString *current = [text substringToIndex:startRang.location];
+        [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
+        self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
+        
+    }else { // 如果最后一个系统键盘输入的文字
+        
+        if ([text isEmoji]) { // 如果是Emoji表情
+            NSString *current = [text substringToIndex:text.length - 2];
+            
+            [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
+            self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
+            
+        }else { // 如果是纯文字
+            NSString *current = [text substringToIndex:text.length - 1];
+            
+            [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
+            self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
+        }
+    }
+}
+
 
 @end

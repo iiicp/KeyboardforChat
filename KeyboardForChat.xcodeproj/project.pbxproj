@@ -15,6 +15,11 @@
 		792106571CB756D100A2296D /* Child3ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792106561CB756D100A2296D /* Child3ViewController.m */; };
 		7921065A1CB75A1400A2296D /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 792106591CB75A1400A2296D /* bg@2x.png */; };
 		795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */; };
+		79592A331CE9BADC0079FE28 /* emotion.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79592A301CE9BADC0079FE28 /* emotion.plist */; };
+		79592A341CE9BADC0079FE28 /* face.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79592A311CE9BADC0079FE28 /* face.plist */; };
+		79592A351CE9BADC0079FE28 /* systemEmoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79592A321CE9BADC0079FE28 /* systemEmoji.plist */; };
+		79592A391CE9BB7E0079FE28 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 79592A381CE9BB7D0079FE28 /* NSString+Emoji.m */; };
+		79592A3C1CE9BEEA0079FE28 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79592A3B1CE9BEEA0079FE28 /* MessageViewController.m */; };
 		79891E211CA8FFFF0031B2AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E201CA8FFFF0031B2AE /* main.m */; };
 		79891E241CA8FFFF0031B2AE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E231CA8FFFF0031B2AE /* AppDelegate.m */; };
 		79891E271CA8FFFF0031B2AE /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79891E261CA8FFFF0031B2AE /* DemoViewController.m */; };
@@ -34,9 +39,6 @@
 		79A125BB1CB4AE2E0017EEA0 /* OfficialAccountToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A125AB1CB4AE2E0017EEA0 /* OfficialAccountToolbar.m */; };
 		79A125BC1CB4AE2E0017EEA0 /* RFRecordButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A125AD1CB4AE2E0017EEA0 /* RFRecordButton.m */; };
 		79A125BD1CB4AE2E0017EEA0 /* RFTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A125AF1CB4AE2E0017EEA0 /* RFTextView.m */; };
-		79F244B21CAB7B9B00CF1B14 /* face.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79F244B11CAB7B9B00CF1B14 /* face.plist */; };
-		E30E3E291CB8A9A20085264A /* systemEmoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = E30E3E281CB8A9A20085264A /* systemEmoji.plist */; };
-		E3CE7D3A1CAC24A900C096AE /* emotion.plist in Resources */ = {isa = PBXBuildFile; fileRef = E3CE7D391CAC24A900C096AE /* emotion.plist */; };
 		E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3CE7D3B1CAC266400C096AE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,13 @@
 		792929AD1CACB4D400E4376E /* ChatKeyBoardMacroDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoardMacroDefine.h; sourceTree = "<group>"; };
 		795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatKeyBoard.h; sourceTree = "<group>"; };
 		795866911CAA7CF80095F3C0 /* ChatKeyBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatKeyBoard.m; sourceTree = "<group>"; };
+		79592A301CE9BADC0079FE28 /* emotion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emotion.plist; sourceTree = "<group>"; };
+		79592A311CE9BADC0079FE28 /* face.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = face.plist; sourceTree = "<group>"; };
+		79592A321CE9BADC0079FE28 /* systemEmoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = systemEmoji.plist; sourceTree = "<group>"; };
+		79592A371CE9BB7D0079FE28 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
+		79592A381CE9BB7D0079FE28 /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
+		79592A3A1CE9BEEA0079FE28 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		79592A3B1CE9BEEA0079FE28 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		79891E1C1CA8FFFF0031B2AE /* KeyboardForChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyboardForChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79891E201CA8FFFF0031B2AE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		79891E221CA8FFFF0031B2AE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -94,9 +103,6 @@
 		79A125AD1CB4AE2E0017EEA0 /* RFRecordButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFRecordButton.m; sourceTree = "<group>"; };
 		79A125AE1CB4AE2E0017EEA0 /* RFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFTextView.h; sourceTree = "<group>"; };
 		79A125AF1CB4AE2E0017EEA0 /* RFTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFTextView.m; sourceTree = "<group>"; };
-		79F244B11CAB7B9B00CF1B14 /* face.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = face.plist; sourceTree = "<group>"; };
-		E30E3E281CB8A9A20085264A /* systemEmoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = systemEmoji.plist; sourceTree = "<group>"; };
-		E3CE7D391CAC24A900C096AE /* emotion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emotion.plist; sourceTree = "<group>"; };
 		E3CE7D3B1CAC266400C096AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +117,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79592A2F1CE9BADC0079FE28 /* plist */ = {
+			isa = PBXGroup;
+			children = (
+				79592A301CE9BADC0079FE28 /* emotion.plist */,
+				79592A311CE9BADC0079FE28 /* face.plist */,
+				79592A321CE9BADC0079FE28 /* systemEmoji.plist */,
+			);
+			path = plist;
+			sourceTree = "<group>";
+		};
+		79592A361CE9BB5F0079FE28 /* Cagegory */ = {
+			isa = PBXGroup;
+			children = (
+				79592A371CE9BB7D0079FE28 /* NSString+Emoji.h */,
+				79592A381CE9BB7D0079FE28 /* NSString+Emoji.m */,
+			);
+			path = Cagegory;
+			sourceTree = "<group>";
+		};
 		79891E131CA8FFFF0031B2AE = {
 			isa = PBXGroup;
 			children = (
@@ -147,13 +172,12 @@
 				792106561CB756D100A2296D /* Child3ViewController.m */,
 				7921064A1CB74C1400A2296D /* TestNavViewController.h */,
 				7921064B1CB74C1400A2296D /* TestNavViewController.m */,
+				79592A3A1CE9BEEA0079FE28 /* MessageViewController.h */,
+				79592A3B1CE9BEEA0079FE28 /* MessageViewController.m */,
 				79A1258C1CB4AD8A0017EEA0 /* FaceSourceManager.h */,
 				79A1258D1CB4AD8A0017EEA0 /* FaceSourceManager.m */,
 				79C90CDD1CA94D350059270D /* KeyBoard */,
 				79891E1F1CA8FFFF0031B2AE /* Supporting Files */,
-				E3CE7D391CAC24A900C096AE /* emotion.plist */,
-				E30E3E281CB8A9A20085264A /* systemEmoji.plist */,
-				79F244B11CAB7B9B00CF1B14 /* face.plist */,
 			);
 			path = KeyboardForChat;
 			sourceTree = "<group>";
@@ -237,6 +261,8 @@
 		79C90CDD1CA94D350059270D /* KeyBoard */ = {
 			isa = PBXGroup;
 			children = (
+				79592A2F1CE9BADC0079FE28 /* plist */,
+				79592A361CE9BB5F0079FE28 /* Cagegory */,
 				79A1258F1CB4AE2E0017EEA0 /* Models */,
 				79A125961CB4AE2E0017EEA0 /* Views */,
 				795866901CAA7CF80095F3C0 /* ChatKeyBoard.h */,
@@ -304,13 +330,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3CE7D3A1CAC24A900C096AE /* emotion.plist in Resources */,
 				79891E2F1CA8FFFF0031B2AE /* LaunchScreen.storyboard in Resources */,
 				7921065A1CB75A1400A2296D /* bg@2x.png in Resources */,
+				79592A331CE9BADC0079FE28 /* emotion.plist in Resources */,
 				79891E2A1CA8FFFF0031B2AE /* Main.storyboard in Resources */,
-				79F244B21CAB7B9B00CF1B14 /* face.plist in Resources */,
 				E3CE7D3C1CAC266400C096AE /* Assets.xcassets in Resources */,
-				E30E3E291CB8A9A20085264A /* systemEmoji.plist in Resources */,
+				79592A351CE9BADC0079FE28 /* systemEmoji.plist in Resources */,
+				79592A341CE9BADC0079FE28 /* face.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +349,7 @@
 			files = (
 				792106461CB74A6600A2296D /* MainTableViewController.m in Sources */,
 				79A125B41CB4AE2E0017EEA0 /* FacePanel.m in Sources */,
+				79592A3C1CE9BEEA0079FE28 /* MessageViewController.m in Sources */,
 				795866921CAA7CF80095F3C0 /* ChatKeyBoard.m in Sources */,
 				79A1258E1CB4AD8A0017EEA0 /* FaceSourceManager.m in Sources */,
 				79A125BC1CB4AE2E0017EEA0 /* RFRecordButton.m in Sources */,
@@ -341,6 +368,7 @@
 				79A125B11CB4AE2E0017EEA0 /* FaceThemeModel.m in Sources */,
 				79A125B01CB4AE2E0017EEA0 /* ChatToolBarItem.m in Sources */,
 				79A125B81CB4AE2E0017EEA0 /* FacePageView.m in Sources */,
+				79592A391CE9BB7E0079FE28 /* NSString+Emoji.m in Sources */,
 				79A125B31CB4AE2E0017EEA0 /* FaceButton.m in Sources */,
 				79A125BD1CB4AE2E0017EEA0 /* RFTextView.m in Sources */,
 				7921064C1CB74C1400A2296D /* TestNavViewController.m in Sources */,

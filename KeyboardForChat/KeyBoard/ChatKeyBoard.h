@@ -11,14 +11,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MoreItem.h"
+#import "ChatToolBarItem.h"
+#import "FaceThemeModel.h"
 
 @class ChatToolBar;
 @class FacePanel;
 @class MorePanel;
-
-@class MoreItem;
-@class ChatToolBarItem;
-@class FaceThemeModel;
 
 typedef NS_ENUM(NSInteger, KeyBoardStyle)
 {

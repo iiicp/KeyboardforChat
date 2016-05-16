@@ -21,7 +21,7 @@
 #define TextViewVerticalOffset  (ItemH-TextViewH)/2.0
 #define TextViewMargin          8
 
-@interface ChatToolBar ()<UITextViewDelegate>
+@interface ChatToolBar ()<RFTextViewDelegate>
 
 @property CGFloat previousTextViewHeight;
 
@@ -346,6 +346,14 @@ selectStateImageStr:(NSString *)selectStr highLightStateImageStr:(NSString *)hig
     if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDidChange:)])
     {
         [self.delegate chatToolBarTextViewDidChange:self.textView];
+    }
+}
+
+- (void)textViewDeleteBackward:(RFTextView *)textView
+{
+    if ([self.delegate respondsToSelector:@selector(chatToolBarTextViewDeleteBackward:)]) {
+        
+        [self.delegate chatToolBarTextViewDeleteBackward:textView];
     }
 }
 

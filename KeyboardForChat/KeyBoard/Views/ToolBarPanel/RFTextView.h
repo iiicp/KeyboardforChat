@@ -12,7 +12,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class RFTextView;
+@protocol RFTextViewDelegate <UITextViewDelegate>
+
+- (void)textViewDeleteBackward:(RFTextView *)textView;
+
+@end
+
 @interface RFTextView : UITextView
+
+@property(nonatomic ,weak) id<RFTextViewDelegate> delegate;
 
 @property (nonatomic, copy) NSString * placeHolder;
 

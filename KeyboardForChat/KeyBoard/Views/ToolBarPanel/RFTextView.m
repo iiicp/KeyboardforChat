@@ -11,8 +11,11 @@
 //
 
 #import "RFTextView.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 @implementation RFTextView
+
+@dynamic delegate;
 
 - (instancetype)init
 {
@@ -39,6 +42,18 @@
 - (void)dealloc
 {
     [self _removeTextViewNotificationObservers];
+}
+
+- (void)deleteBackward
+{
+    if (IsTextContainFace(self.text)) { // 如果text中有表情
+        if ([self.delegate respondsToSelector:@selector(textViewDeleteBackward:)]) {
+            [self.delegate textViewDeleteBackward:self];
+        }
+    }else {
+        
+        [super deleteBackward];
+    }
 }
 
 #pragma mark -RFTextView 方法

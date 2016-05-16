@@ -19,7 +19,7 @@
 -(NSArray *)demos
 {
     if (_demos == nil) {
-        _demos = @[@"导航栏透明", @"导航栏设置成不透明，设置了图片", @"顶部带有标签栏的控制器"];
+        _demos = @[@"导航栏透明", @"导航栏设置成不透明，设置了图片", @"顶部带有标签栏的控制器", @"使用键盘的消息界面"];
     }
     return _demos;
 }
@@ -71,6 +71,9 @@
         } case 2:{
             [self performSegueWithIdentifier:@"TopTabViewController" sender:nil];
             
+            break;
+        } case 3:{
+            [self performSegueWithIdentifier:@"MessageViewController" sender:nil];
             break;
         }
             
