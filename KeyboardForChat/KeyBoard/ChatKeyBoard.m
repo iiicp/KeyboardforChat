@@ -226,7 +226,7 @@ static inline CGFloat getDifferenceH(CGRect keyboardInitialFrame)
 }
 
 /**
- *  调整关联的表的高度，
+ *  调整关联的表的高度
  */
 - (void)updateAssociateTableViewFrame
 {
