@@ -14,6 +14,7 @@
 #import "MoreItem.h"
 #import "ChatToolBarItem.h"
 #import "FaceThemeModel.h"
+#import "ChatKeyBoardMacroDefine.h"
 
 @class ChatToolBar;
 @class FacePanel;
@@ -94,6 +95,12 @@ typedef NS_ENUM(NSInteger, KeyBoardStyle)
  *  @return keyboard对象
  */
 + (instancetype)keyBoardWithParentViewBounds:(CGRect)bounds;
+
+/**
+ *
+ *  设置关联的表
+ */
+@property (nonatomic, weak) UITableView *associateTableView;
 
 
 @property (nonatomic, weak) id<ChatKeyBoardDataSource> dataSource;

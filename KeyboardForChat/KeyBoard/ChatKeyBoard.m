@@ -21,21 +21,24 @@
 #import "FaceThemeModel.h"
 
 #import "OfficialAccountToolbar.h"
-#import "ChatKeyBoardMacroDefine.h"
+
 
 #import "NSString+Emoji.h"
 
-CGFloat getSupviewH(CGRect frame)
+static inline CGFloat getSupviewH(CGRect keyboardInitialFrame)
 {
-    return frame.origin.y + kChatToolBarHeight;
+    return keyboardInitialFrame.origin.y + kChatToolBarHeight;
 }
 
-CGFloat getDifferenceH(CGRect frame)
+static inline CGFloat getDifferenceH(CGRect keyboardInitialFrame)
 {
-    return kScreenHeight - (frame.origin.y + kChatToolBarHeight);
+    return kScreenHeight - (keyboardInitialFrame.origin.y + kChatToolBarHeight);
 }
 
 @interface ChatKeyBoard () <ChatToolBarDelegate, FacePanelDelegate, MorePannelDelegate>
+{
+    __weak UITableView *_associateTableView;    //chatKeyBoard关联的表
+}
 
 @property (nonatomic, strong) ChatToolBar *chatToolBar;
 @property (nonatomic, strong) FacePanel *facePanel;
@@ -44,7 +47,14 @@ CGFloat getDifferenceH(CGRect frame)
 
 @property (nonatomic, assign) BOOL translucent;
 
+/**
+ *  键盘初始的frame
+ */
 @property (nonatomic, assign) CGRect keyboardInitialFrame;
+/**
+ *  聊天键盘 上一次的 y 坐标
+ */
+@property (nonatomic, assign) CGFloat lastChatKeyboardY;
 
 @end
 
@@ -57,6 +67,11 @@ CGFloat getDifferenceH(CGRect frame)
     return [self keyBoardWithNavgationBarTranslucent:YES];
 }
 
+/**
+ *  如果导航栏是透明的，则键盘的初始位置为 kScreenHeight-kChatToolBarHeight
+ *
+ *  否则，导航栏的高度为 kScreenHeight-kChatToolBarHeight-64
+ */
 + (instancetype)keyBoardWithNavgationBarTranslucent:(BOOL)translucent
 {
     CGRect frame = CGRectZero;
@@ -73,6 +88,7 @@ CGFloat getDifferenceH(CGRect frame)
     CGRect frame = CGRectMake(0, bounds.size.height - kChatToolBarHeight, kScreenWidth, kChatKeyBoardHeight);
     return [[self alloc] initWithFrame:frame];
 }
+
 
 - (void)dealloc
 {
@@ -101,7 +117,6 @@ CGFloat getDifferenceH(CGRect frame)
         
         _OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
         [self addSubview:self.OAtoolbar];
-        
         __weak __typeof(self) weakself = self;
         self.OAtoolbar.switchAction = ^(){
             [UIView animateWithDuration:0.25 animations:^{
@@ -112,36 +127,46 @@ CGFloat getDifferenceH(CGRect frame)
             }];
         };
         
+        self.lastChatKeyboardY = frame.origin.y;
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
         [self addObserver:self forKeyPath:@"self.chatToolBar.frame" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     }
     return self;
 }
 
-
 #pragma mark -- 跟随键盘的坐标变化
 - (void)keyBoardWillChangeFrame:(NSNotification *)notification
 {
     // 键盘已经弹起时，表情按钮被选择
-    if (self.chatToolBar.faceSelected && (getSupviewH(self.keyboardInitialFrame) - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
+    if (self.chatToolBar.faceSelected)
     {
-        [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = YES;
             self.facePanel.hidden = NO;
+            
+            self.lastChatKeyboardY = self.frame.origin.y;
             self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            
+            [self updateAssociateTableViewFrame];
+            
         } completion:nil];
     }
     // 键盘已经弹起时，more按钮被选择
-    else if (self.chatToolBar.moreFuncSelected && (getSupviewH(self.keyboardInitialFrame) - CGRectGetMidY(self.frame)) < CGRectGetHeight(self.frame))
+    else if (self.chatToolBar.moreFuncSelected)
     {
-        [UIView animateWithDuration:0.25 delay:0.03 options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
             self.morePanel.hidden = NO;
             self.facePanel.hidden = YES;
+            
+            self.lastChatKeyboardY = self.frame.origin.y;
             self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            
+            [self updateAssociateTableViewFrame];
         } completion:nil];
     }
     else
@@ -154,16 +179,21 @@ CGFloat getDifferenceH(CGRect frame)
             
             CGFloat targetY = end.origin.y - (CGRectGetHeight(self.frame) - kMorePanelHeight) - getDifferenceH(self.keyboardInitialFrame);
             
+            
             if(begin.size.height>0 && (begin.origin.y-end.origin.y>0))
             {
                 // 键盘弹起 (包括，第三方键盘回调三次问题，监听仅执行最后一次)
+                
+                self.lastChatKeyboardY = self.frame.origin.y;
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
                 self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
                 self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+                [self updateAssociateTableViewFrame];
                 
             }
             else if (end.origin.y == kScreenHeight && begin.origin.y!=end.origin.y && duration > 0)
             {
+                self.lastChatKeyboardY = self.frame.origin.y;
                 //键盘收起
                 if (self.keyBoardStyle == KeyBoardStyleChat)
                 {
@@ -173,23 +203,56 @@ CGFloat getDifferenceH(CGRect frame)
                 {
                     if (self.chatToolBar.voiceSelected)
                     {
-                       self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
+                        self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
                     }
                     else
                     {
                         self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame), CGRectGetWidth(self.frame), self.frame.size.height);
                     }
                 }
+                [self updateAssociateTableViewFrame];
+                
             }
             else if ((begin.origin.y-end.origin.y<0) && duration == 0)
             {
+                self.lastChatKeyboardY = self.frame.origin.y;
                 //键盘切换
                 self.frame = CGRectMake(0, targetY, CGRectGetWidth(self.frame), self.frame.size.height);
+                [self updateAssociateTableViewFrame];
             }
+            
         }];
     }
 }
 
+/**
+ *  调整关联的表的高度，
+ */
+- (void)updateAssociateTableViewFrame
+{
+    //更新表的frame
+    _associateTableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.origin.y);
+    
+    //键盘的y坐标的偏移量
+    CGFloat keyboardOffset = self.frame.origin.y - self.lastChatKeyboardY;
+    
+    //表的超出frame的内容高度
+    CGFloat tableViewContentDiffer = _associateTableView.contentSize.height - _associateTableView.frame.size.height;
+    
+    
+    //是否键盘的偏移量，超过了表的整个tableViewContentDiffer尺寸
+    CGFloat offset;
+    if (fabs(tableViewContentDiffer) > fabs(keyboardOffset)) {
+        offset = _associateTableView.contentOffset.y-keyboardOffset;
+    }else {
+        offset = tableViewContentDiffer;
+    }
+    
+    _associateTableView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.origin.y);
+    if (_associateTableView.contentSize.height +_associateTableView.contentInset.top+_associateTableView.contentInset.bottom> _associateTableView.frame.size.height) {
+        _associateTableView.contentOffset = CGPointMake(0, offset);
+    }
+}
 #pragma mark -- kvo
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
@@ -198,26 +261,44 @@ CGFloat getDifferenceH(CGRect frame)
         CGRect newRect = [[change objectForKey:NSKeyValueChangeNewKey] CGRectValue];
         CGRect oldRect = [[change objectForKey:NSKeyValueChangeOldKey] CGRectValue];
         CGFloat changeHeight = newRect.size.height - oldRect.size.height;
+        
+        self.lastChatKeyboardY = self.frame.origin.y;
         self.frame = CGRectMake(0, self.frame.origin.y - changeHeight, self.frame.size.width, self.frame.size.height + changeHeight);
         self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
         self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
         self.OAtoolbar.frame = CGRectMake(0, CGRectGetMaxY(self.frame), CGRectGetWidth(self.frame), kChatToolBarHeight);
+        
+        [self updateAssociateTableViewFrame];
     }
 }
 
 #pragma mark -- ChatToolBarDelegate
 
+/**
+ *  语音按钮选中，此刻键盘没有弹起
+ *  @param change  键盘是否弹起
+ */
 - (void)chatToolBar:(ChatToolBar *)toolBar voiceBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
     if (select && change == NO) {
         
         [UIView animateWithDuration:0.25 animations:^{
+            
+            self.lastChatKeyboardY = self.frame.origin.y;
             CGFloat y = self.frame.origin.y;
             y = getSupviewH(self.keyboardInitialFrame) - self.chatToolBar.frame.size.height;
             self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+            
+            [self updateAssociateTableViewFrame];
+            
         }];
     }
 }
+
+/**
+ *  表情按钮选中，此刻键盘没有弹起
+ *  @param change  键盘是否弹起
+ */
 - (void)chatToolBar:(ChatToolBar *)toolBar faceBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
     if (select && change == NO)
@@ -225,12 +306,22 @@ CGFloat getDifferenceH(CGRect frame)
         self.morePanel.hidden = YES;
         self.facePanel.hidden = NO;
         [UIView animateWithDuration:0.25 animations:^{
+            
+            self.lastChatKeyboardY = self.frame.origin.y;
             self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kFacePanelHeight, CGRectGetWidth(self.frame), kFacePanelHeight);
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            
+            [self updateAssociateTableViewFrame];
+            
         }];
     }
 }
+
+/**
+ *  more按钮选中，此刻键盘没有弹起
+ *  @param change  键盘是否弹起
+ */
 - (void)chatToolBar:(ChatToolBar *)toolBar moreBtnPressed:(BOOL)select keyBoardState:(BOOL)change
 {
     if (select && change == NO)
@@ -238,9 +329,14 @@ CGFloat getDifferenceH(CGRect frame)
         self.morePanel.hidden = NO;
         self.facePanel.hidden = YES;
         [UIView animateWithDuration:0.25 animations:^{
+            
+            self.lastChatKeyboardY = self.frame.origin.y;
             self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame)-CGRectGetHeight(self.frame), kScreenWidth, CGRectGetHeight(self.frame));
             self.morePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame)-kMorePanelHeight, CGRectGetWidth(self.frame), kMorePanelHeight);
             self.facePanel.frame = CGRectMake(0, CGRectGetHeight(self.frame), CGRectGetWidth(self.frame), kFacePanelHeight);
+            
+            [self updateAssociateTableViewFrame];
+            
         }];
     }
 }
@@ -249,19 +345,30 @@ CGFloat getDifferenceH(CGRect frame)
     if (change == NO)
     {
         [UIView animateWithDuration:0.25 animations:^{
+            
+            self.lastChatKeyboardY = self.frame.origin.y;
+            
             CGFloat y = self.frame.origin.y;
             y = getSupviewH(self.keyboardInitialFrame) - kChatToolBarHeight;
             self.frame = CGRectMake(0,getSupviewH(self.keyboardInitialFrame), self.frame.size.width, self.frame.size.height);
             self.OAtoolbar.frame = CGRectMake(0, 0, self.frame.size.width, kChatToolBarHeight);
             self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+            
+            [self updateAssociateTableViewFrame];
+            
         }];
     }
     else
     {
+        self.lastChatKeyboardY = self.frame.origin.y;
+        
         CGFloat y = getSupviewH(self.keyboardInitialFrame) - kChatToolBarHeight;
         self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame), self.frame.size.width, self.frame.size.height);
         self.OAtoolbar.frame = CGRectMake(0, 0, self.frame.size.width, kChatToolBarHeight);
         self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+        
+        [self updateAssociateTableViewFrame];
+        
     }
 }
 
@@ -302,14 +409,15 @@ CGFloat getDifferenceH(CGRect frame)
         [self.delegate chatKeyBoardTextViewDidBeginEditing:textView];
     }
 }
+
 - (void)chatToolBarSendText:(NSString *)text
 {
-    
+    [self.chatToolBar clearTextViewContent];
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardSendText:)]) {
         [self.delegate chatKeyBoardSendText:text];
     }
-    [self.chatToolBar clearTextViewContent];
 }
+
 - (void)chatToolBarTextViewDidChange:(UITextView *)textView
 {
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardTextViewDidChange:)]) {
@@ -317,7 +425,6 @@ CGFloat getDifferenceH(CGRect frame)
     }
 }
 
-//聊天键盘删除内容
 - (void)chatToolBarTextViewDeleteBackward:(RFTextView *)textView
 {
     NSRange range = textView.selectedRange;
@@ -338,9 +445,10 @@ CGFloat getDifferenceH(CGRect frame)
 }
 
 #pragma mark -- FacePanelDelegate
-- (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName isDeleteKey:(BOOL)deletekey
+- (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName faceAttributeName:(NSAttributedString *)attributeName isDeleteKey:(BOOL)deletekey
 {
     NSString *text = self.chatToolBar.textView.text;
+    
     if (deletekey == YES)
     {
         if (text.length <= 0) {
@@ -359,10 +467,10 @@ CGFloat getDifferenceH(CGRect frame)
 
 - (void)facePanelSendTextAction:(FacePanel *)facePanel
 {
+    [self.chatToolBar clearTextViewContent];
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardSendText:)]) {
         [self.delegate chatKeyBoardSendText:self.chatToolBar.textView.text];
     }
-    [self.chatToolBar clearTextViewContent];
 }
 
 - (void)facePanelAddSubject:(FacePanel *)facePanel
@@ -411,6 +519,13 @@ CGFloat getDifferenceH(CGRect frame)
 }
 
 #pragma mark -- set方法
+- (void)setAssociateTableView:(UITableView *)associateTableView
+{
+    if (_associateTableView != associateTableView) {
+        _associateTableView = associateTableView;
+    }
+}
+
 - (void)setPlaceHolder:(NSString *)placeHolder
 {
     _placeHolder = placeHolder;
@@ -450,6 +565,7 @@ CGFloat getDifferenceH(CGRect frame)
     _keyBoardStyle = keyBoardStyle;
     
     if (keyBoardStyle == KeyBoardStyleComment) {
+        self.lastChatKeyboardY = self.frame.origin.y;
         self.frame = CGRectMake(0, self.frame.origin.y+kChatToolBarHeight, self.frame.size.width, self.frame.size.height);
     }
 }
@@ -464,7 +580,6 @@ CGFloat getDifferenceH(CGRect frame)
     else {
         NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"键盘开启了评论风格请使用- (void)keyboardUpforComment" userInfo:nil];
         [excp raise];
-
     }
 }
 
@@ -479,11 +594,20 @@ CGFloat getDifferenceH(CGRect frame)
         }
         else
         {
-            [UIView animateWithDuration:0.25 animations:^{
-                CGFloat y = self.frame.origin.y;
-                y = getSupviewH(self.keyboardInitialFrame) - self.chatToolBar.frame.size.height;
-                self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
-            }];
+            if((getSupviewH(self.keyboardInitialFrame) - CGRectGetMinY(self.frame)) > self.chatToolBar.frame.size.height)
+            {
+                [UIView animateWithDuration:0.25 animations:^{
+                    
+                    self.lastChatKeyboardY = self.frame.origin.y;
+                    CGFloat y = self.frame.origin.y;
+                    y = getSupviewH(self.keyboardInitialFrame) - self.chatToolBar.frame.size.height;
+                    self.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height);
+                    
+                    [self updateAssociateTableViewFrame];
+                    
+                }];
+                
+            }
         }
     }else {
         NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"键盘开启了评论风格请使用- (void)keyboardDownForComment" userInfo:nil];
@@ -509,8 +633,14 @@ CGFloat getDifferenceH(CGRect frame)
         [excp raise];
     }
     [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.lastChatKeyboardY = self.frame.origin.y;
+        
         [self.chatToolBar prepareForEndComment];
         self.frame = CGRectMake(0, getSupviewH(self.keyboardInitialFrame), self.frame.size.width, CGRectGetHeight(self.frame));
+        
+        [self updateAssociateTableViewFrame];
+        
     } completion:nil];
 }
 

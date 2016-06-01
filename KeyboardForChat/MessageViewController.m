@@ -9,6 +9,8 @@
 #import "MessageViewController.h"
 #import "ChatKeyBoard.h"
 
+#define kLines 20
+
 @interface MessageViewController ()<ChatKeyBoardDelegate, ChatKeyBoardDataSource, UITableViewDataSource, UITableViewDelegate>
 /** 聊天键盘 */
 @property (nonatomic, strong) ChatKeyBoard *chatKeyBoard;
@@ -21,55 +23,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UITableView *messageTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    UITableView *messageTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-49) style:UITableViewStylePlain];
     messageTableView.delegate = self;
     messageTableView.dataSource = self;
     [self.view addSubview:messageTableView];
     self.messageTableView = messageTableView;
-    
+
     self.chatKeyBoard = [ChatKeyBoard keyBoard];
     self.chatKeyBoard.delegate = self;
     self.chatKeyBoard.dataSource = self;
+    self.chatKeyBoard.associateTableView = messageTableView;
     [self.view addSubview:self.chatKeyBoard];
     
-    
-    [self addObserver:self forKeyPath:@"self.chatKeyBoard.frame" options:NSKeyValueObservingOptionNew context:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        if (kLines > 0) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:kLines-1 inSection:0];
+            [self.messageTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
+        }
+    });
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self removeObserver:self forKeyPath:@"self.chatKeyBoard.frame" context:nil];
-}
-
-
-#pragma mark -- KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
-{
-    if (object == self && [keyPath isEqualToString:@"self.chatKeyBoard.frame"])
-    {
-        CGRect newRect = [[change objectForKey:NSKeyValueChangeNewKey] CGRectValue];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            CGFloat lastMessageheight = self.messageTableView.frame.size.height;
-            
-            if (lastMessageheight != newRect.origin.y)
-            {
-                [UIView animateWithDuration:0.25 animations:^{
-                    self.messageTableView.frame = CGRectMake(0, 0, self.view.frame.size.width, newRect.origin.y);
-                    if (self.messageTableView.contentSize.height> self.messageTableView.frame.size.height) {
-                        CGPoint point = CGPointMake(0, self.messageTableView.contentSize.height - self.messageTableView.frame.size.height);
-                        self.messageTableView.contentOffset = point;
-                    }
-                }];
-            }
-        });
-    }
-}
 
 #pragma mark -- UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 100;
+    return kLines;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -83,10 +62,16 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 44.f;
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.chatKeyBoard keyboardDown];
 }
+
 
 #pragma mark -- ChatKeyBoardDataSource
 - (NSArray<MoreItem *> *)chatKeyBoardMorePanelItems
