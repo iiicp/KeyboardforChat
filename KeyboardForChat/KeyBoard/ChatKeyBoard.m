@@ -446,7 +446,7 @@ static inline CGFloat getDifferenceH(CGRect keyboardInitialFrame)
 }
 
 #pragma mark -- FacePanelDelegate
-- (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName faceAttributeName:(NSAttributedString *)attributeName isDeleteKey:(BOOL)deletekey
+- (void)facePanelFacePicked:(FacePanel *)facePanel faceStyle:(FaceThemeStyle)themeStyle faceName:(NSString *)faceName isDeleteKey:(BOOL)deletekey
 {
     NSString *text = self.chatToolBar.textView.text;
     
@@ -468,10 +468,10 @@ static inline CGFloat getDifferenceH(CGRect keyboardInitialFrame)
 
 - (void)facePanelSendTextAction:(FacePanel *)facePanel
 {
-    [self.chatToolBar clearTextViewContent];
     if ([self.delegate respondsToSelector:@selector(chatKeyBoardSendText:)]) {
         [self.delegate chatKeyBoardSendText:self.chatToolBar.textView.text];
     }
+    [self.chatToolBar clearTextViewContent];
 }
 
 - (void)facePanelAddSubject:(FacePanel *)facePanel

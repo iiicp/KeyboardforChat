@@ -108,6 +108,7 @@ extern NSString * const FacePageViewFaceThemeStyle;
     FaceThemeStyle themeStyle = [[info objectForKey:FacePageViewFaceThemeStyle] integerValue];
     
     if ([self.delegate respondsToSelector:@selector(facePanelFacePicked:faceStyle:faceName:isDeleteKey:)]) {
+        
         [self.delegate facePanelFacePicked:self faceStyle:themeStyle faceName:faceName isDeleteKey:isDelete];
     }
 }
