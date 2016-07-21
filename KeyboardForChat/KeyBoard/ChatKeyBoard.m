@@ -635,6 +635,11 @@
 
 - (CGFloat)getSuperViewH
 {
+    if (self.superview == nil) {
+        NSException *excp = [NSException exceptionWithName:@"ChatKeyBoardException" reason:@"未添加到父视图上面" userInfo:nil];
+        [excp raise];
+    }
+    
     return self.superview.frame.size.height;
 }
 
