@@ -657,15 +657,25 @@
         
     }else { // 如果最后一个系统键盘输入的文字
         
-        if ([text isEmoji]) { // 如果是Emoji表情
-            NSString *current = [text substringToIndex:text.length - 2];
+        if (text.length >= 2) {
             
-            [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
-            self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
+            NSString *tempString = [text substringWithRange:NSMakeRange(text.length - 2, 2)];
+            
+            if ([tempString isEmoji]) { // 如果是Emoji表情
+                NSString *current = [text substringToIndex:text.length - 2];
+                
+                [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
+                self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
+                
+            }else { // 如果是纯文字
+                NSString *current = [text substringToIndex:text.length - 1];
+                [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
+                self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
+            }
             
         }else { // 如果是纯文字
-            NSString *current = [text substringToIndex:text.length - 1];
             
+            NSString *current = [text substringToIndex:text.length - 1];
             [self.chatToolBar setTextViewContent:[current stringByAppendingString:appendText]];
             self.chatToolBar.textView.selectedRange = NSMakeRange(current.length, 0);
         }
