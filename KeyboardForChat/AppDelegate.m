@@ -17,6 +17,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    nav.interactivePopGestureRecognizer.cancelsTouchesInView = false;
+    nav.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = false;
+    nav.navigationController.interactivePopGestureRecognizer.delaysTouchesEnded = false;
+    
     return YES;
 }
 

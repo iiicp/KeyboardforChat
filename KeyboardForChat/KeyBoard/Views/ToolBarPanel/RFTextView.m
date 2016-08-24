@@ -33,7 +33,7 @@
         
         _placeHolder = nil;
         _placeHolderTextColor = [UIColor lightGrayColor];
-        
+                
         [self _addTextViewNotificationObservers];
     }
     return self;

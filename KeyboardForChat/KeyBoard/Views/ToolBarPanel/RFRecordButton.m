@@ -104,4 +104,17 @@
     }
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    BOOL inside = [super pointInside: point withEvent: event];
+    
+    if (inside && !self.highlighted)
+    {
+        self.highlighted = YES;
+        [self sendActionsForControlEvents:UIControlEventTouchDown];
+    }
+    
+    return inside;
+}
+
 @end
