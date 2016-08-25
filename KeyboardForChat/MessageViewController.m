@@ -23,6 +23,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO;
+    
     UITableView *messageTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-49) style:UITableViewStylePlain];
     messageTableView.delegate = self;
     messageTableView.dataSource = self;

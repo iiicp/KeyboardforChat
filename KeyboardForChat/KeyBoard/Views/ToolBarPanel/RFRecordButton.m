@@ -104,17 +104,24 @@
     }
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
-    BOOL inside = [super pointInside: point withEvent: event];
-    
-    if (inside && !self.highlighted)
-    {
-        self.highlighted = YES;
-        [self sendActionsForControlEvents:UIControlEventTouchDown];
-    }
-    
-    return inside;
-}
+
+//解决按钮放在屏幕底部，touchdown事件延迟响应的问题
+
+/**
+    iOS7之后提供了做滑手势导致的这个问题
+    self.navigationController.interactivePopGestureRecognizer.delaysTouchesBegan = NO; 即可
+ */
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+//{
+//    BOOL inside = [super pointInside: point withEvent: event];
+//    
+//    if (inside && !self.highlighted)
+//    {
+//        self.highlighted = YES;
+//        [self sendActionsForControlEvents:UIControlEventTouchDown];
+//    }
+//    
+//    return inside;
+//}
 
 @end
