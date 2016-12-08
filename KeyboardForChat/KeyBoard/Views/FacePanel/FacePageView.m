@@ -247,9 +247,9 @@ NSString * const FacePageViewFaceThemeStyle = @"FacePageViewFaceThemeStyle";
                                FacePageViewFaceThemeStyle : @(self.themeStyle)
                                };
     
-    NSNotification *notification = [NSNotification notificationWithName:FacePageViewFaceSelectedNotification object:self userInfo:faceInfo];
+    NSNotification *notification = [NSNotification notificationWithName:FacePageViewFaceSelectedNotification object:self];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:FacePageViewFaceSelectedNotification object:notification];
+    [[NSNotificationCenter defaultCenter] postNotificationName:FacePageViewFaceSelectedNotification object:notification userInfo:faceInfo];
 }
 
 @end
