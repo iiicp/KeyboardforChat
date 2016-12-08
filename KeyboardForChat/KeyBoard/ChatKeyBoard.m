@@ -12,16 +12,7 @@
 
 #import "ChatKeyBoard.h"
 
-#import "ChatToolBar.h"
-#import "FacePanel.h"
-#import "MorePanel.h"
-
-#import "MoreItem.h"
-#import "ChatToolBarItem.h"
-#import "FaceThemeModel.h"
-
 #import "OfficialAccountToolbar.h"
-
 
 #import "NSString+Emoji.h"
 
@@ -34,8 +25,6 @@
 @property (nonatomic, strong) FacePanel *facePanel;
 @property (nonatomic, strong) MorePanel *morePanel;
 @property (nonatomic, strong) OfficialAccountToolbar *OAtoolbar;
-
-@property (nonatomic, assign) BOOL translucent;
 
 /**
  *  聊天键盘 上一次的 y 坐标
@@ -87,20 +76,11 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        _chatToolBar = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kChatToolBarHeight)];
-        _chatToolBar.delegate = self;
         [self addSubview:self.chatToolBar];
-        
-        _facePanel = [[FacePanel alloc] initWithFrame:CGRectMake(0, kChatKeyBoardHeight-kFacePanelHeight, kScreenWidth, kFacePanelHeight)];
-        _facePanel.delegate = self;
         [self addSubview:self.facePanel];
-        
-        _morePanel = [[MorePanel alloc] initWithFrame:self.facePanel.frame];
-        _morePanel.delegate = self;
         [self addSubview:self.morePanel];
-        
-        _OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
         [self addSubview:self.OAtoolbar];
+        
         __weak __typeof(self) weakself = self;
         self.OAtoolbar.switchAction = ^(){
             [UIView animateWithDuration:0.25 animations:^{
@@ -567,7 +547,6 @@
     }
 }
 
-
 - (void)keyboardDown
 {
     if (self.keyBoardStyle == KeyBoardStyleChat)
@@ -599,7 +578,6 @@
     }
 }
 
-
 - (void)keyboardUpforComment
 {
     if (self.keyBoardStyle != KeyBoardStyleComment) {
@@ -628,7 +606,6 @@
     } completion:nil];
 }
 
-
 - (CGFloat)getSuperViewH
 {
     if (self.superview == nil) {
@@ -638,7 +615,6 @@
     
     return self.superview.frame.size.height;
 }
-
 
 #pragma mark - 回删表情或文字
 
@@ -678,5 +654,40 @@
     }
 }
 
+#pragma mark -- 懒加载
+- (ChatToolBar *)chatToolBar
+{
+    if (!_chatToolBar) {
+        _chatToolBar = [[ChatToolBar alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kChatToolBarHeight)];
+        _chatToolBar.delegate = self;
+    }
+    return _chatToolBar;
+}
+
+- (FacePanel *)facePanel
+{
+    if (!_facePanel) {
+        _facePanel = [[FacePanel alloc] initWithFrame:CGRectMake(0, kChatKeyBoardHeight-kFacePanelHeight, kScreenWidth, kFacePanelHeight)];
+        _facePanel.delegate = self;
+    }
+    return _facePanel;
+}
+
+- (MorePanel *)morePanel
+{
+    if (!_morePanel) {
+        _morePanel = [[MorePanel alloc] initWithFrame:self.facePanel.frame];
+        _morePanel.delegate = self;
+    }
+    return _morePanel;
+}
+
+- (OfficialAccountToolbar *)OAtoolbar
+{
+    if (!_OAtoolbar) {
+        _OAtoolbar = [[OfficialAccountToolbar alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.frame), kScreenWidth, kChatToolBarHeight)];
+    }
+    return _OAtoolbar;
+}
 
 @end
