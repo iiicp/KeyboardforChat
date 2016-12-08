@@ -447,10 +447,6 @@
     }else {
         [self.chatToolBar setTextViewContent:[text stringByAppendingString:faceName]];
     }
-    
-    if ([self.delegate respondsToSelector:@selector(chatKeyBoardFacePicked:faceStyle:faceName:delete:)]) {
-        [self.delegate chatKeyBoardFacePicked:self faceStyle:themeStyle faceName:faceName delete:deletekey];
-    }
 }
 
 - (void)facePanelSendTextAction:(FacePanel *)facePanel

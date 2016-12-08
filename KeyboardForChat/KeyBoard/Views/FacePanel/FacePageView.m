@@ -240,13 +240,16 @@ NSString * const FacePageViewFaceThemeStyle = @"FacePageViewFaceThemeStyle";
     if ([button.faceTitle isEqualToString:DeleteKey]) {
         deleteKey = YES;
     }
+    
     NSDictionary *faceInfo = @{
                                FacePageViewFaceName : button.faceTitle ? button.faceTitle : @"",
                                FacePageViewDeleteKey : @(deleteKey),
                                FacePageViewFaceThemeStyle : @(self.themeStyle)
                                };
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:FacePageViewFaceSelectedNotification object:faceInfo];
+    NSNotification *notification = [NSNotification notificationWithName:FacePageViewFaceSelectedNotification object:self userInfo:faceInfo];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FacePageViewFaceSelectedNotification object:notification];
 }
 
 @end

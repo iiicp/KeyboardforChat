@@ -122,7 +122,7 @@ typedef void (^ItemViewAction)(MoreItemView *itemView);
         CGFloat y = ( (i - pageIndex * (maxLinesOfPage * maxColsOfPage) ) / maxColsOfPage) * (vMargin + kMoreItemH) + vMargin;
         
         MoreItem *item = items[i];
-        MoreItemView *itemView = [[MoreItemView alloc] initWithFrame:CGRectMake(x, y, kMoreItemIconSize, kMorePanelHeight)];
+        MoreItemView *itemView = [[MoreItemView alloc] initWithFrame:CGRectMake(x, y, kMoreItemIconSize, kMoreItemH)];
         [itemView updateViewWithItem:item];
         itemView.tag = i;
         itemView.itemViewAction = ^(MoreItemView *itemView){
