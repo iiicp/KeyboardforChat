@@ -146,7 +146,7 @@
             
             CGFloat targetY = end.origin.y - chatToolBarHeight - (kScreenHeight - [self getSuperViewH]);
 
-            if(begin.size.height>0 && (begin.origin.y-end.origin.y>0))
+            if(begin.size.height>=0 && (begin.origin.y-end.origin.y>0))
             {
                 // 键盘弹起 (包括，第三方键盘回调三次问题，监听仅执行最后一次)
                 
