@@ -1,10 +1,6 @@
 # KeyboardForChat
 仿微信聊天键盘。  
 优点：无污染，无任何第三方，使用简单。
-
-博客：[devcai.com](http://devcai.com)  
-
-  qq: 2581502433@qq.com
   
 #特性
 1.  支持语音、表情、more，并且可以关闭、打开。
