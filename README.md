@@ -2,7 +2,7 @@
 仿微信聊天键盘。  
 优点：无污染，无任何第三方，使用简单。
   
-#特性
+# 特性
 1.  支持语音、表情、more，并且可以关闭、打开。
 2.  单个主题表情采用collectionView，节约内存空间。整体实现是ScrollView+collectionView
 3.  聊天输入框支持placehold
@@ -104,16 +104,16 @@
 }
 ```
 
-##控件里面的一些View可以自己定制，里面只是稍微演示
+## 控件里面的一些View可以自己定制，里面只是稍微演示
 `PanelBottomView`
 `OfficialAccountToolbar`
 
-##控件可以根据业务需要，更换业务模型
+## 控件可以根据业务需要，更换业务模型
 `MoreItem`  
 `ChatToolBarItem`  
 `FaceThemeModel`   
 `FaceSourceManager`   
 
-##感谢  
+## 感谢  
 `MessageDisplayKit`
 `JSQMessagesViewController`
